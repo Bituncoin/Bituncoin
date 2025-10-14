@@ -1,0 +1,47 @@
+{
+  "name": "bituncoin-universal-wallet",
+  "version": "1.0.0",
+  "description": "Universal multi-currency wallet for Bituncoin blockchain",
+  "main": "wallet/Wallet.jsx",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "blockchain",
+    "wallet",
+    "cryptocurrency",
+    "multi-currency",
+    "cross-chain",
+    "bituncoin",
+    "2fa",
+    "biometric",
+    "security"
+  ],
+  "author": "Bituncoin Team",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

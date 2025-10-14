@@ -110,7 +110,7 @@ func (db *LevelDB) GetAll() (map[string][]byte, error) {
 // persistKey writes a key-value pair to disk
 func (db *LevelDB) persistKey(key string, value []byte) error {
 	filePath := filepath.Join(db.dataDir, key+".json")
-	return os.WriteFile(filePath, value, 0644)
+	return os.WriteFile(filePath, value, 0600)
 }
 
 // loadCache loads all data from disk into memory

@@ -8,6 +8,11 @@ import (
 	"github.com/Bituncoin/Bituncoin/bituncoin-btn/core"
 )
 
+const (
+	// MinValidatorStake is the minimum stake required to become a validator
+	MinValidatorStake = 1000.0
+)
+
 // Validator represents a network validator
 type Validator struct {
 	Address    string
@@ -36,8 +41,8 @@ func (ve *ValidatorEcho) RegisterValidator(address string, stake float64) error 
 	ve.mu.Lock()
 	defer ve.mu.Unlock()
 
-	if stake < 1000.0 {
-		return fmt.Errorf("minimum stake requirement not met: need 1000, got %.2f", stake)
+	if stake < MinValidatorStake {
+		return fmt.Errorf("minimum stake requirement not met: need %.2f, got %.2f", MinValidatorStake, stake)
 	}
 
 	ve.Validators[address] = &Validator{

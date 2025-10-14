@@ -5,9 +5,11 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 	"crypto/sha256"
+	"encoding/asn1"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"math/big"
 	"time"
 )
 
@@ -89,14 +91,34 @@ func (id *Identity) SignTransaction(txData []byte) (string, error) {
 		return "", errors.New("private key not available")
 	}
 
+	// Decode private key
+	privKeyBytes, err := hex.DecodeString(id.PrivateKey)
+	if err != nil {
+		return "", err
+	}
+
+	// Create private key from bytes
+	privateKey := &ecdsa.PrivateKey{
+		D: new(big.Int).SetBytes(privKeyBytes),
+	}
+	privateKey.PublicKey.Curve = elliptic.P256()
+
 	// Create a hash of the transaction
 	hash := sha256.Sum256(txData)
 	
-	// In a real implementation, we would use ECDSA signing
-	// For simplicity, we'll create a signature based on the hash
-	signature := hex.EncodeToString(hash[:])
+	// Sign using ECDSA
+	r, s, err := ecdsa.Sign(rand.Reader, privateKey, hash[:])
+	if err != nil {
+		return "", err
+	}
+
+	// Encode signature as ASN.1
+	signature, err := asn1.Marshal(struct{ R, S *big.Int }{r, s})
+	if err != nil {
+		return "", err
+	}
 	
-	return signature, nil
+	return hex.EncodeToString(signature), nil
 }
 
 // VerifySignature verifies a transaction signature

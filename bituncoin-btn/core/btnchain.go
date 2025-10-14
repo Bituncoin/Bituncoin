@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -67,7 +68,7 @@ func (bc *Blockchain) createGenesisBlock() {
 
 // calculateHash calculates the hash of a block
 func (bc *Blockchain) calculateHash(block Block) string {
-	record := string(block.Index) + string(block.Timestamp) + block.PrevHash + string(block.Nonce)
+	record := fmt.Sprintf("%d%d%s%d", block.Index, block.Timestamp, block.PrevHash, block.Nonce)
 	for _, tx := range block.Transactions {
 		txData, _ := json.Marshal(tx)
 		record += string(txData)

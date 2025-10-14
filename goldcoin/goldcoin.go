@@ -56,7 +56,6 @@ func (gc *GoldCoin) CreateTransaction(from, to string, amount float64) (*Transac
 	}
 
 	fee := amount * gc.TxFee
-	totalAmount := amount + fee
 
 	tx := &Transaction{
 		From:      from,

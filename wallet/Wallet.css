@@ -1,0 +1,518 @@
+.wallet-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.wallet-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.wallet-subtitle {
+  margin: 10px 0 0 0;
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.wallet-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-nav button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.wallet-nav button:hover {
+  background: #f0f2f5;
+  color: #333;
+}
+
+.wallet-nav button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.wallet-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Overview Tab */
+.overview-tab h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.balance-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.balance-card {
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.balance-card:hover {
+  transform: translateY(-5px);
+}
+
+.balance-card.goldcoin {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+}
+
+.balance-card.bitcoin {
+  background: linear-gradient(135deg, #f7931a 0%, #ff6b35 100%);
+}
+
+.balance-card.ethereum {
+  background: linear-gradient(135deg, #627eea 0%, #8a92b2 100%);
+}
+
+.coin-icon {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.balance-card h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.balance-amount {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.balance-usd {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.actions-section {
+  margin-top: 30px;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.action-btn {
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn span {
+  font-size: 2em;
+}
+
+.action-btn.send {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.action-btn.receive {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.action-btn.swap {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.action-btn.stake {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Staking Tab */
+.staking-tab h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.staking-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.staking-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.staking-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.1em;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.staking-value {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.staking-actions {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+.staking-actions h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.staking-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-warning {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.staking-info-text {
+  margin-top: 20px;
+  color: #666;
+}
+
+.staking-info-text p {
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+/* Transactions Tab */
+.transactions-tab h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.transaction-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.tx-type {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tx-icon {
+  font-size: 2em;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: white;
+}
+
+.tx-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.tx-type-text {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.tx-date {
+  color: #666;
+  font-size: 0.9em;
+  margin: 5px 0 0 0;
+}
+
+.tx-amount {
+  text-align: right;
+}
+
+.tx-value {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.tx-value.positive {
+  color: #28a745;
+}
+
+.tx-value.negative {
+  color: #dc3545;
+}
+
+.tx-status {
+  color: #666;
+  font-size: 0.9em;
+  margin: 5px 0 0 0;
+}
+
+/* Security Tab */
+.security-tab h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.security-section {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.security-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.security-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.security-info h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.security-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95em;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+.backup-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.backup-info {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff3cd;
+  border-radius: 8px;
+  border-left: 4px solid #ffc107;
+}
+
+.backup-info p {
+  margin: 8px 0;
+  color: #856404;
+  font-size: 0.95em;
+}
+
+.encryption-status {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.encryption-status p {
+  margin: 10px 0;
+  color: #28a745;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .wallet-nav {
+    flex-direction: column;
+  }
+  
+  .balance-cards,
+  .action-buttons,
+  .staking-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .staking-buttons {
+    flex-direction: column;
+  }
+  
+  .backup-buttons {
+    flex-direction: column;
+  }
+  
+  .transaction-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .tx-amount {
+    text-align: left;
+  }
+}

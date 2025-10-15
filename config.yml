@@ -1,0 +1,90 @@
+# Gold-Coin Configuration
+
+goldcoin:
+  name: "Gold-Coin"
+  symbol: "GLD"
+  decimals: 8
+  max_supply: 100000000  # 100 million coins
+  
+  # Tokenomics
+  tokenomics:
+    initial_supply: 0
+    transaction_fee: 0.001  # 0.1%
+    staking_reward: 5.0     # 5% annual
+    min_stake: 100.0        # Minimum 100 GLD
+    lock_period: 2592000    # 30 days in seconds
+
+  # Proof-of-Stake Settings
+  consensus:
+    type: "proof-of-stake"
+    min_validator_stake: 1000.0  # Minimum 1000 GLD to become validator
+    block_time: 10               # 10 seconds
+    reward_per_block: 2.0        # 2 GLD per block
+    
+  # Network
+  network:
+    mainnet:
+      name: "Gold-Coin Mainnet"
+      chain_id: 1
+      rpc_endpoint: "https://goldcoin-rpc.bituncoin.io"
+      explorer: "https://goldcoin-explorer.bituncoin.io"
+    
+    testnet:
+      name: "Gold-Coin Testnet"
+      chain_id: 2
+      rpc_endpoint: "https://testnet-goldcoin-rpc.bituncoin.io"
+      explorer: "https://testnet-goldcoin-explorer.bituncoin.io"
+
+# Wallet Configuration
+wallet:
+  # Security Settings
+  security:
+    encryption: "AES-256"
+    two_factor_auth: true
+    biometric_auth: true
+    backup_encrypted: true
+    
+  # Cross-Chain Support
+  cross_chain:
+    enabled: true
+    supported_chains:
+      - bitcoin
+      - ethereum
+      - binance
+      - goldcoin
+    bridge_fee: 0.01  # 1%
+    
+  # User Interface
+  ui:
+    theme: "modern"
+    currency_display: "USD"
+    notifications: true
+
+# API Configuration
+api:
+  node:
+    host: "0.0.0.0"
+    port: 8080
+    cors_enabled: true
+    rate_limit: 100  # requests per minute
+    
+  endpoints:
+    - "/api/info"
+    - "/api/health"
+    - "/api/goldcoin/balance"
+    - "/api/goldcoin/send"
+    - "/api/goldcoin/stake"
+    - "/api/goldcoin/validators"
+
+# Storage Configuration
+storage:
+  type: "leveldb"
+  data_dir: "./data"
+  backup_enabled: true
+  backup_interval: 86400  # 24 hours in seconds
+
+# Deployment
+deployment:
+  environment: "production"
+  version: "1.0.0"
+  launch_date: "2025-10-14"

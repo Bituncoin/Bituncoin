@@ -63,6 +63,52 @@ func (am *AddressManager) GenerateAddress(label string) (*Address, error) {
 	return addr, nil
 }
 
+// GenerateBitcoinAddress generates a Bitcoin-style address with Btu prefix
+func (am *AddressManager) GenerateBitcoinAddress(label string) (*Address, error) {
+	am.mutex.Lock()
+	defer am.mutex.Unlock()
+
+	// Use the new Bitcoin-style address generation
+	btcAddr, err := GenerateBitcoinStyleAddress()
+	if err != nil {
+		return nil, err
+	}
+
+	addr := &Address{
+		PublicKey:  btcAddr.PublicKey,
+		PrivateKey: btcAddr.PrivateKey,
+		Address:    btcAddr.Address,
+		Label:      label,
+		CreatedAt:  0,
+	}
+
+	am.Addresses[addr.Address] = addr
+	return addr, nil
+}
+
+// GenerateEthereumAddress generates an Ethereum-style address with 0x prefix
+func (am *AddressManager) GenerateEthereumAddress(label string) (*Address, error) {
+	am.mutex.Lock()
+	defer am.mutex.Unlock()
+
+	// Use the new Ethereum-style address generation
+	ethAddr, err := GenerateEthereumStyleAddress()
+	if err != nil {
+		return nil, err
+	}
+
+	addr := &Address{
+		PublicKey:  ethAddr.PublicKey,
+		PrivateKey: ethAddr.PrivateKey,
+		Address:    ethAddr.Address,
+		Label:      label,
+		CreatedAt:  0,
+	}
+
+	am.Addresses[addr.Address] = addr
+	return addr, nil
+}
+
 // GetAddress retrieves an address by its address string
 func (am *AddressManager) GetAddress(address string) (*Address, error) {
 	am.mutex.RLock()
@@ -76,17 +122,31 @@ func (am *AddressManager) GetAddress(address string) (*Address, error) {
 	return addr, nil
 }
 
-// ValidateAddress validates an address format
+// ValidateAddress validates an address format (supports GLD, Btu, and 0x prefixes)
 func ValidateAddress(address string) error {
-	if len(address) < 43 {
+	if len(address) < 3 {
 		return errors.New("invalid address: too short")
 	}
 
-	if address[:3] != "GLD" {
-		return errors.New("invalid address: must start with GLD")
+	// Check for Bitcoin-style address (Btu prefix)
+	if address[:3] == "Btu" {
+		return ValidateBitcoinStyleAddress(address)
 	}
 
-	return nil
+	// Check for Ethereum-style address (0x prefix)
+	if len(address) >= 2 && address[:2] == "0x" {
+		return ValidateEthereumStyleAddress(address)
+	}
+
+	// Check for legacy GLD address
+	if len(address) >= 3 && address[:3] == "GLD" {
+		if len(address) < 43 {
+			return errors.New("invalid address: too short")
+		}
+		return nil
+	}
+
+	return errors.New("invalid address: must start with GLD, Btu, or 0x prefix")
 }
 
 // ListAddresses returns all addresses

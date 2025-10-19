@@ -14,6 +14,32 @@
 
 The Bituncoin Comprehensive Wallet is a multi-platform cryptocurrency wallet solution that supports multiple cryptocurrencies, integrated exchange functionality, payment card integration, and merchant services.
 
+### BTNG - The Bituncoin Gold Standard Currency
+
+**BTNG** (Bituncoin Gold) is the primary currency symbol for Bituncoin, representing the network's transition to a gold-backed standard. BTNG combines the benefits of a stable asset backing with modern Proof of Stake consensus mechanisms.
+
+**Key Features of BTNG:**
+- **Gold Standard Backing**: Each BTNG token is backed by verifiable gold reserves, providing intrinsic value and price stability
+- **Proof of Stake Integration**: BTNG operates on an energy-efficient Proof of Stake (PoS) consensus mechanism, allowing token holders to stake their BTNG and earn rewards
+- **Low Transaction Fees**: 0.1% transaction fees make BTNG ideal for everyday payments
+- **Staking Rewards**: Earn 5% annual rewards by staking BTNG tokens
+- **Cross-Chain Compatibility**: BTNG can be bridged to other blockchain networks for maximum flexibility
+
+**Gold Standard Mechanism:**
+The BTNG gold standard operates through a transparent reserve system where:
+1. Physical gold reserves are held in certified vaults
+2. Each BTNG token represents a fractional claim on the gold reserves
+3. Regular audits ensure the backing ratio is maintained
+4. The gold backing provides a price floor and reduces volatility
+
+**Proof of Stake Integration:**
+BTNG utilizes Proof of Stake consensus, which offers:
+- **Energy Efficiency**: 99.9% less energy consumption than Proof of Work
+- **Validator Participation**: Stake BTNG to become a validator and secure the network
+- **Delegated Staking**: Token holders can delegate their BTNG to validators
+- **Reward Distribution**: Block rewards and transaction fees distributed to stakers
+- **Network Security**: Economic incentives align validator interests with network health
+
 ### Supported Platforms
 - iOS (native app)
 - Android (native app)
@@ -79,23 +105,27 @@ wallet/
 
 ### 1. Portfolio Manager
 
-Manages multi-currency cryptocurrency holdings with real-time tracking.
+Manages multi-currency cryptocurrency holdings with real-time tracking, including BTNG with its gold-backed value.
 
 ```go
 portfolio := wallet.NewPortfolio()
 
-// Add assets
-portfolio.AddAsset("BTNG", "Bituncoin", 1000.0, 1.0)
+// Add BTNG asset (with gold backing information)
+portfolio.AddAsset("BTNG", "Bituncoin Gold", 1000.0, 1.0)
 portfolio.AddAsset("BTC", "Bitcoin", 0.5, 50000.0)
 
 // Update balances
 portfolio.UpdateBalance("BTNG", 1500.0)
 
-// Get total value
+// Get total value (including gold-backed BTNG value)
 totalValue := portfolio.GetTotalValue()
 
 // Get performance metrics
 metrics := portfolio.GetPerformance()
+
+// Get BTNG-specific information
+btngAsset := portfolio.GetAsset("BTNG")
+// Includes gold backing value and staking rewards
 ```
 
 **Key Features:**
@@ -103,6 +133,8 @@ metrics := portfolio.GetPerformance()
 - USD value calculation
 - Performance metrics
 - 24-hour change tracking
+- Gold-backed asset valuation for BTNG
+- Staking rewards tracking
 
 ### 2. Exchange Service
 
@@ -293,7 +325,109 @@ go func() {
 - Real-time alerts
 - Address blocking
 
+### 8. BTNG Staking & Gold Reserve
+
+Stake BTNG tokens to earn rewards and participate in network consensus while maintaining gold-backed value.
+
+```go
+staking := wallet.NewBTNGStaking()
+
+// Create a stake
+stake, err := staking.CreateStake(
+    userAddress,
+    500.0,           // amount in BTNG
+    30,              // lock period in days
+    "VALIDATOR_01",  // validator to delegate to
+)
+
+// Check staking status
+status := staking.GetStakingStatus(userAddress)
+// Returns: stakedAmount, rewards, lockPeriod, canUnstake
+
+// Claim staking rewards
+rewards, err := staking.ClaimRewards(userAddress)
+
+// Unstake tokens (after lock period)
+err = staking.Unstake(userAddress, 500.0)
+
+// Query gold reserve information
+reserve := staking.GetGoldReserveInfo()
+// Returns: totalOunces, backingRatio, lastAudit, vaultLocations
+```
+
+**BTNG Staking Features:**
+- **Proof of Stake Rewards**: Earn 5% annual rewards on staked BTNG
+- **Gold-Backed Value**: Staked tokens maintain gold backing
+- **Validator Delegation**: Delegate to trusted validators
+- **Flexible Lock Periods**: Choose 30, 90, or 180-day stakes
+- **Compound Rewards**: Auto-restake rewards for higher yields
+- **Reserve Transparency**: Real-time gold reserve auditing
+
+**Gold Reserve System:**
+- Physical gold stored in certified vaults
+- Regular third-party audits (quarterly)
+- 1:1 backing ratio maintained
+- Transparent reserve reporting via API
+- Multi-jurisdiction vault distribution
+
 ## API Reference
+
+### BTNG API
+
+The BTNG API provides endpoints for managing Bituncoin Gold operations, including transfers, staking, and querying balances.
+
+**GET /api/btng/balance/:address**
+```json
+{
+  "address": "BTNG1a2b3c...",
+  "balance": 1500.0,
+  "stakedBalance": 500.0,
+  "availableBalance": 1000.0,
+  "goldBacking": {
+    "ounces": 0.045,
+    "valueUSD": 2850.0
+  }
+}
+```
+
+**POST /api/btng/transfer**
+```json
+{
+  "from": "BTNG1a2b3c...",
+  "to": "BTNG4d5e6f...",
+  "amount": 100.0,
+  "fee": 0.1
+}
+```
+
+**POST /api/btng/stake**
+```json
+{
+  "address": "BTNG1a2b3c...",
+  "amount": 500.0,
+  "duration": 30,
+  "validator": "BTNG_VALIDATOR_01"
+}
+```
+
+**GET /api/btng/staking/:address**
+Returns staking information including:
+- Active stakes
+- Accumulated rewards
+- Lock periods
+- Validator delegation details
+
+**GET /api/btng/gold-reserve**
+Returns current gold reserve information:
+```json
+{
+  "totalOunces": 10000.0,
+  "totalBTNG": 100000000.0,
+  "backingRatio": 1.0,
+  "lastAuditDate": "2025-10-15",
+  "vaultLocations": ["Switzerland", "Singapore"]
+}
+```
 
 ### Portfolio API
 
@@ -384,6 +518,19 @@ Returns all cards for a user.
 
 ## Integration Guide
 
+### Connecting to BTNG Network
+
+All integrations require connection to the BTNG network for accessing gold-backed functionality and Proof of Stake features.
+
+**Configuration Parameters:**
+```
+BTNG_NETWORK: mainnet | testnet
+BTNG_RPC_URL: Network RPC endpoint
+BTNG_API_KEY: API authentication key
+BTNG_STAKING_ENABLED: true | false
+BTNG_GOLD_RESERVE_API: Gold reserve data endpoint
+```
+
 ### Mobile Integration (iOS/Android)
 
 1. **Install Dependencies**
@@ -444,10 +591,18 @@ import { BituncoinWallet } from '@bituncoin/wallet';
 
 const wallet = new BituncoinWallet({
   network: 'mainnet',
-  rpcUrl: 'https://rpc.bituncoin.io'
+  rpcUrl: 'https://rpc.bituncoin.io',
+  currency: 'BTNG',  // Primary currency set to BTNG
+  enableStaking: true,
+  goldReserveApi: 'https://api.bituncoin.io/gold-reserve'
 });
 
 await wallet.connect();
+
+// Access BTNG-specific features
+const btngBalance = await wallet.getBTNGBalance();
+const goldBacking = await wallet.getGoldBackingInfo();
+const stakingRewards = await wallet.getStakingRewards();
 ```
 
 ## Security
@@ -501,12 +656,53 @@ go test ./wallet -tags=integration
 - [ ] Monitoring setup
 - [ ] Documentation complete
 - [ ] Compliance verified
+- [ ] BTNG network connectivity verified
+- [ ] Gold reserve API integration tested
+- [ ] Staking functionality validated
+- [ ] Validator nodes configured (if applicable)
+- [ ] Cross-chain bridge tested
 
 ### Environment Variables
+
+**BTNG Network Configuration:**
 ```bash
+# Network selection (mainnet or testnet)
 export BTNG_NETWORK=mainnet
+
+# RPC endpoint for BTNG network
 export BTNG_RPC_URL=https://rpc.bituncoin.io
+
+# API authentication key
 export BTNG_API_KEY=your_api_key
+
+# Enable staking functionality
+export BTNG_STAKING_ENABLED=true
+
+# Gold reserve API endpoint
+export BTNG_GOLD_RESERVE_API=https://api.bituncoin.io/gold-reserve
+
+# Validator delegation (optional)
+export BTNG_DEFAULT_VALIDATOR=VALIDATOR_01
+
+# Minimum stake amount (in BTNG)
+export BTNG_MIN_STAKE=100.0
+
+# Transaction fee percentage
+export BTNG_TX_FEE_PERCENT=0.1
+```
+
+**Additional Configuration:**
+```bash
+# Wallet database path
+export WALLET_DB_PATH=/var/lib/bituncoin/wallet
+
+# Security settings
+export ENABLE_2FA=true
+export ENABLE_BIOMETRIC=true
+
+# Cross-chain bridge settings
+export ENABLE_CROSS_CHAIN=true
+export BRIDGE_FEE_PERCENT=1.0
 ```
 
 ### Docker Deployment

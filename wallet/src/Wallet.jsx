@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './Wallet.css';
 
+// Exchange rates (in USD) - TODO: Fetch from API in production
+const EXCHANGE_RATES = {
+  BTN: 15.0,
+  GLD: 10.0,
+  BTC: 45000.0,
+  ETH: 3000.0,
+  USDT: 1.0,
+  BNB: 300.0,
+};
+
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [balance, setBalance] = useState({
@@ -23,7 +33,7 @@ const Wallet = () => {
     fraudMonitoring: true,
   });
   const [theme, setTheme] = useState('light');
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('en'); // TODO: Implement i18n for actual translation
 
   // Mock data for demonstration
   useEffect(() => {
@@ -37,12 +47,20 @@ const Wallet = () => {
       bnb: 10.5,
     });
 
+    // Generate recent transactions with realistic dates
+    const today = new Date();
+    const getRecentDate = (daysAgo) => {
+      const date = new Date(today);
+      date.setDate(date.getDate() - daysAgo);
+      return date.toISOString().split('T')[0];
+    };
+
     setTransactions([
-      { id: '1', type: 'Received', amount: 100, coin: 'BTN', date: '2025-10-14', status: 'Completed' },
-      { id: '2', type: 'Sent', amount: 50, coin: 'GLD', date: '2025-10-13', status: 'Completed' },
-      { id: '3', type: 'Staked', amount: 500, coin: 'BTN', date: '2025-10-12', status: 'Active' },
-      { id: '4', type: 'Swap', amount: 250, coin: 'ETH', date: '2025-10-11', status: 'Completed' },
-      { id: '5', type: 'Received', amount: 1000, coin: 'USDT', date: '2025-10-10', status: 'Completed' },
+      { id: '1', type: 'Received', amount: 100, coin: 'BTN', date: getRecentDate(1), status: 'Completed' },
+      { id: '2', type: 'Sent', amount: 50, coin: 'GLD', date: getRecentDate(2), status: 'Completed' },
+      { id: '3', type: 'Staked', amount: 500, coin: 'BTN', date: getRecentDate(3), status: 'Active' },
+      { id: '4', type: 'Swap', amount: 250, coin: 'ETH', date: getRecentDate(5), status: 'Completed' },
+      { id: '5', type: 'Received', amount: 1000, coin: 'USDT', date: getRecentDate(7), status: 'Completed' },
     ]);
 
     setStakingInfo({
@@ -53,34 +71,42 @@ const Wallet = () => {
   }, []);
 
   const handleStake = () => {
+    // TODO: Connect to backend API - POST /api/goldcoin/stake
     alert('Staking functionality - Connect to backend API');
   };
 
   const handleUnstake = () => {
+    // TODO: Connect to backend API - POST /api/goldcoin/unstake
     alert('Unstaking functionality - Connect to backend API');
   };
 
   const handleClaimRewards = () => {
+    // TODO: Connect to backend API - POST /api/goldcoin/claim-rewards
     alert('Claim rewards functionality - Connect to backend API');
   };
 
   const handleSend = () => {
+    // TODO: Connect to backend API - POST /api/goldcoin/send
     alert('Send transaction functionality - Connect to backend API');
   };
 
   const handleReceive = () => {
+    // TODO: Show QR code with address - GET /api/qrcode/generate
     alert('Receive functionality - Show QR code with address');
   };
 
   const handleCrossChainSwap = () => {
+    // TODO: Connect to bridge API - POST /api/exchange/swap
     alert('Cross-chain swap functionality - Connect to bridge API');
   };
 
   const handlePay = () => {
+    // TODO: Connect to BTN-Pay API - POST /api/btnpay/invoice
     alert('BTN-Pay - Merchant payment functionality');
   };
 
   const handleMobileMoney = () => {
+    // TODO: Connect to mobile money API - POST /api/mobilemoney/pay
     alert('Mobile Money integration - MTN, AirtelTigo, Vodafone Cash');
   };
 
@@ -188,25 +214,25 @@ const Wallet = () => {
                   <div className="coin-icon">🪙</div>
                   <h3>Bituncoin (BTN)</h3>
                   <p className="balance-amount">{balance.btn.toFixed(2)} BTN</p>
-                  <p className="balance-usd">≈ ${(balance.btn * 15).toFixed(2)} USD</p>
+                  <p className="balance-usd">≈ ${(balance.btn * EXCHANGE_RATES.BTN).toFixed(2)} USD</p>
                 </div>
                 <div className="balance-card goldcoin">
                   <div className="coin-icon">🏆</div>
                   <h3>Gold-Coin (GLD)</h3>
                   <p className="balance-amount">{balance.goldcoin.toFixed(2)} GLD</p>
-                  <p className="balance-usd">≈ ${(balance.goldcoin * 10).toFixed(2)} USD</p>
+                  <p className="balance-usd">≈ ${(balance.goldcoin * EXCHANGE_RATES.GLD).toFixed(2)} USD</p>
                 </div>
                 <div className="balance-card bitcoin">
                   <div className="coin-icon">₿</div>
                   <h3>Bitcoin (BTC)</h3>
                   <p className="balance-amount">{balance.bitcoin.toFixed(4)} BTC</p>
-                  <p className="balance-usd">≈ ${(balance.bitcoin * 45000).toFixed(2)} USD</p>
+                  <p className="balance-usd">≈ ${(balance.bitcoin * EXCHANGE_RATES.BTC).toFixed(2)} USD</p>
                 </div>
                 <div className="balance-card ethereum">
                   <div className="coin-icon">Ξ</div>
                   <h3>Ethereum (ETH)</h3>
                   <p className="balance-amount">{balance.ethereum.toFixed(2)} ETH</p>
-                  <p className="balance-usd">≈ ${(balance.ethereum * 3000).toFixed(2)} USD</p>
+                  <p className="balance-usd">≈ ${(balance.ethereum * EXCHANGE_RATES.ETH).toFixed(2)} USD</p>
                 </div>
                 <div className="balance-card usdt">
                   <div className="coin-icon">💵</div>
@@ -218,7 +244,7 @@ const Wallet = () => {
                   <div className="coin-icon">🔶</div>
                   <h3>Binance Coin (BNB)</h3>
                   <p className="balance-amount">{balance.bnb.toFixed(2)} BNB</p>
-                  <p className="balance-usd">≈ ${(balance.bnb * 300).toFixed(2)} USD</p>
+                  <p className="balance-usd">≈ ${(balance.bnb * EXCHANGE_RATES.BNB).toFixed(2)} USD</p>
                 </div>
               </div>
             </div>

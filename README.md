@@ -57,7 +57,6 @@ BITUNCOIN is a next-generation blockchain ecosystem featuring a universal wallet
 - **Transparent Audits**: Public audit trails and records
 
 ### 🌟 Gold-Coin (GLD) Cryptocurrency
-### 🌟 Gold-Coin (GLD) Cryptocurrency
 - **Proof-of-Stake (PoS)** consensus mechanism for energy efficiency
 - **100 Million GLD** maximum supply with 8 decimal precision
 - **5% Annual Staking Rewards** for validators and stakers
@@ -73,7 +72,7 @@ BITUNCOIN is a next-generation blockchain ecosystem featuring a universal wallet
 | Ethereum | ETH | Smart contract platform |
 | Tether | USDT | Stablecoin (USD-pegged) |
 | Binance Coin | BNB | Exchange token |
-| Gold-Coin | GLD | PoS cryptocurrency |
+| Gold-Coin | GLD | PoS with 5% staking rewards |
 
 ## Architecture
 
@@ -169,7 +168,7 @@ Bituncoin/
 git clone https://github.com/Bituncoin/Bituncoin.git
 cd Bituncoin
 
-# Install Go dependencies
+# Install Go dependencies (go.mod already exists)
 go mod tidy
 
 # Install wallet dependencies

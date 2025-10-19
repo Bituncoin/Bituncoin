@@ -83,10 +83,19 @@ func (n *Node) Stop() error {
 func (n *Node) registerEndpoints() {
 	n.endpoints["/api/info"] = n.handleInfo
 	n.endpoints["/api/health"] = n.handleHealth
+	
+	// GoldCoin (GLD) endpoints
 	n.endpoints["/api/goldcoin/balance"] = n.handleBalance
 	n.endpoints["/api/goldcoin/send"] = n.handleSend
 	n.endpoints["/api/goldcoin/stake"] = n.handleStake
 	n.endpoints["/api/goldcoin/validators"] = n.handleValidators
+	
+	// Bituncoin (BTN) endpoints - primary currency
+	n.endpoints["/api/bituncoin/balance"] = n.handleBTNBalance
+	n.endpoints["/api/bituncoin/send"] = n.handleBTNSend
+	n.endpoints["/api/bituncoin/stake"] = n.handleBTNStake
+	n.endpoints["/api/bituncoin/validators"] = n.handleBTNValidators
+	n.endpoints["/api/bituncoin/info"] = n.handleBTNInfo
 
 	// BTN-PAY endpoints
 	n.endpoints["/api/btnpay/invoice"] = n.payments.CreateInvoiceHandler
@@ -211,4 +220,108 @@ func (n *Node) GetNodeInfo() NodeInfo {
 		IsRunning:   n.IsRunning,
 		BlockHeight: 0,
 	}
+}
+
+// BTN-specific handlers
+
+// handleBTNInfo returns BTN tokenomics information
+func (n *Node) handleBTNInfo(w http.ResponseWriter, r *http.Request) {
+	response := map[string]interface{}{
+		"name":           "Bituncoin",
+		"symbol":         "BTN",
+		"maxSupply":      100000000,
+		"decimals":       8,
+		"stakingReward":  5.0,
+		"transactionFee": 0.001,
+		"version":        "1.0.0",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleBTNBalance handles BTN balance queries
+func (n *Node) handleBTNBalance(w http.ResponseWriter, r *http.Request) {
+	address := r.URL.Query().Get("address")
+
+	response := map[string]interface{}{
+		"address": address,
+		"balance": 0.0,
+		"staked":  0.0,
+		"currency": "BTN",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleBTNSend handles BTN transaction creation
+func (n *Node) handleBTNSend(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var txData map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&txData); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	response := map[string]interface{}{
+		"status":        "pending",
+		"transactionId": "btn_tx_" + fmt.Sprint(txData["from"]),
+		"currency":      "BTN",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleBTNStake handles BTN staking operations
+func (n *Node) handleBTNStake(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var stakeData map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&stakeData); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	response := map[string]interface{}{
+		"status":   "success",
+		"staked":   stakeData["amount"],
+		"currency": "BTN",
+		"lockPeriod": "30 days",
+		"annualReward": "5%",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleBTNValidators returns BTN validator information
+func (n *Node) handleBTNValidators(w http.ResponseWriter, r *http.Request) {
+	response := map[string]interface{}{
+		"validators": []map[string]interface{}{
+			{
+				"address": "BTNvalidator1...",
+				"stake":   10000.0,
+				"active":  true,
+				"currency": "BTN",
+			},
+			{
+				"address": "BTNvalidator2...",
+				"stake":   20000.0,
+				"active":  true,
+				"currency": "BTN",
+			},
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }

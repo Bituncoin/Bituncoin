@@ -13,6 +13,7 @@
 
 ### 💼 Universal Wallet
 - **Multi-Currency Support**: GLD, BTC, ETH, and more
+- **Multiple Address Formats**: Bitcoin-style (Btu prefix), Ethereum-style (0x), and GLD addresses
 - **Cross-Chain Transactions**: Seamless asset transfers between blockchains
 - **Modern UI**: Intuitive and user-friendly interface
 - **Real-time Balance Tracking**: Live updates for all assets
@@ -182,6 +183,7 @@ npm run build
 ## Documentation
 
 - [Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
+- [Address Formats](docs/ADDRESS_FORMATS.md) - Bitcoin-style and Ethereum-style address documentation
 - [Configuration](config.yml) - Configuration options
 
 ## Contributing

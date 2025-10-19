@@ -11,11 +11,12 @@ import (
 
 // Address represents a blockchain address
 type Address struct {
-	PublicKey  string
-	PrivateKey string
-	Address    string
-	Label      string
-	CreatedAt  int64
+	PublicKey   string
+	PrivateKey  string
+	Address     string
+	Label       string
+	AddressType AddressType
+	CreatedAt   int64
 }
 
 // AddressManager manages blockchain addresses
@@ -31,7 +32,7 @@ func NewAddressManager() *AddressManager {
 	}
 }
 
-// GenerateAddress generates a new blockchain address
+// GenerateAddress generates a new blockchain address (GLD style - legacy)
 func (am *AddressManager) GenerateAddress(label string) (*Address, error) {
 	am.mutex.Lock()
 	defer am.mutex.Unlock()
@@ -52,11 +53,42 @@ func (am *AddressManager) GenerateAddress(label string) (*Address, error) {
 	address := "GLD" + hex.EncodeToString(addressHash[:20])
 
 	addr := &Address{
-		PublicKey:  publicKey,
-		PrivateKey: hex.EncodeToString(privateKey),
-		Address:    address,
-		Label:      label,
-		CreatedAt:  0,
+		PublicKey:   publicKey,
+		PrivateKey:  hex.EncodeToString(privateKey),
+		Address:     address,
+		Label:       label,
+		AddressType: "gld",
+		CreatedAt:   0,
+	}
+
+	am.Addresses[address] = addr
+	return addr, nil
+}
+
+// GenerateAddressOfType generates a new blockchain address of specific type
+func (am *AddressManager) GenerateAddressOfType(label string, addressType AddressType) (*Address, error) {
+	am.mutex.Lock()
+	defer am.mutex.Unlock()
+
+	// Generate address and private key using the new address generation functions
+	address, privateKey, err := GenerateAddressWithType(addressType)
+	if err != nil {
+		return nil, err
+	}
+
+	// Generate public key from private key
+	// NOTE: This is a simplified implementation using SHA-256 hash.
+	// In production, use proper elliptic curve cryptography (e.g., secp256k1 for Bitcoin, secp256k1 for Ethereum).
+	publicKeyHash := sha256.Sum256(privateKey)
+	publicKey := hex.EncodeToString(publicKeyHash[:])
+
+	addr := &Address{
+		PublicKey:   publicKey,
+		PrivateKey:  hex.EncodeToString(privateKey),
+		Address:     address,
+		Label:       label,
+		AddressType: addressType,
+		CreatedAt:   0,
 	}
 
 	am.Addresses[address] = addr

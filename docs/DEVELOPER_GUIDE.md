@@ -36,6 +36,9 @@ The BTNG gold standard operates through a transparent reserve system where:
 BTNG utilizes Proof of Stake consensus, which offers:
 - **Energy Efficiency**: 99.9% less energy consumption than Proof of Work
 - **Validator Participation**: Stake BTNG to become a validator and secure the network
+  - Minimum validator stake: 1,000 BTNG
+  - Minimum regular staking: 100 BTNG
+  - Technical requirements: Stable internet, 99.9% uptime
 - **Delegated Staking**: Token holders can delegate their BTNG to validators
 - **Reward Distribution**: Block rewards and transaction fees distributed to stakers
 - **Network Security**: Economic incentives align validator interests with network health
@@ -342,7 +345,8 @@ stake, err := staking.CreateStake(
 
 // Check staking status
 status := staking.GetStakingStatus(userAddress)
-// Returns: stakedAmount, rewards, lockPeriod, canUnstake
+fmt.Printf("Staked: %.2f BTNG, Rewards: %.2f, Lock Period: %d days\n",
+    status.StakedAmount, status.Rewards, status.LockPeriod)
 
 // Claim staking rewards
 rewards, err := staking.ClaimRewards(userAddress)
@@ -365,7 +369,8 @@ reserve := staking.GetGoldReserveInfo()
 
 **Gold Reserve System:**
 - Physical gold stored in certified vaults
-- Regular third-party audits (quarterly)
+- Regular third-party audits (quarterly) by certified auditors (e.g., Bureau Veritas, SGS)
+- Audits follow LBMA (London Bullion Market Association) standards
 - 1:1 backing ratio maintained
 - Transparent reserve reporting via API
 - Multi-jurisdiction vault distribution
@@ -520,7 +525,7 @@ Returns all cards for a user.
 
 ### Connecting to BTNG Network
 
-All integrations require connection to the BTNG network for accessing gold-backed functionality and Proof of Stake features.
+Most wallet features require connection to the BTNG network for accessing gold-backed functionality and Proof of Stake features. Some basic portfolio viewing and offline transaction signing can work without network connectivity.
 
 **Configuration Parameters:**
 ```
@@ -600,7 +605,8 @@ const wallet = new BituncoinWallet({
 await wallet.connect();
 
 // Access BTNG-specific features
-const btngBalance = await wallet.getBTNGBalance();
+// See BTNG API section for detailed endpoint documentation
+const btngBalance = await wallet.getBalance('BTNG');
 const goldBacking = await wallet.getGoldBackingInfo();
 const stakingRewards = await wallet.getStakingRewards();
 ```

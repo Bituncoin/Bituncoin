@@ -16,6 +16,7 @@
 - **Cross-Chain Transactions**: Seamless asset transfers between blockchains
 - **Modern UI**: Intuitive and user-friendly interface
 - **Real-time Balance Tracking**: Live updates for all assets
+- **Dual Address Support**: Bitcoin-style (Btu prefix) and Ethereum-style (0x prefix) addresses
 
 ### 🔒 Security Features
 - **AES-256 Encryption**: Military-grade wallet encryption
@@ -181,6 +182,7 @@ npm run build
 
 ## Documentation
 
+- [Address Generation Guide](docs/ADDRESS_GENERATION.md) - Bitcoin and Ethereum style address generation
 - [Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
 - [Configuration](config.yml) - Configuration options
 

@@ -104,7 +104,7 @@ bituncoin-btn/
 │   ├── security.go     # Security & fraud detection
 │   └── crosschain.go   # Cross-chain bridge
 ├── payments/           # Payment protocols
-│   └── btngpay.go       # BTNG-Pay implementation
+│   └── btnpay.go       # BTNG-Pay implementation
 ├── identity/           # Address management
 │   └── btnaddress.go   # Address generation
 ├── storage/            # Data persistence

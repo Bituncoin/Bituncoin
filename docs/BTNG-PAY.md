@@ -42,7 +42,7 @@ This document describes BTNG-PAY, a lightweight on-chain/off-chain payment flow 
 
 ## Example: Minimal Go implementation (in-memory)
 
-The payments module can be added under `payments/btngpay.go` and wired into `api/btnnode.go` to expose endpoints. Below is a small example that can be used as a starting point.
+The payments module can be added under `payments/btnpay.go` and wired into `api/btnnode.go` to expose endpoints. Below is a small example that can be used as a starting point.
 
 ```go
 package payments
@@ -205,6 +205,6 @@ curl -X POST "http://localhost:8080/api/btngpay/pay" \
 ---
 
 This file is intended as a specification + starter implementation for BTNG-PAY. You can ask me to:
-- Add the minimal Go implementation file under payments/btngpay.go and wire API handlers in api/btnnode.go.
+- Add the minimal Go implementation file under payments/btnpay.go and wire API handlers in api/btnnode.go.
 - Add persistence using storage/leveldb.go.
 - Add tests and examples.

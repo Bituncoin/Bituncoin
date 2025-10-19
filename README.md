@@ -4,25 +4,51 @@
 
 ## Features
 
-### 🌟 Gold-Coin Cryptocurrency
+### 🌟 BTNg Wallet - Advanced Blockchain Operating System
+- **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB
+- **Merchant Payments**: BTN-Pay invoicing, QR codes, mobile money
+- **Payment Cards**: Virtual & Physical MasterCard/Visa integration
+- **AI Assistant**: Portfolio insights, security alerts, recommendations
+- **Cross-Chain Swaps**: Seamless asset transfers with 0.5% fees
+- **Dark/Light Mode**: Customizable UI themes
+- **Multi-Language**: Support for English, French, Spanish, Chinese
+
+### 🪙 Gold-Coin Cryptocurrency
 - **Proof-of-Stake (PoS)** consensus mechanism for energy efficiency
 - **100 Million GLD** maximum supply with 8 decimal precision
 - **5% Annual Staking Rewards** for validators and stakers
 - **Low Transaction Fees** (0.1% per transaction)
 - **30-day Lock Period** for staking security
 
-### 💼 Universal Wallet
-- **Multi-Currency Support**: GLD, BTC, ETH, and more
-- **Cross-Chain Transactions**: Seamless asset transfers between blockchains
-- **Modern UI**: Intuitive and user-friendly interface
+### 💼 BTNg Universal Wallet
+- **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB
 - **Real-time Balance Tracking**: Live updates for all assets
+- **Cross-Chain Transactions**: Seamless asset transfers between blockchains
+- **Modern UI**: Dark/Light mode with intuitive interface
+- **Payment Integration**: Mobile money, QR codes, payment cards
+- **AI-Powered Insights**: Portfolio analysis and recommendations
 
 ### 🔒 Security Features
 - **AES-256 Encryption**: Military-grade wallet encryption
 - **Two-Factor Authentication (2FA)**: Extra layer of account security
 - **Biometric Login**: Fingerprint and face recognition support
+- **Fraud Monitoring**: Real-time transaction monitoring and alerts
 - **Encrypted Backups**: Secure wallet backup and recovery
 - **Recovery Phrase**: 12-word mnemonic for wallet restoration
+
+### 💳 Payment & Merchant Integration
+- **BTN-Pay Cards**: Virtual & Physical MasterCard/Visa
+- **Mobile Money**: MTN, AirtelTigo, Vodafone Cash integration
+- **QR Code Payments**: Easy merchant payment solution
+- **Invoice System**: Create and manage payment invoices
+- **Crypto-to-Fiat**: Built-in exchange for multiple fiat currencies
+
+### 🤖 AI-Powered Features
+- **Portfolio Analysis**: Automated diversification insights
+- **Security Alerts**: Real-time fraud detection and warnings
+- **Staking Recommendations**: Optimize your earning potential
+- **Market Insights**: Trend analysis and predictions
+- **Smart Suggestions**: Context-aware wallet management tips
 
 ### ⛓️ Cross-Chain Bridge
 - Support for Bitcoin, Ethereum, Binance Smart Chain, and Gold-Coin
@@ -43,11 +69,18 @@ bituncoin-btn/
 │   └── btnchain.go     # Blockchain implementation
 ├── api/                # API server
 │   └── btnnode.go      # Node API endpoints
-├── wallet/             # Universal wallet
+├── wallet/             # BTNg Universal Wallet
 │   ├── Wallet.jsx      # React wallet UI
 │   ├── Wallet.css      # Wallet styling
 │   ├── security.go     # Security features
-│   └── crosschain.go   # Cross-chain bridge
+│   ├── crosschain.go   # Cross-chain bridge
+│   ├── exchange.go     # Exchange & swap
+│   └── ai_assistant.go # AI-powered insights
+├── payments/           # Payment integration
+│   ├── btnpay.go       # BTN-Pay invoicing
+│   ├── mobilemoney.go  # Mobile money integration
+│   ├── qrcode.go       # QR code payments
+│   └── card.go         # Card payment system
 ├── identity/           # Address management
 │   └── btnaddress.go   # Address generation
 ├── storage/            # Data persistence
@@ -145,12 +178,32 @@ npm start
 
 ## API Endpoints
 
+### Core Endpoints
 - `GET /api/info` - Node information
 - `GET /api/health` - Health check
 - `GET /api/goldcoin/balance?address=<addr>` - Get balance
 - `POST /api/goldcoin/send` - Send transaction
 - `POST /api/goldcoin/stake` - Stake tokens
 - `GET /api/goldcoin/validators` - List validators
+
+### Payment Endpoints
+- `POST /api/btnpay/invoice` - Create invoice
+- `GET /api/btnpay/invoice/{id}` - Get invoice
+- `POST /api/btnpay/pay` - Pay invoice
+- `POST /api/mobilemoney/pay` - Mobile money payment
+- `POST /api/qrcode/generate` - Generate QR code
+- `POST /api/card/issue` - Issue payment card
+- `POST /api/card/payment` - Process card payment
+
+### Exchange Endpoints
+- `GET /api/exchange/rates` - Get exchange rates
+- `POST /api/exchange/swap` - Execute swap
+- `GET /api/exchange/estimate` - Estimate swap
+
+### AI Assistant Endpoints
+- `GET /api/ai/insights` - Get portfolio insights
+- `GET /api/ai/alerts` - Get security alerts
+- `POST /api/ai/ask` - Ask AI assistant
 
 ## Development
 
@@ -181,6 +234,8 @@ npm run build
 
 ## Documentation
 
+- [BTNg Wallet Guide](docs/BTNg-WALLET.md) - Complete wallet features and usage
+- [BTN-PAY Integration](docs/BTN-PAY.md) - Payment protocol specification
 - [Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
 - [Configuration](config.yml) - Configuration options
 

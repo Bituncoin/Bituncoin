@@ -36,8 +36,6 @@ func NewAIAssistant() *AIAssistant {
 // AnalyzePortfolio analyzes the wallet portfolio and provides insights
 func (ai *AIAssistant) AnalyzePortfolio(balances map[string]float64) []AIInsight {
 	insights := []AIInsight{}
-
-	totalValue := ai.calculateTotalValue(balances)
 	
 	// Check for diversification
 	if ai.isDiversified(balances) {

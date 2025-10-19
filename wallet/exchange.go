@@ -203,13 +203,23 @@ func (es *ExchangeService) GetSwapHistory(userAddress string, limit int) ([]*Swa
 
 // CryptoToFiatExchange converts crypto to fiat currency
 func (es *ExchangeService) CryptoToFiatExchange(cryptoCurrency string, amount float64, fiatCurrency string) (float64, error) {
-	// Get crypto to USD rate first
-	rate, err := es.GetExchangeRate(cryptoCurrency, "USDT")
-	if err != nil {
-		return 0, err
+	// Base rates in USD (how much 1 unit is worth in USD)
+	baseRates := map[string]float64{
+		"BTN":  15.0,
+		"GLD":  10.0,
+		"BTC":  45000.0,
+		"ETH":  3000.0,
+		"USDT": 1.0,
+		"BNB":  300.0,
 	}
 
-	usdAmount := amount * rate.Rate
+	// Get crypto value in USD
+	cryptoRate, ok := baseRates[cryptoCurrency]
+	if !ok {
+		return 0, fmt.Errorf("cryptocurrency %s not supported", cryptoCurrency)
+	}
+	
+	usdAmount := amount * cryptoRate
 
 	// Convert USD to target fiat (mock rates)
 	fiatRates := map[string]float64{

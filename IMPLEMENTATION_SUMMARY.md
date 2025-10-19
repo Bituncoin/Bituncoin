@@ -1,10 +1,9 @@
-# Gold-Coin Implementation Summary
+# Bituncoin Gold-Coin Implementation Summary
 
 ## Overview
-Gold-Coin (GLD) is a next-generation cryptocurrency built on the Bituncoin blockchain ecosystem, featuring Proof-of-Stake consensus for energy efficiency and scalability.
+BTN Gold-Coin (GLD) is a next-generation cryptocurrency built on the Bituncoin blockchain ecosystem, featuring Proof-of-Stake consensus for energy efficiency and scalability.
 
 ## Completed Features
-
 ### 1. Gold-Coin Cryptocurrency ✅
 **Files:** `goldcoin/goldcoin.go`, `goldcoin/staking.go`
 

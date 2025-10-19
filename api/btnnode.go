@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"sync"
+
+	"github.com/Bituncoin/Bituncoin/payments"
 )
 
 // Node represents a blockchain node API server
@@ -14,6 +16,7 @@ type Node struct {
 	IsRunning  bool
 	mutex      sync.RWMutex
 	endpoints  map[string]http.HandlerFunc
+	payments   *payments.BtnPay
 }
 
 // NodeInfo represents node information
@@ -32,6 +35,7 @@ func NewNode(host string, port int) *Node {
 		Host:      host,
 		IsRunning: false,
 		endpoints: make(map[string]http.HandlerFunc),
+		payments:  payments.NewBtnPay(),
 	}
 }
 
@@ -83,6 +87,12 @@ func (n *Node) registerEndpoints() {
 	n.endpoints["/api/goldcoin/send"] = n.handleSend
 	n.endpoints["/api/goldcoin/stake"] = n.handleStake
 	n.endpoints["/api/goldcoin/validators"] = n.handleValidators
+
+	// BTN-PAY endpoints
+	n.endpoints["/api/btnpay/invoice"] = n.payments.CreateInvoiceHandler
+	// register a path prefix for invoice lookups — the handler extracts the last segment as ID
+	n.endpoints["/api/btnpay/invoice/"] = n.payments.GetInvoiceHandler
+	n.endpoints["/api/btnpay/pay"] = n.payments.PayInvoiceHandler
 }
 
 // handleInfo returns node information
@@ -113,7 +123,7 @@ func (n *Node) handleHealth(w http.ResponseWriter, r *http.Request) {
 // handleBalance handles balance queries
 func (n *Node) handleBalance(w http.ResponseWriter, r *http.Request) {
 	address := r.URL.Query().Get("address")
-	
+
 	response := map[string]interface{}{
 		"address": address,
 		"balance": 0.0,
@@ -175,6 +185,11 @@ func (n *Node) handleValidators(w http.ResponseWriter, r *http.Request) {
 			{
 				"address": "GLDvalidator1...",
 				"stake":   10000.0,
+				"active":  true,
+			},
+			{
+				"address": "GLDvalidator2...",
+				"stake":   20000.0,
 				"active":  true,
 			},
 		},

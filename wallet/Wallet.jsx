@@ -4,9 +4,12 @@ import './Wallet.css';
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [balance, setBalance] = useState({
+    btn: 0,
     goldcoin: 0,
     bitcoin: 0,
     ethereum: 0,
+    usdt: 0,
+    bnb: 0,
   });
   const [stakingInfo, setStakingInfo] = useState({
     stakedAmount: 0,
@@ -17,21 +20,29 @@ const Wallet = () => {
   const [securitySettings, setSecuritySettings] = useState({
     twoFactorEnabled: false,
     biometricEnabled: false,
+    fraudMonitoring: true,
   });
+  const [theme, setTheme] = useState('light');
+  const [language, setLanguage] = useState('en');
 
   // Mock data for demonstration
   useEffect(() => {
     // Simulate fetching wallet data
     setBalance({
+      btn: 5000.0,
       goldcoin: 1250.5,
       bitcoin: 0.05,
       ethereum: 2.3,
+      usdt: 1000.0,
+      bnb: 10.5,
     });
 
     setTransactions([
-      { id: '1', type: 'Received', amount: 100, coin: 'GLD', date: '2025-10-14', status: 'Completed' },
+      { id: '1', type: 'Received', amount: 100, coin: 'BTN', date: '2025-10-14', status: 'Completed' },
       { id: '2', type: 'Sent', amount: 50, coin: 'GLD', date: '2025-10-13', status: 'Completed' },
-      { id: '3', type: 'Staked', amount: 500, coin: 'GLD', date: '2025-10-12', status: 'Active' },
+      { id: '3', type: 'Staked', amount: 500, coin: 'BTN', date: '2025-10-12', status: 'Active' },
+      { id: '4', type: 'Swap', amount: 250, coin: 'ETH', date: '2025-10-11', status: 'Completed' },
+      { id: '5', type: 'Received', amount: 1000, coin: 'USDT', date: '2025-10-10', status: 'Completed' },
     ]);
 
     setStakingInfo({
@@ -65,6 +76,25 @@ const Wallet = () => {
     alert('Cross-chain swap functionality - Connect to bridge API');
   };
 
+  const handlePay = () => {
+    alert('BTN-Pay - Merchant payment functionality');
+  };
+
+  const handleMobileMoney = () => {
+    alert('Mobile Money integration - MTN, AirtelTigo, Vodafone Cash');
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  const toggleFraudMonitoring = () => {
+    setSecuritySettings({
+      ...securitySettings,
+      fraudMonitoring: !securitySettings.fraudMonitoring,
+    });
+  };
+
   const toggleTwoFactor = () => {
     setSecuritySettings({
       ...securitySettings,
@@ -88,10 +118,25 @@ const Wallet = () => {
   };
 
   return (
-    <div className="wallet-container">
+    <div className={`wallet-container ${theme}`}>
       <header className="wallet-header">
-        <h1>Universal Wallet</h1>
-        <p className="wallet-subtitle">Multi-Currency Digital Wallet with Gold-Coin Support</p>
+        <h1>BTNg Wallet - Bituncoin Blockchain Operating System</h1>
+        <p className="wallet-subtitle">Multi-Currency Digital Wallet with Advanced Features</p>
+        <div className="header-controls">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+          <select 
+            className="language-selector"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
       </header>
 
       <nav className="wallet-nav">
@@ -99,25 +144,37 @@ const Wallet = () => {
           className={activeTab === 'overview' ? 'active' : ''}
           onClick={() => setActiveTab('overview')}
         >
-          Overview
+          📊 Overview
+        </button>
+        <button
+          className={activeTab === 'pay' ? 'active' : ''}
+          onClick={() => setActiveTab('pay')}
+        >
+          💳 Pay
         </button>
         <button
           className={activeTab === 'staking' ? 'active' : ''}
           onClick={() => setActiveTab('staking')}
         >
-          Staking
+          💎 Staking
         </button>
         <button
           className={activeTab === 'transactions' ? 'active' : ''}
           onClick={() => setActiveTab('transactions')}
         >
-          Transactions
+          📜 Transactions
         </button>
         <button
           className={activeTab === 'security' ? 'active' : ''}
           onClick={() => setActiveTab('security')}
         >
-          Security
+          🔒 Security
+        </button>
+        <button
+          className={activeTab === 'ai' ? 'active' : ''}
+          onClick={() => setActiveTab('ai')}
+        >
+          🤖 AI Assistant
         </button>
       </nav>
 
@@ -127,8 +184,14 @@ const Wallet = () => {
             <div className="balance-section">
               <h2>Your Balances</h2>
               <div className="balance-cards">
-                <div className="balance-card goldcoin">
+                <div className="balance-card btn">
                   <div className="coin-icon">🪙</div>
+                  <h3>Bituncoin (BTN)</h3>
+                  <p className="balance-amount">{balance.btn.toFixed(2)} BTN</p>
+                  <p className="balance-usd">≈ ${(balance.btn * 15).toFixed(2)} USD</p>
+                </div>
+                <div className="balance-card goldcoin">
+                  <div className="coin-icon">🏆</div>
                   <h3>Gold-Coin (GLD)</h3>
                   <p className="balance-amount">{balance.goldcoin.toFixed(2)} GLD</p>
                   <p className="balance-usd">≈ ${(balance.goldcoin * 10).toFixed(2)} USD</p>
@@ -144,6 +207,18 @@ const Wallet = () => {
                   <h3>Ethereum (ETH)</h3>
                   <p className="balance-amount">{balance.ethereum.toFixed(2)} ETH</p>
                   <p className="balance-usd">≈ ${(balance.ethereum * 3000).toFixed(2)} USD</p>
+                </div>
+                <div className="balance-card usdt">
+                  <div className="coin-icon">💵</div>
+                  <h3>Tether (USDT)</h3>
+                  <p className="balance-amount">{balance.usdt.toFixed(2)} USDT</p>
+                  <p className="balance-usd">≈ ${balance.usdt.toFixed(2)} USD</p>
+                </div>
+                <div className="balance-card bnb">
+                  <div className="coin-icon">🔶</div>
+                  <h3>Binance Coin (BNB)</h3>
+                  <p className="balance-amount">{balance.bnb.toFixed(2)} BNB</p>
+                  <p className="balance-usd">≈ ${(balance.bnb * 300).toFixed(2)} USD</p>
                 </div>
               </div>
             </div>
@@ -161,12 +236,67 @@ const Wallet = () => {
                 </button>
                 <button className="action-btn swap" onClick={handleCrossChainSwap}>
                   <span>🔄</span>
-                  Cross-Chain Swap
+                  Swap
                 </button>
                 <button className="action-btn stake" onClick={handleStake}>
                   <span>💎</span>
-                  Stake GLD
+                  Stake
                 </button>
+                <button className="action-btn pay" onClick={handlePay}>
+                  <span>💳</span>
+                  Pay
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'pay' && (
+          <div className="pay-tab">
+            <h2>BTN-Pay - Merchant Payments</h2>
+            
+            <div className="payment-section">
+              <h3>Payment Methods</h3>
+              <div className="payment-methods">
+                <div className="payment-card">
+                  <div className="payment-icon">💳</div>
+                  <h4>BTN-Pay Card</h4>
+                  <p>Virtual & Physical MasterCard/Visa</p>
+                  <button className="btn-primary">Manage Cards</button>
+                </div>
+                <div className="payment-card">
+                  <div className="payment-icon">📱</div>
+                  <h4>Mobile Money</h4>
+                  <p>MTN, AirtelTigo, Vodafone Cash</p>
+                  <button className="btn-primary" onClick={handleMobileMoney}>Connect</button>
+                </div>
+                <div className="payment-card">
+                  <div className="payment-icon">📷</div>
+                  <h4>QR Code Payment</h4>
+                  <p>Scan to pay merchants</p>
+                  <button className="btn-primary">Generate QR</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="invoice-section">
+              <h3>Create Invoice (Merchant)</h3>
+              <div className="invoice-form">
+                <input type="number" placeholder="Amount" className="invoice-input" />
+                <select className="invoice-select">
+                  <option value="BTN">BTN</option>
+                  <option value="GLD">GLD</option>
+                  <option value="USDT">USDT</option>
+                </select>
+                <input type="text" placeholder="Description" className="invoice-input" />
+                <button className="btn-primary">Create Invoice</button>
+              </div>
+            </div>
+
+            <div className="payment-history">
+              <h3>Recent Payments</h3>
+              <div className="payment-list">
+                <p className="placeholder-text">No payment history available</p>
               </div>
             </div>
           </div>
@@ -277,6 +407,21 @@ const Wallet = () => {
                   <span className="toggle-slider"></span>
                 </label>
               </div>
+
+              <div className="security-option">
+                <div className="security-info">
+                  <h4>🛡️ Fraud Monitoring</h4>
+                  <p>Real-time transaction monitoring and alerts</p>
+                </div>
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={securitySettings.fraudMonitoring}
+                    onChange={toggleFraudMonitoring}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
             </div>
 
             <div className="security-section">
@@ -302,6 +447,75 @@ const Wallet = () => {
                 <p>✓ Wallet encrypted with AES-256</p>
                 <p>✓ Private keys stored securely</p>
                 <p>✓ End-to-end encryption enabled</p>
+              </div>
+            </div>
+          </div>
+        )}
+        {activeTab === 'ai' && (
+          <div className="ai-tab">
+            <h2>🤖 AI-Powered Assistant</h2>
+            
+            <div className="ai-section">
+              <h3>Wallet Insights</h3>
+              <div className="ai-insights">
+                <div className="insight-card">
+                  <span className="insight-icon">📊</span>
+                  <div className="insight-content">
+                    <h4>Portfolio Analysis</h4>
+                    <p>Your portfolio is well-diversified. Consider increasing BTC allocation by 5%.</p>
+                  </div>
+                </div>
+                <div className="insight-card">
+                  <span className="insight-icon">💡</span>
+                  <div className="insight-content">
+                    <h4>Staking Recommendation</h4>
+                    <p>You have 1,250 GLD available. Staking could earn you ~62.5 GLD annually (5% APY).</p>
+                  </div>
+                </div>
+                <div className="insight-card">
+                  <span className="insight-icon">📈</span>
+                  <div className="insight-content">
+                    <h4>Market Trend</h4>
+                    <p>BTN is showing strong upward momentum. +12% in the last 7 days.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ai-section">
+              <h3>Security Alerts</h3>
+              <div className="ai-alerts">
+                <div className="alert-item success">
+                  <span className="alert-icon">✓</span>
+                  <p>No suspicious activity detected in the last 30 days</p>
+                </div>
+                <div className="alert-item info">
+                  <span className="alert-icon">ℹ️</span>
+                  <p>Your 2FA is enabled. Your wallet is secure.</p>
+                </div>
+                <div className="alert-item warning">
+                  <span className="alert-icon">⚠️</span>
+                  <p>Backup reminder: Last backup was 15 days ago. Consider creating a new backup.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="ai-section">
+              <h3>Ask AI Assistant</h3>
+              <div className="ai-chat">
+                <div className="chat-input-container">
+                  <input 
+                    type="text" 
+                    placeholder="Ask about your wallet, crypto markets, or best practices..."
+                    className="chat-input"
+                  />
+                  <button className="btn-primary">Ask</button>
+                </div>
+                <div className="chat-suggestions">
+                  <button className="suggestion-btn">How can I improve my portfolio?</button>
+                  <button className="suggestion-btn">What are the best staking strategies?</button>
+                  <button className="suggestion-btn">How do I secure my wallet?</button>
+                </div>
               </div>
             </div>
           </div>

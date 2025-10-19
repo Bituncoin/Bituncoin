@@ -516,3 +516,350 @@ input:checked + .toggle-slider:before {
     text-align: left;
   }
 }
+
+/* Dark Mode Support */
+.wallet-container.dark {
+  background-color: #1a1a2e;
+  color: #eee;
+}
+
+.wallet-container.dark .wallet-nav,
+.wallet-container.dark .balance-card,
+.wallet-container.dark .staking-card,
+.wallet-container.dark .transaction-item,
+.wallet-container.dark .security-option,
+.wallet-container.dark .payment-card,
+.wallet-container.dark .insight-card,
+.wallet-container.dark .ai-chat,
+.wallet-container.dark .invoice-form input,
+.wallet-container.dark .invoice-form select {
+  background: #16213e;
+  color: #eee;
+  border-color: #2d3e50;
+}
+
+.wallet-container.dark .wallet-nav button {
+  color: #bbb;
+}
+
+.wallet-container.dark .wallet-nav button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Header Controls */
+.header-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 1.5em;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.language-selector {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-selector:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Balance Cards - Additional Currencies */
+.balance-card.btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.balance-card.usdt {
+  background: linear-gradient(135deg, #26a69a 0%, #00897b 100%);
+}
+
+.balance-card.bnb {
+  background: linear-gradient(135deg, #f3ba2f 0%, #eca825 100%);
+}
+
+/* Pay Tab Styles */
+.pay-tab {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment-section,
+.invoice-section,
+.payment-history {
+  margin-bottom: 30px;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.payment-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.payment-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.payment-icon {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+.payment-card h4 {
+  margin: 10px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.payment-card p {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.invoice-form {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.invoice-input,
+.invoice-select {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+.invoice-input:focus,
+.invoice-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.payment-list {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.placeholder-text {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+/* AI Assistant Tab Styles */
+.ai-tab {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ai-section {
+  margin-bottom: 35px;
+}
+
+.ai-section h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.ai-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.insight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.insight-icon {
+  font-size: 2em;
+  min-width: 40px;
+}
+
+.insight-content h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.insight-content p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.ai-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.alert-item.success {
+  background: #e8f5e9;
+  border-color: #4caf50;
+  color: #2e7d32;
+}
+
+.alert-item.info {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  color: #1565c0;
+}
+
+.alert-item.warning {
+  background: #fff3e0;
+  border-color: #ff9800;
+  color: #e65100;
+}
+
+.alert-icon {
+  font-size: 1.5em;
+}
+
+.ai-chat {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.suggestion-btn {
+  padding: 10px 15px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.suggestion-btn:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .wallet-nav {
+    flex-wrap: wrap;
+  }
+  
+  .wallet-nav button {
+    font-size: 0.85em;
+    padding: 10px 12px;
+  }
+  
+  .balance-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+  
+  .invoice-form {
+    flex-direction: column;
+  }
+  
+  .header-controls {
+    flex-direction: column;
+  }
+}
+

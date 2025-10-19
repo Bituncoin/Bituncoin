@@ -4,7 +4,8 @@ import './Wallet.css';
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [balance, setBalance] = useState({
-    goldcoin: 0,
+    bituncoin: 0,  // BTN - Primary currency
+    goldcoin: 0,   // GLD - Secondary currency
     bitcoin: 0,
     ethereum: 0,
   });
@@ -12,6 +13,7 @@ const Wallet = () => {
     stakedAmount: 0,
     rewards: 0,
     apy: 5.0,
+    currency: 'BTN',  // Default to BTN
   });
   const [transactions, setTransactions] = useState([]);
   const [securitySettings, setSecuritySettings] = useState({
@@ -23,21 +25,25 @@ const Wallet = () => {
   useEffect(() => {
     // Simulate fetching wallet data
     setBalance({
-      goldcoin: 1250.5,
+      bituncoin: 2500.75,  // BTN balance
+      goldcoin: 1250.5,    // GLD balance
       bitcoin: 0.05,
       ethereum: 2.3,
     });
 
     setTransactions([
-      { id: '1', type: 'Received', amount: 100, coin: 'GLD', date: '2025-10-14', status: 'Completed' },
-      { id: '2', type: 'Sent', amount: 50, coin: 'GLD', date: '2025-10-13', status: 'Completed' },
-      { id: '3', type: 'Staked', amount: 500, coin: 'GLD', date: '2025-10-12', status: 'Active' },
+      { id: '1', type: 'Received', amount: 500, coin: 'BTN', date: '2025-10-19', status: 'Completed' },
+      { id: '2', type: 'Sent', amount: 100, coin: 'BTN', date: '2025-10-18', status: 'Completed' },
+      { id: '3', type: 'Received', amount: 100, coin: 'GLD', date: '2025-10-14', status: 'Completed' },
+      { id: '4', type: 'Sent', amount: 50, coin: 'GLD', date: '2025-10-13', status: 'Completed' },
+      { id: '5', type: 'Staked', amount: 1000, coin: 'BTN', date: '2025-10-12', status: 'Active' },
     ]);
 
     setStakingInfo({
-      stakedAmount: 500,
-      rewards: 2.5,
+      stakedAmount: 1000,
+      rewards: 5.2,
       apy: 5.0,
+      currency: 'BTN',
     });
   }, []);
 
@@ -91,7 +97,7 @@ const Wallet = () => {
     <div className="wallet-container">
       <header className="wallet-header">
         <h1>Universal Wallet</h1>
-        <p className="wallet-subtitle">Multi-Currency Digital Wallet with Gold-Coin Support</p>
+        <p className="wallet-subtitle">Multi-Currency Digital Wallet with Bituncoin (BTN) as Primary</p>
       </header>
 
       <nav className="wallet-nav">
@@ -127,8 +133,15 @@ const Wallet = () => {
             <div className="balance-section">
               <h2>Your Balances</h2>
               <div className="balance-cards">
-                <div className="balance-card goldcoin">
+                <div className="balance-card bituncoin primary">
                   <div className="coin-icon">🪙</div>
+                  <h3>Bituncoin (BTN)</h3>
+                  <p className="balance-amount">{balance.bituncoin.toFixed(2)} BTN</p>
+                  <p className="balance-usd">≈ ${(balance.bituncoin * 15).toFixed(2)} USD</p>
+                  <span className="primary-badge">PRIMARY</span>
+                </div>
+                <div className="balance-card goldcoin">
+                  <div className="coin-icon">🥇</div>
                   <h3>Gold-Coin (GLD)</h3>
                   <p className="balance-amount">{balance.goldcoin.toFixed(2)} GLD</p>
                   <p className="balance-usd">≈ ${(balance.goldcoin * 10).toFixed(2)} USD</p>
@@ -157,7 +170,7 @@ const Wallet = () => {
                 </button>
                 <button className="action-btn receive" onClick={handleReceive}>
                   <span>📥</span>
-                  Receive
+                  Receive (QR Code)
                 </button>
                 <button className="action-btn swap" onClick={handleCrossChainSwap}>
                   <span>🔄</span>
@@ -165,7 +178,7 @@ const Wallet = () => {
                 </button>
                 <button className="action-btn stake" onClick={handleStake}>
                   <span>💎</span>
-                  Stake GLD
+                  Stake BTN
                 </button>
               </div>
             </div>
@@ -175,15 +188,15 @@ const Wallet = () => {
         {activeTab === 'staking' && (
           <div className="staking-tab">
             <div className="staking-info">
-              <h2>Gold-Coin Staking</h2>
+              <h2>Bituncoin (BTN) Staking</h2>
               <div className="staking-cards">
                 <div className="staking-card">
                   <h3>Staked Amount</h3>
-                  <p className="staking-value">{stakingInfo.stakedAmount} GLD</p>
+                  <p className="staking-value">{stakingInfo.stakedAmount} BTN</p>
                 </div>
                 <div className="staking-card">
                   <h3>Rewards Earned</h3>
-                  <p className="staking-value">{stakingInfo.rewards} GLD</p>
+                  <p className="staking-value">{stakingInfo.rewards} BTN</p>
                 </div>
                 <div className="staking-card">
                   <h3>Annual Yield</h3>

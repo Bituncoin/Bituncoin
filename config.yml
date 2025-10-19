@@ -1,5 +1,42 @@
-# Gold-Coin Configuration
+# Bituncoin (BTN) & Gold-Coin Configuration
 
+# Primary Currency: Bituncoin (BTN)
+bituncoin:
+  name: "Bituncoin"
+  symbol: "BTN"
+  decimals: 8
+  max_supply: 100000000  # 100 million coins
+  
+  # Tokenomics
+  tokenomics:
+    initial_supply: 0
+    transaction_fee: 0.001  # 0.1%
+    staking_reward: 5.0     # 5% annual
+    min_stake: 100.0        # Minimum 100 BTN
+    lock_period: 2592000    # 30 days in seconds
+
+  # Proof-of-Stake Settings
+  consensus:
+    type: "proof-of-stake"
+    min_validator_stake: 1000.0  # Minimum 1000 BTN to become validator
+    block_time: 10               # 10 seconds
+    reward_per_block: 2.0        # 2 BTN per block
+    
+  # Network
+  network:
+    mainnet:
+      name: "Bituncoin Mainnet"
+      chain_id: 1
+      rpc_endpoint: "https://btn-rpc.bituncoin.io"
+      explorer: "https://btn-explorer.bituncoin.io"
+    
+    testnet:
+      name: "Bituncoin Testnet"
+      chain_id: 2
+      rpc_endpoint: "https://testnet-btn-rpc.bituncoin.io"
+      explorer: "https://testnet-btn-explorer.bituncoin.io"
+
+# Secondary Currency: Gold-Coin (GLD)
 goldcoin:
   name: "Gold-Coin"
   symbol: "GLD"
@@ -37,6 +74,16 @@ goldcoin:
 
 # Wallet Configuration
 wallet:
+  # Multi-Currency Support
+  currencies:
+    primary: "BTN"  # Bituncoin is the primary currency
+    supported:
+      - "BTN"  # Bituncoin
+      - "GLD"  # Gold-Coin
+      - "BTC"  # Bitcoin
+      - "ETH"  # Ethereum
+      - "BNB"  # Binance Coin
+      
   # Security Settings
   security:
     encryption: "AES-256"
@@ -52,6 +99,7 @@ wallet:
       - ethereum
       - binance
       - goldcoin
+      - bituncoin
     bridge_fee: 0.01  # 1%
     
   # User Interface
@@ -69,12 +117,42 @@ api:
     rate_limit: 100  # requests per minute
     
   endpoints:
+    # General
     - "/api/info"
     - "/api/health"
+    # Bituncoin (BTN) - Primary
+    - "/api/bituncoin/balance"
+    - "/api/bituncoin/send"
+    - "/api/bituncoin/stake"
+    - "/api/bituncoin/validators"
+    - "/api/bituncoin/info"
+    # Gold-Coin (GLD) - Secondary
     - "/api/goldcoin/balance"
     - "/api/goldcoin/send"
     - "/api/goldcoin/stake"
     - "/api/goldcoin/validators"
+    # BTN-PAY Payment System
+    - "/api/btnpay/invoice"
+    - "/api/btnpay/pay"
+
+# BTN-PAY Merchant Payments
+btnpay:
+  enabled: true
+  features:
+    qr_code: true
+    nfc_payments: true
+    merchant_api: true
+    invoice_expiry: 900  # 15 minutes
+  payment_methods:
+    - "BTN"  # Bituncoin
+    - "GLD"  # Gold-Coin
+    - "QR Code"
+    - "NFC"
+  card_support:
+    mastercard: true
+    visa: true
+    virtual_cards: true
+    physical_cards: true
 
 # Storage Configuration
 storage:
@@ -82,6 +160,33 @@ storage:
   data_dir: "./data"
   backup_enabled: true
   backup_interval: 86400  # 24 hours in seconds
+
+# Platform Support
+platforms:
+  mobile:
+    ios: true
+    android: true
+  desktop:
+    windows: true
+    macos: true
+    linux: true
+  web:
+    enabled: true
+    responsive: true
+
+# Security & Compliance
+security:
+  features:
+    - "2FA"
+    - "Biometric Authentication"
+    - "AES-256 Encryption"
+    - "Fraud Detection"
+    - "Real-time Alerts"
+  compliance:
+    - "KYC"
+    - "AML"
+    - "GDPR"
+    - "Financial Regulations"
 
 # Deployment
 deployment:

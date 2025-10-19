@@ -1,21 +1,25 @@
 # BITUNCOIN Blockchain Ecosystem
 
-🪙 **Gold-Coin (GLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
+🪙 **Bituncoin (BTN)** - The primary cryptocurrency of the Bituncoin ecosystem powered by Proof-of-Stake consensus
+
+🥇 **Gold-Coin (GLD)** - A secondary next-generation cryptocurrency with the same powerful features
 
 ## Features
 
-### 🌟 Gold-Coin Cryptocurrency
+### 🌟 Bituncoin (BTN) - Primary Cryptocurrency
 - **Proof-of-Stake (PoS)** consensus mechanism for energy efficiency
-- **100 Million GLD** maximum supply with 8 decimal precision
+- **100 Million BTN** maximum supply with 8 decimal precision
 - **5% Annual Staking Rewards** for validators and stakers
 - **Low Transaction Fees** (0.1% per transaction)
 - **30-day Lock Period** for staking security
 
 ### 💼 Universal Wallet
-- **Multi-Currency Support**: GLD, BTC, ETH, and more
+- **Multi-Currency Support**: BTN (primary), GLD, BTC, ETH, and more
 - **Cross-Chain Transactions**: Seamless asset transfers between blockchains
 - **Modern UI**: Intuitive and user-friendly interface
 - **Real-time Balance Tracking**: Live updates for all assets
+- **QR Code Support**: Easy payments via QR codes
+- **NFC Payments**: Contactless payment capabilities
 
 ### 🔒 Security Features
 - **AES-256 Encryption**: Military-grade wallet encryption
@@ -23,37 +27,61 @@
 - **Biometric Login**: Fingerprint and face recognition support
 - **Encrypted Backups**: Secure wallet backup and recovery
 - **Recovery Phrase**: 12-word mnemonic for wallet restoration
+- **Fraud Detection**: Real-time monitoring and alerts
 
 ### ⛓️ Cross-Chain Bridge
-- Support for Bitcoin, Ethereum, Binance Smart Chain, and Gold-Coin
+- Support for Bitcoin, Ethereum, Binance Smart Chain, Bituncoin, and Gold-Coin
 - Seamless token swaps between supported networks
 - Competitive 1% cross-chain transaction fees
 - Real-time transaction status tracking
+
+### 💳 BTN-PAY Merchant Features
+- **Invoice Creation**: Create payment invoices for BTN and GLD
+- **QR Code Payments**: Generate QR codes for easy payments
+- **NFC Support**: Contactless payment integration
+- **MasterCard & Visa**: BTN-Pay card support (virtual and physical)
+- **Payment Gateway Integration**: Merchant-friendly APIs
+
+### 📱 Platform Availability
+- **Mobile**: iOS and Android applications
+- **Desktop**: Windows, macOS, and Linux support
+- **Web**: Responsive web interface for universal access
 
 ## Repository Structure
 
 ```
 bituncoin-btn/
-├── goldcoin/           # Gold-Coin cryptocurrency implementation
-│   ├── goldcoin.go     # Core token logic
-│   └── staking.go      # Staking pool management
-├── consensus/          # Proof-of-Stake consensus
+├── bituncoin/           # Bituncoin (BTN) cryptocurrency implementation
+│   ├── bituncoin.go     # Core BTN token logic
+│   ├── staking.go       # BTN staking pool management
+│   ├── bituncoin_test.go # BTN tests
+│   └── staking_test.go   # Staking tests
+├── goldcoin/            # Gold-Coin (GLD) cryptocurrency implementation
+│   ├── goldcoin.go      # Core GLD token logic
+│   ├── staking.go       # GLD staking pool management
+│   ├── goldcoin_test.go # GLD tests
+│   └── staking_test.go   # Staking tests
+├── consensus/           # Proof-of-Stake consensus
 │   └── pos-validator.go # PoS validator logic
-├── core/               # Blockchain core
-│   └── btnchain.go     # Blockchain implementation
-├── api/                # API server
-│   └── btnnode.go      # Node API endpoints
-├── wallet/             # Universal wallet
-│   ├── Wallet.jsx      # React wallet UI
-│   ├── Wallet.css      # Wallet styling
-│   ├── security.go     # Security features
-│   └── crosschain.go   # Cross-chain bridge
-├── identity/           # Address management
-│   └── btnaddress.go   # Address generation
-├── storage/            # Data persistence
-│   └── leveldb.go      # Key-value storage
-├── config.yml          # Configuration file
-├── DEPLOYMENT.md       # Deployment guide
+├── core/                # Blockchain core
+│   └── btnchain.go      # Blockchain implementation
+├── api/                 # API server
+│   └── btnnode.go       # Node API endpoints (BTN & GLD)
+├── wallet/              # Universal wallet
+│   ├── Wallet.jsx       # React wallet UI
+│   ├── Wallet.css       # Wallet styling
+│   ├── security.go      # Security features
+│   └── crosschain.go    # Cross-chain bridge
+├── payments/            # BTN-PAY payment system
+│   └── btnpay.go        # Payment processing
+├── identity/            # Address management
+│   └── btnaddress.go    # Address generation
+├── storage/             # Data persistence
+│   └── leveldb.go       # Key-value storage
+├── docs/                # Documentation
+│   └── BTN-PAY.md       # Payment protocol docs
+├── config.yml           # Configuration file
+├── DEPLOYMENT.md        # Deployment guide
 └── README.md
 ```
 
@@ -96,6 +124,23 @@ npm start
 ```
 
 ## Tokenomics
+
+### Bituncoin (BTN) - Primary Currency
+
+| Parameter | Value |
+|-----------|-------|
+| Name | Bituncoin |
+| Symbol | BTN |
+| Max Supply | 100,000,000 BTN |
+| Decimals | 8 |
+| Consensus | Proof-of-Stake |
+| Block Time | 10 seconds |
+| Staking Reward | 5% annual |
+| Min Stake | 100 BTN |
+| Min Validator Stake | 1,000 BTN |
+| Transaction Fee | 0.1% |
+
+### Gold-Coin (GLD) - Secondary Currency
 
 | Parameter | Value |
 |-----------|-------|
@@ -145,12 +190,27 @@ npm start
 
 ## API Endpoints
 
+### General
 - `GET /api/info` - Node information
 - `GET /api/health` - Health check
-- `GET /api/goldcoin/balance?address=<addr>` - Get balance
-- `POST /api/goldcoin/send` - Send transaction
-- `POST /api/goldcoin/stake` - Stake tokens
-- `GET /api/goldcoin/validators` - List validators
+
+### Bituncoin (BTN) - Primary Currency
+- `GET /api/bituncoin/info` - BTN tokenomics information
+- `GET /api/bituncoin/balance?address=<addr>` - Get BTN balance
+- `POST /api/bituncoin/send` - Send BTN transaction
+- `POST /api/bituncoin/stake` - Stake BTN tokens
+- `GET /api/bituncoin/validators` - List BTN validators
+
+### Gold-Coin (GLD) - Secondary Currency
+- `GET /api/goldcoin/balance?address=<addr>` - Get GLD balance
+- `POST /api/goldcoin/send` - Send GLD transaction
+- `POST /api/goldcoin/stake` - Stake GLD tokens
+- `GET /api/goldcoin/validators` - List GLD validators
+
+### BTN-PAY Merchant Payments
+- `POST /api/btnpay/invoice` - Create payment invoice
+- `GET /api/btnpay/invoice/{id}` - Get invoice details
+- `POST /api/btnpay/pay` - Submit payment proof
 
 ## Development
 

@@ -5,6 +5,10 @@ bin/
 *.so
 *.dylib
 
+# Demo binaries
+demo
+btn-demo
+
 # Test binary
 *.test
 

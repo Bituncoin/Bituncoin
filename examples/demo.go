@@ -11,7 +11,7 @@ import (
 
 func main() {
 	fmt.Println("🪙 Gold-Coin Cryptocurrency Demo")
-	fmt.Println("================================\n")
+	fmt.Println("================================")
 
 	// 1. Initialize Gold-Coin
 	fmt.Println("1. Initializing Gold-Coin...")
@@ -20,7 +20,7 @@ func main() {
 	fmt.Printf("   Name: %s (%s)\n", tokenomics["name"], tokenomics["symbol"])
 	fmt.Printf("   Max Supply: %d\n", tokenomics["maxSupply"])
 	fmt.Printf("   Staking Reward: %.1f%%\n", tokenomics["stakingReward"])
-	fmt.Printf("   Transaction Fee: %.1f%%\n\n", tokenomics["transactionFee"].(float64)*100)
+	fmt.Printf("   Transaction Fee: %.1f%%\n", tokenomics["transactionFee"].(float64)*100)
 
 	// 2. Generate addresses
 	fmt.Println("2. Generating addresses...")

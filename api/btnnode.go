@@ -16,7 +16,7 @@ type Node struct {
 	IsRunning  bool
 	mutex      sync.RWMutex
 	endpoints  map[string]http.HandlerFunc
-	payments   *payments.BtnPay
+	payments   *payments.BtngPay
 }
 
 // NodeInfo represents node information
@@ -35,7 +35,7 @@ func NewNode(host string, port int) *Node {
 		Host:      host,
 		IsRunning: false,
 		endpoints: make(map[string]http.HandlerFunc),
-		payments:  payments.NewBtnPay(),
+		payments:  payments.NewBtngPay(),
 	}
 }
 
@@ -88,11 +88,11 @@ func (n *Node) registerEndpoints() {
 	n.endpoints["/api/goldcoin/stake"] = n.handleStake
 	n.endpoints["/api/goldcoin/validators"] = n.handleValidators
 
-	// BTN-PAY endpoints
-	n.endpoints["/api/btnpay/invoice"] = n.payments.CreateInvoiceHandler
+	// BTNG-PAY endpoints
+	n.endpoints["/api/btngpay/invoice"] = n.payments.CreateInvoiceHandler
 	// register a path prefix for invoice lookups — the handler extracts the last segment as ID
-	n.endpoints["/api/btnpay/invoice/"] = n.payments.GetInvoiceHandler
-	n.endpoints["/api/btnpay/pay"] = n.payments.PayInvoiceHandler
+	n.endpoints["/api/btngpay/invoice/"] = n.payments.GetInvoiceHandler
+	n.endpoints["/api/btngpay/pay"] = n.payments.PayInvoiceHandler
 }
 
 // handleInfo returns node information

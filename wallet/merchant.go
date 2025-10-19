@@ -112,7 +112,7 @@ func (ms *MerchantService) RegisterMerchant(name, walletAddress, email, business
 		Email:            email,
 		BusinessType:     businessType,
 		AcceptedMethods:  []PaymentMethod{PaymentQRCode, PaymentNFC, PaymentWallet},
-		AcceptedAssets:   []string{"BTN", "GLD", "BTC", "ETH", "USDT"},
+		AcceptedAssets:   []string{"BTNG", "GLD", "BTC", "ETH", "USDT"},
 		RegistrationDate: time.Now(),
 		Status:           "active",
 		TotalReceived:    0.0,

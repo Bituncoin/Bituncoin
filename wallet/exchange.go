@@ -71,10 +71,10 @@ func NewExchange() *Exchange {
 // initializeDefaultRates sets up initial exchange rates
 func (ex *Exchange) initializeDefaultRates() {
 	// Crypto-to-crypto pairs
-	ex.SetExchangeRate("BTN", "BTC", 0.00002, 0.5)
-	ex.SetExchangeRate("BTN", "ETH", 0.0003, 0.5)
-	ex.SetExchangeRate("BTN", "USDT", 1.0, 0.3)
-	ex.SetExchangeRate("BTN", "BNB", 0.002, 0.5)
+	ex.SetExchangeRate("BTNG", "BTC", 0.00002, 0.5)
+	ex.SetExchangeRate("BTNG", "ETH", 0.0003, 0.5)
+	ex.SetExchangeRate("BTNG", "USDT", 1.0, 0.3)
+	ex.SetExchangeRate("BTNG", "BNB", 0.002, 0.5)
 	ex.SetExchangeRate("GLD", "BTC", 0.00002, 0.5)
 	ex.SetExchangeRate("GLD", "ETH", 0.0003, 0.5)
 	ex.SetExchangeRate("BTC", "ETH", 15.0, 0.5)
@@ -82,7 +82,7 @@ func (ex *Exchange) initializeDefaultRates() {
 	ex.SetExchangeRate("ETH", "USDT", 3000.0, 0.3)
 
 	// Crypto-to-fiat pairs
-	ex.SetExchangeRate("BTN", "USD", 1.0, 1.0)
+	ex.SetExchangeRate("BTNG", "USD", 1.0, 1.0)
 	ex.SetExchangeRate("GLD", "USD", 1.0, 1.0)
 	ex.SetExchangeRate("BTC", "USD", 50000.0, 1.0)
 	ex.SetExchangeRate("ETH", "USD", 3000.0, 1.0)

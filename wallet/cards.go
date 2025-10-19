@@ -39,7 +39,7 @@ const (
 	CardStatusExpired  CardStatus = "expired"
 )
 
-// PaymentCard represents a BTN-Pay card
+// PaymentCard represents a BTNG-Pay card
 type PaymentCard struct {
 	ID            string       `json:"id"`
 	UserAddress   string       `json:"userAddress"`

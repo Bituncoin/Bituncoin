@@ -16,7 +16,7 @@ func main() {
 	portfolio := wallet.NewPortfolio()
 	
 	// Add multiple assets
-	portfolio.AddAsset("BTN", "Bituncoin", 1000.0, 1.0)
+	portfolio.AddAsset("BTNG", "Bituncoin", 1000.0, 1.0)
 	portfolio.AddAsset("GLD", "Gold-Coin", 500.0, 1.0)
 	portfolio.AddAsset("BTC", "Bitcoin", 0.5, 50000.0)
 	portfolio.AddAsset("ETH", "Ethereum", 2.0, 3000.0)
@@ -43,18 +43,18 @@ func main() {
 	fmt.Printf("0.1 BTC = %.4f ETH (fee: %.6f ETH)\n", toAmount, fee)
 	
 	// Create exchange order
-	order, _ := exchange.CreateExchangeOrder("BTN123...", "BTC", "ETH", 0.1)
+	order, _ := exchange.CreateExchangeOrder("BTNG123...", "BTC", "ETH", 0.1)
 	fmt.Printf("Order Created: %s\n", order.ID)
 	fmt.Printf("Status: %s\n\n", order.Status)
 
 	// 3. Payment Cards Demo
-	fmt.Println("3. Payment Cards (BTN-Pay)")
+	fmt.Println("3. Payment Cards (BTNG-Pay)")
 	fmt.Println("--------------------------")
 	cardManager := wallet.NewCardManager()
 	
 	// Create virtual card
 	card, _ := cardManager.CreateCard(
-		"BTN123...",
+		"BTNG123...",
 		wallet.CardTypeVirtual,
 		wallet.ProviderVisa,
 		1000.0, // daily limit
@@ -135,7 +135,7 @@ func main() {
 	}
 	
 	// Analyze spending
-	insights := aiManager.AnalyzeSpending("BTN123...", transactions)
+	insights := aiManager.AnalyzeSpending("BTNG123...", transactions)
 	if len(insights) > 0 {
 		fmt.Printf("Spending Insight: %s\n", insights[0].Title)
 		fmt.Printf("Description: %s\n", insights[0].Description)
@@ -223,10 +223,10 @@ func main() {
 	fmt.Printf("Encryption: %v\n", secStatus["encryptionType"])
 	
 	// Check transaction for fraud
-	isSuspicious, reason := fraudDetector.CheckTransaction("BTN123...", "BTN456...", 15000.0)
+	isSuspicious, reason := fraudDetector.CheckTransaction("BTNG123...", "BTNG456...", 15000.0)
 	if isSuspicious {
 		fmt.Printf("\nFraud Alert: %s\n", reason)
-		alertSystem.SendAlert("fraud", "high", reason, "BTN123...")
+		alertSystem.SendAlert("fraud", "high", reason, "BTNG123...")
 	}
 	
 	fmt.Println("\n=== Demo Complete ===")

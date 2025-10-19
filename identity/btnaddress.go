@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 )
 
 // Address represents a blockchain address
@@ -56,7 +57,7 @@ func (am *AddressManager) GenerateAddress(label string) (*Address, error) {
 		PrivateKey: hex.EncodeToString(privateKey),
 		Address:    address,
 		Label:      label,
-		CreatedAt:  0,
+		CreatedAt:  time.Now().Unix(),
 	}
 
 	am.Addresses[address] = addr
@@ -79,7 +80,7 @@ func (am *AddressManager) GenerateBitcoinAddress(label string) (*Address, error)
 		PrivateKey: btcAddr.PrivateKey,
 		Address:    btcAddr.Address,
 		Label:      label,
-		CreatedAt:  0,
+		CreatedAt:  time.Now().Unix(),
 	}
 
 	am.Addresses[addr.Address] = addr
@@ -102,7 +103,7 @@ func (am *AddressManager) GenerateEthereumAddress(label string) (*Address, error
 		PrivateKey: ethAddr.PrivateKey,
 		Address:    ethAddr.Address,
 		Label:      label,
-		CreatedAt:  0,
+		CreatedAt:  time.Now().Unix(),
 	}
 
 	am.Addresses[addr.Address] = addr
@@ -124,26 +125,28 @@ func (am *AddressManager) GetAddress(address string) (*Address, error) {
 
 // ValidateAddress validates an address format (supports GLD, Btu, and 0x prefixes)
 func ValidateAddress(address string) error {
-	if len(address) < 3 {
+	if len(address) < 2 {
 		return errors.New("invalid address: too short")
 	}
 
-	// Check for Bitcoin-style address (Btu prefix)
-	if address[:3] == "Btu" {
-		return ValidateBitcoinStyleAddress(address)
-	}
-
-	// Check for Ethereum-style address (0x prefix)
-	if len(address) >= 2 && address[:2] == "0x" {
+	// Check for Ethereum-style address (0x prefix) - check this first to avoid out-of-bounds
+	if address[:2] == "0x" {
 		return ValidateEthereumStyleAddress(address)
 	}
 
-	// Check for legacy GLD address
-	if len(address) >= 3 && address[:3] == "GLD" {
-		if len(address) < 43 {
-			return errors.New("invalid address: too short")
+	// Check for Bitcoin-style address (Btu prefix) or legacy GLD address
+	if len(address) >= 3 {
+		if address[:3] == "Btu" {
+			return ValidateBitcoinStyleAddress(address)
 		}
-		return nil
+
+		// Check for legacy GLD address
+		if address[:3] == "GLD" {
+			if len(address) < 43 {
+				return errors.New("invalid address: too short")
+			}
+			return nil
+		}
 	}
 
 	return errors.New("invalid address: must start with GLD, Btu, or 0x prefix")

@@ -225,3 +225,61 @@ func TestAddressManagerUniqueAddresses(t *testing.T) {
 		t.Errorf("Expected 20 unique addresses, got %d", len(addresses))
 	}
 }
+
+func TestAddressManagerCreatedAt(t *testing.T) {
+	manager := NewAddressManager()
+
+	// Test Bitcoin-style address
+	btcAddr, err := manager.GenerateBitcoinAddress("Test Wallet")
+	if err != nil {
+		t.Fatalf("Failed to generate Bitcoin address: %v", err)
+	}
+
+	if btcAddr.CreatedAt == 0 {
+		t.Error("CreatedAt timestamp should not be 0")
+	}
+
+	// Test Ethereum-style address
+	ethAddr, err := manager.GenerateEthereumAddress("Test Wallet")
+	if err != nil {
+		t.Fatalf("Failed to generate Ethereum address: %v", err)
+	}
+
+	if ethAddr.CreatedAt == 0 {
+		t.Error("CreatedAt timestamp should not be 0")
+	}
+
+	// Test legacy GLD address
+	gldAddr, err := manager.GenerateAddress("Test Wallet")
+	if err != nil {
+		t.Fatalf("Failed to generate GLD address: %v", err)
+	}
+
+	if gldAddr.CreatedAt == 0 {
+		t.Error("CreatedAt timestamp should not be 0")
+	}
+}
+
+func TestValidateAddressEdgeCases(t *testing.T) {
+	testCases := []struct {
+		address string
+		name    string
+		valid   bool
+	}{
+		{"0x", "0x prefix only", false},
+		{"Bt", "Bt prefix (too short)", false},
+		{"GL", "GL prefix (too short)", false},
+		{"", "empty string", false},
+		{"a", "single character", false},
+	}
+
+	for _, tc := range testCases {
+		err := ValidateAddress(tc.address)
+		if tc.valid && err != nil {
+			t.Errorf("%s: expected valid, got error: %v", tc.name, err)
+		}
+		if !tc.valid && err == nil {
+			t.Errorf("%s: expected invalid, but validation passed", tc.name)
+		}
+	}
+}

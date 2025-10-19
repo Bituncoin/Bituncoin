@@ -77,6 +77,8 @@ func (am *AddressManager) GenerateAddressOfType(label string, addressType Addres
 	}
 
 	// Generate public key from private key
+	// NOTE: This is a simplified implementation using SHA-256 hash.
+	// In production, use proper elliptic curve cryptography (e.g., secp256k1 for Bitcoin, secp256k1 for Ethereum).
 	publicKeyHash := sha256.Sum256(privateKey)
 	publicKey := hex.EncodeToString(publicKeyHash[:])
 

@@ -199,6 +199,20 @@ if err != nil {
 
 ## Security Considerations
 
+### Cryptographic Implementation Notes
+
+**Important**: The current implementation uses simplified cryptography for demonstration purposes:
+
+- **Public Key Derivation**: Uses SHA-256 hash of private key instead of proper elliptic curve cryptography
+- **Ethereum Hashing**: Uses SHA-256 instead of Keccak-256 for address generation
+
+**For Production Use:**
+- Implement proper secp256k1 elliptic curve cryptography for Bitcoin-style addresses
+- Use Keccak-256 hashing for true Ethereum compatibility
+- Consider using established cryptographic libraries like `go-ethereum/crypto` or `btcsuite/btcd`
+
+These addresses are suitable for Bituncoin's internal blockchain but should not be used directly on Bitcoin or Ethereum networks without proper cryptographic implementation.
+
 ### Private Key Management
 
 - **Never share private keys**: Keep private keys secure and encrypted

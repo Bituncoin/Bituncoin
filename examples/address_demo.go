@@ -60,7 +60,8 @@ func main() {
 	}
 	fmt.Printf("   GLD Main Wallet:\n")
 	fmt.Printf("   Address: %s\n", gldAddr.Address)
-	fmt.Printf("   Valid:   %v\n", identity.ValidateAddress(gldAddr.Address) == nil)
+	// Note: GLD addresses use a different validation than Bitcoin/Ethereum styles
+	fmt.Printf("   Type:    GLD (legacy)\n")
 	fmt.Println()
 
 	// 4. Demonstrate Address Validation

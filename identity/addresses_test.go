@@ -202,7 +202,7 @@ func TestValidateEthereumStyleAddress(t *testing.T) {
 	}
 }
 
-func TestBase58EncodeDecodRoundtrip(t *testing.T) {
+func TestBase58EncodeDecodeRoundtrip(t *testing.T) {
 	testCases := [][]byte{
 		{0x00, 0x01, 0x02, 0x03},
 		{0xFF, 0xFE, 0xFD, 0xFC},

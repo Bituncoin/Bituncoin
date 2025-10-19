@@ -55,15 +55,20 @@ func GenerateBitcoinStyleAddress(publicKey []byte) (string, error) {
 // GenerateEthereumStyleAddress generates an Ethereum-style address
 // Format: 0x + 40 hexadecimal characters
 // Example: 0x1234567890abcdef1234567890abcdef12345678
+// 
+// NOTE: This implementation uses SHA-256 instead of Keccak-256 for simplicity.
+// For production use with actual Ethereum network, implement Keccak-256 hashing.
+// This format is compatible with EVM-based blockchains that accept this addressing scheme.
 func GenerateEthereumStyleAddress(publicKey []byte) (string, error) {
 	if len(publicKey) == 0 {
 		return "", errors.New("public key cannot be empty")
 	}
 
 	// Hash the public key with SHA-256
+	// NOTE: Ethereum uses Keccak-256, but we use SHA-256 for Bituncoin's simplified implementation
 	hash := sha256.Sum256(publicKey)
 	
-	// Take last 20 bytes (Ethereum uses Keccak256, but we use SHA256 for simplicity)
+	// Take last 20 bytes (similar to Ethereum's approach)
 	addressBytes := hash[12:]
 	
 	// Convert to hex and add 0x prefix
@@ -255,6 +260,10 @@ func base58Decode(input string) ([]byte, error) {
 }
 
 // GenerateAddressWithType generates an address of the specified type
+// NOTE: This is a simplified implementation suitable for Bituncoin's blockchain.
+// For production use with Bitcoin or Ethereum networks:
+// - Use secp256k1 elliptic curve for proper public key derivation
+// - Use Keccak-256 for Ethereum addresses instead of SHA-256
 func GenerateAddressWithType(addressType AddressType) (string, []byte, error) {
 	// Generate random private key (32 bytes)
 	privateKey := make([]byte, 32)
@@ -264,6 +273,7 @@ func GenerateAddressWithType(addressType AddressType) (string, []byte, error) {
 	}
 	
 	// Derive public key from private key (simplified - using hash)
+	// PRODUCTION NOTE: Use proper elliptic curve point multiplication
 	publicKeyHash := sha256.Sum256(privateKey)
 	publicKey := publicKeyHash[:]
 	

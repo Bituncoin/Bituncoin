@@ -78,7 +78,10 @@ func demoAuthentication() {
 		log.Fatal(err)
 	}
 
-	updatedUser, _ := am.GetUser(user.ID)
+	updatedUser, err := am.GetUser(user.ID)
+	if err != nil {
+		log.Fatalf("Failed to get user after role update: %v", err)
+	}
 	fmt.Printf("  New role: %s\n", updatedUser.Role)
 	fmt.Printf("  New permissions: %v\n", updatedUser.Permissions)
 	fmt.Printf("  Can manage merchant: %v\n", am.HasPermission(user.ID, auth.PermissionManageMerchant))

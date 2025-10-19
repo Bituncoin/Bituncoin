@@ -4,7 +4,9 @@
 This document summarizes the comprehensive enhancements made to the Bituncoin wallet to deliver a universal, feature-rich solution accessible to all users.
 
 ## Implementation Date
-October 19, 2025
+Current version: 2025
+
+NOTE: This is a demonstration implementation. Dates in this document are placeholders.
 
 ## New Features Implemented
 
@@ -27,7 +29,7 @@ October 19, 2025
   - `view_dashboard`, `manage_merchant`
 
 - Security features:
-  - SHA-256 password hashing
+  - bcrypt password hashing (secure, adaptive)
   - Session-based authentication (24-hour expiry)
   - Automatic session cleanup
   - Account activation/deactivation
@@ -329,7 +331,7 @@ No breaking changes. All existing functionality remains intact.
 ## Performance Considerations
 
 ### Authentication
-- SHA-256 hashing: ~1ms per operation
+- bcrypt hashing: ~50-100ms per operation (intentionally slow for security)
 - Session lookup: O(1) map access
 - Minimal overhead on authenticated requests
 
@@ -363,7 +365,7 @@ No breaking changes. All existing functionality remains intact.
 ## Security Notes
 
 ### Implemented
-- Password hashing (SHA-256)
+- Password hashing (bcrypt with salt)
 - Session management with expiry
 - Role-based access control
 - Permission validation
@@ -408,6 +410,5 @@ The platform is now positioned as a **comprehensive, scalable, and secure financ
 
 ---
 
-**Last Updated**: October 19, 2025
 **Version**: 2.0.0
 **Implementation Team**: Bituncoin Development Team

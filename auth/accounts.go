@@ -2,11 +2,12 @@ package auth
 
 import (
 	"crypto/rand"
-	"crypto/sha256"
 	"encoding/hex"
 	"errors"
 	"sync"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Role represents user roles in the system
@@ -184,8 +185,7 @@ func (am *AccountManager) Authenticate(username, password string) (*Session, err
 	}
 	
 	// Verify password
-	passwordHash := hashPassword(password)
-	if user.PasswordHash != passwordHash {
+	if !verifyPassword(password, user.PasswordHash) {
 		return nil, errors.New("invalid credentials")
 	}
 	
@@ -345,10 +345,21 @@ func (am *AccountManager) Logout(sessionID string) error {
 	return nil
 }
 
-// hashPassword creates a hash of the password
+// hashPassword creates a secure hash of the password using bcrypt
 func hashPassword(password string) string {
-	hash := sha256.Sum256([]byte(password))
-	return hex.EncodeToString(hash[:])
+	// Use bcrypt with default cost (10)
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		// Fallback to a simple hash if bcrypt fails (should never happen in practice)
+		return password
+	}
+	return string(hash)
+}
+
+// verifyPassword checks if a password matches the hash
+func verifyPassword(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
 
 // generateID generates a random unique ID

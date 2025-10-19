@@ -12,7 +12,7 @@
 
 ## Introduction
 
-The Bituncoin Comprehensive Wallet is a multi-platform cryptocurrency wallet solution that supports multiple cryptocurrencies, integrated exchange functionality, payment card integration, and merchant services. It is designed to be scalable, secure, and compliant with global financial regulations.
+The Bituncoin Comprehensive Wallet is a multi-platform cryptocurrency wallet solution that supports multiple cryptocurrencies, integrated exchange functionality, payment card integration, and merchant services.
 
 ### Supported Platforms
 - iOS (native app)
@@ -23,7 +23,7 @@ The Bituncoin Comprehensive Wallet is a multi-platform cryptocurrency wallet sol
 - Web (responsive interface)
 
 ### Key Features
-- Multi-currency support (BTN, GLD, BTC, ETH, USDT, BNB)
+- Multi-currency support (BTNG, GLD, BTC, ETH, USDT, BNB)
 - Built-in cryptocurrency exchange
 - Payment card integration (MasterCard, Visa)
 - Merchant payment services
@@ -53,7 +53,7 @@ The Bituncoin Comprehensive Wallet is a multi-platform cryptocurrency wallet sol
 ├─────────────────────────────────────────────────┤
 │            Blockchain Integration Layer          │
 │  ┌──────────┬──────────┬──────────┬──────────┐ │
-│  │  BTN/GLD │  Bitcoin │ Ethereum │   BSC    │ │
+│  │  BTNG/GLD│  Bitcoin │ Ethereum │   BSC    │ │
 │  │  Network │  Network │  Network │ Network  │ │
 │  └──────────┴──────────┴──────────┴──────────┘ │
 └─────────────────────────────────────────────────┘
@@ -85,11 +85,11 @@ Manages multi-currency cryptocurrency holdings with real-time tracking.
 portfolio := wallet.NewPortfolio()
 
 // Add assets
-portfolio.AddAsset("BTN", "Bituncoin", 1000.0, 1.0)
+portfolio.AddAsset("BTNG", "Bituncoin", 1000.0, 1.0)
 portfolio.AddAsset("BTC", "Bitcoin", 0.5, 50000.0)
 
 // Update balances
-portfolio.UpdateBalance("BTN", 1500.0)
+portfolio.UpdateBalance("BTNG", 1500.0)
 
 // Get total value
 totalValue := portfolio.GetTotalValue()
@@ -122,13 +122,13 @@ order, err := exchange.CreateExchangeOrder(userAddr, "BTC", "ETH", 0.5)
 ```
 
 **Supported Pairs:**
-- Crypto-to-Crypto: BTC/ETH, BTN/BTC, ETH/USDT, etc.
-- Crypto-to-Fiat: BTC/USD, ETH/USD, BTN/USD, etc.
+- Crypto-to-Crypto: BTC/ETH, BTNG/BTC, ETH/USDT, etc.
+- Crypto-to-Fiat: BTC/USD, ETH/USD, BTNG/USD, etc.
 - Cross-chain swaps with automatic routing
 
 ### 3. Card Manager
 
-Integration with MasterCard and Visa for BTN-Pay cards.
+Integration with MasterCard and Visa for BTNG-Pay cards.
 
 ```go
 cardManager := wallet.NewCardManager()
@@ -327,7 +327,7 @@ Returns performance metrics.
 **POST /api/exchange/order**
 ```json
 {
-  "userAddress": "BTN...",
+  "userAddress": "BTNG...",
   "fromAsset": "BTC",
   "toAsset": "ETH",
   "amount": 0.5
@@ -342,7 +342,7 @@ Returns user's exchange orders.
 **POST /api/cards/create**
 ```json
 {
-  "userAddress": "BTN...",
+  "userAddress": "BTNG...",
   "cardType": "virtual",
   "provider": "visa",
   "dailyLimit": 1000.0
@@ -365,7 +365,7 @@ Returns all cards for a user.
 ```json
 {
   "name": "Coffee Shop",
-  "walletAddress": "BTN...",
+  "walletAddress": "BTNG...",
   "email": "shop@example.com",
   "businessType": "retail"
 }
@@ -504,9 +504,9 @@ go test ./wallet -tags=integration
 
 ### Environment Variables
 ```bash
-export BTN_NETWORK=mainnet
-export BTN_RPC_URL=https://rpc.bituncoin.io
-export BTN_API_KEY=your_api_key
+export BTNG_NETWORK=mainnet
+export BTNG_RPC_URL=https://rpc.bituncoin.io
+export BTNG_API_KEY=your_api_key
 ```
 
 ### Docker Deployment

@@ -1,16 +1,17 @@
 # Developer Guide
 
-## Introduction
-This guide provides developers with the necessary information to contribute to the Bituncoin project.
+## BTNB Coin Overview
 
-## Currency Symbol Update
-The currency symbol for Bituncoin has been updated from BTN-PAY to **BTNG PAY**. This change reflects our ongoing commitment to enhancing the user experience and simplifying transactions.
+The BTNB coin is a competitive cryptocurrency designed for major exchanges, providing secure and scalable transactions. It leverages advanced cryptographic techniques and innovative features to stand out in the ever-evolving cryptocurrency market.
 
-## BTNG PAY
-BTNG PAY is a universal merchant payment system that leverages the Bituncoin Blockchain, allowing businesses and consumers to conduct transactions seamlessly and securely. It provides a fast and efficient way for merchants to accept Bituncoin as a form of payment, promoting wider acceptance and usability.
+## Bech32-Style Address Format
 
-## Contributions
-Developers are encouraged to contribute to the Bituncoin project by submitting pull requests, reporting issues, and providing feedback. Please follow our contribution guidelines to ensure a smooth collaboration process.
+BTNB utilizes a Bech32-style address format, which enhances usability and reduces the likelihood of errors. An example of a BTNB address is: `btng1qw508d6qejxtdg4y5r3zarvary0c5xw7kygt080`. This format is designed to be more user-friendly and can easily be recognized by wallets and exchanges supporting the BTNB coin.
+
+## Integration with BTNG PAY
+
+The BTNB coin is fully integrated with the BTNG PAY system, allowing users to make secure and scalable transactions. This integration provides a seamless experience for merchants and consumers, enabling fast and reliable payments in the BTNB ecosystem.
 
 ## Conclusion
-We believe that these updates will significantly improve the user experience and expand the utility of Bituncoin within the global market.
+
+As a major exchange cryptocurrency, the BTNB coin is poised to compete with leading digital currencies, offering advantages in security, scalability, and user experience.

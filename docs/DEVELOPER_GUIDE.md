@@ -356,7 +356,7 @@ err = staking.Unstake(userAddress, 500.0)
 
 // Query gold reserve information
 reserve := staking.GetGoldReserveInfo()
-// Returns: totalOunces, backingRatio, lastAudit, vaultLocations
+// reserve contains: totalOunces, backingRatio, lastAudit, vaultLocations
 ```
 
 **BTNG Staking Features:**
@@ -369,7 +369,7 @@ reserve := staking.GetGoldReserveInfo()
 
 **Gold Reserve System:**
 - Physical gold stored in certified vaults
-- Regular third-party audits (quarterly) by certified auditors (e.g., Bureau Veritas, SGS)
+- Regular third-party audits (quarterly) by certified auditors (e.g., Bureau Veritas, SGS - Société Générale de Surveillance)
 - Audits follow LBMA (London Bullion Market Association) standards
 - 1:1 backing ratio maintained
 - Transparent reserve reporting via API

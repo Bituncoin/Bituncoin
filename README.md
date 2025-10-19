@@ -11,6 +11,13 @@
 - **Low Transaction Fees** (0.1% per transaction)
 - **30-day Lock Period** for staking security
 
+### 👥 User and Admin Accounts
+- **Role-Based Access Control (RBAC)**: User, Admin, Merchant, and Validator roles
+- **Secure Authentication**: Password hashing, session management, and 2FA support
+- **Permission System**: Granular permissions for different user roles
+- **User Management**: Create, update, deactivate user accounts
+- **Session Management**: Secure 24-hour sessions with automatic expiry
+
 ### 💼 Comprehensive Universal Wallet
 - **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB
 - **Real-time Portfolio Tracking**: Live balance updates and performance metrics
@@ -62,14 +69,31 @@
 - **Performance Metrics**: Transaction volume, active users, uptime
 - **Alert Management**: Centralized system alerts
 - **Update Management**: Schedule and deploy updates
+- **Admin Dashboard**: User management, token configuration, system settings
+
+### 🔌 Add-On Module System
+- **Plug-and-Play Architecture**: Easily extend wallet functionality
+- **Module Categories**: DeFi, Staking, Lending, Trading, Payment, Analytics, Security, Utility
+- **Built-in Modules**:
+  - Advanced Staking: Multiple pools, auto-compounding, flexible lock periods
+  - DeFi Lending: Collateral-based lending and borrowing
+- **Module Management**: Enable/disable modules via API
+- **Developer-Friendly**: Simple interface for creating custom modules
 
 ### 🌍 Multi-Platform Support
-- **iOS**: Native iPhone and iPad app
-- **Android**: Native Android app
-- **Windows**: Desktop application
-- **macOS**: Desktop application
-- **Linux**: Desktop application
-- **Web**: Responsive web interface
+- **iOS**: Native iPhone and iPad app (React Native)
+- **Android**: Native Android app (React Native)
+- **Windows**: Desktop application (Electron)
+- **macOS**: Desktop application (Electron)
+- **Linux**: Desktop application (Electron) - AppImage, DEB, RPM
+- **Web**: Responsive web interface (React)
+
+### 🚀 CI/CD Automation
+- **GitHub Actions**: Automated testing on every commit
+- **Multi-Platform Builds**: Automatic builds for all platforms
+- **Automated Releases**: Tag-based releases with artifacts
+- **Code Quality**: Automated linting and testing
+- **Docker Support**: Containerized deployment options
 
 ### ⛓️ Cross-Chain Bridge
 - Support for Bitcoin, Ethereum, Binance Smart Chain, and Gold-Coin
@@ -90,6 +114,14 @@ bituncoin-btn/
 │   └── btnchain.go     # Blockchain implementation
 ├── api/                # API server
 │   └── btnnode.go      # Node API endpoints
+├── auth/               # Authentication & authorization
+│   ├── accounts.go     # User account management
+│   └── accounts_test.go # Auth tests
+├── addons/             # Add-on module system
+│   ├── registry.go     # Module registry
+│   ├── staking_module.go # Advanced staking module
+│   ├── lending_module.go # DeFi lending module
+│   └── addons_test.go  # Module tests
 ├── wallet/             # Comprehensive wallet system
 │   ├── Wallet.jsx      # React wallet UI
 │   ├── Wallet.css      # Wallet styling
@@ -109,10 +141,16 @@ bituncoin-btn/
 │   └── btnaddress.go   # Address generation
 ├── storage/            # Data persistence
 │   └── leveldb.go      # Key-value storage
+├── .github/workflows/  # CI/CD pipelines
+│   ├── test.yml        # Automated testing
+│   └── build.yml       # Multi-platform builds
 ├── docs/               # Documentation
 │   ├── BTN-PAY.md      # Payment protocol docs
 │   ├── DEVELOPER_GUIDE.md # Developer documentation
 │   ├── USER_GUIDE.md   # End-user guide
+│   ├── ADMIN_GUIDE.md  # Administrator guide
+│   ├── MODULE_DEVELOPER_GUIDE.md # Module development
+│   ├── PLATFORM_DEPLOYMENT.md # Platform deployment
 │   └── LAUNCH_STRATEGY.md # Launch plan
 ├── config.yml          # Configuration file
 ├── DEPLOYMENT.md       # Deployment guide
@@ -235,6 +273,17 @@ npm start
 
 ## API Endpoints
 
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `GET /api/auth/validate` - Validate session
+
+### User Management (Admin)
+- `GET /api/users/list` - List all users
+- `POST /api/users/update-role` - Update user role
+- `POST /api/users/deactivate` - Deactivate user
+
 ### Wallet & Portfolio
 - `GET /api/wallet/portfolio/:address` - Get portfolio
 - `POST /api/wallet/portfolio/add` - Add asset
@@ -269,6 +318,12 @@ npm start
 - `GET /api/dashboard/status` - System status
 - `GET /api/dashboard/metrics` - System metrics
 
+### Add-On Modules
+- `GET /api/addons/list` - List available modules
+- `POST /api/addons/enable` - Enable a module
+- `POST /api/addons/disable` - Disable a module
+- `POST /api/addons/execute` - Execute module action
+
 ## Development
 
 ### Run Tests
@@ -294,10 +349,27 @@ go build -o bin/validator ./consensus
 # Build wallet
 cd wallet
 npm run build
+
+# Build for specific platforms
+GOOS=linux GOARCH=amd64 go build -o bin/api-node-linux ./api
+GOOS=windows GOARCH=amd64 go build -o bin/api-node-windows.exe ./api
+GOOS=darwin GOARCH=amd64 go build -o bin/api-node-macos ./api
 ```
+
+### Multi-Platform Builds
+
+See [Platform Deployment Guide](docs/PLATFORM_DEPLOYMENT.md) for detailed instructions on building for:
+- Web (React build)
+- Desktop (Electron for Windows, macOS, Linux)
+- Mobile (React Native for iOS and Android)
+- Docker containers
+
 
 ## Documentation
 
+- [Platform Deployment Guide](docs/PLATFORM_DEPLOYMENT.md) - Multi-platform deployment instructions
+- [Admin Guide](docs/ADMIN_GUIDE.md) - Administrator documentation
+- [Module Developer Guide](docs/MODULE_DEVELOPER_GUIDE.md) - Creating add-on modules
 - [Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions
 - [Developer Guide](docs/DEVELOPER_GUIDE.md) - Developer documentation
 - [User Guide](docs/USER_GUIDE.md) - End-user documentation

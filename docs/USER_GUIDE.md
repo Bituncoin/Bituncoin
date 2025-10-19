@@ -106,7 +106,7 @@ Your portfolio shows all your cryptocurrency holdings in one place:
 
 ### Supported Cryptocurrencies
 
-- **BTN** (Bituncoin)
+- **BTNG** (Bituncoin)
 - **GLD** (Gold-Coin)
 - **BTC** (Bitcoin)
 - **ETH** (Ethereum)
@@ -185,7 +185,7 @@ Convert crypto to traditional currencies:
 
 ## Payment Cards
 
-### BTN-Pay Cards
+### BTNG-Pay Cards
 
 Get a Visa or MasterCard connected to your crypto wallet.
 

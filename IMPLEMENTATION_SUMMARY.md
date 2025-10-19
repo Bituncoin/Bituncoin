@@ -1,7 +1,7 @@
 # Bituncoin Gold-Coin Implementation Summary
 
 ## Overview
-BTN Gold-Coin (GLD) is a next-generation cryptocurrency built on the Bituncoin blockchain ecosystem, featuring Proof-of-Stake consensus for energy efficiency and scalability. This document summarizes the complete implementation including the comprehensive wallet system.
+BTNG Gold-Coin (GLD) is a next-generation cryptocurrency built on the Bituncoin blockchain ecosystem, featuring Proof-of-Stake consensus for energy efficiency and scalability. This document summarizes the complete implementation including the comprehensive wallet system.
 
 ## Completed Features
 
@@ -72,7 +72,7 @@ BTN Gold-Coin (GLD) is a next-generation cryptocurrency built on the Bituncoin b
 - Exchange rate management
 - Fee calculation
 - Order tracking
-- Support for BTN, GLD, BTC, ETH, USDT, BNB, USD, EUR, GBP
+- Support for BTNG, GLD, BTC, ETH, USDT, BNB, USD, EUR, GBP
 
 #### 3.4 Payment Card System (`cards.go`)
 - Virtual card creation
@@ -410,7 +410,7 @@ The system is ready for testnet deployment and further testing before mainnet la
 ├─────────────────────────────────────────────────────────────────┤
 │            Blockchain Integration Layer                         │
 │  ┌──────────┬──────────┬──────────┬──────────┬──────────┐     │
-│  │  BTN/GLD │  Bitcoin │ Ethereum │   BSC    │ Storage  │     │
+│  │ BTNG/GLD │  Bitcoin │ Ethereum │   BSC    │ Storage  │     │
 │  │  Network │  Network │  Network │ Network  │(LevelDB) │     │
 │  └──────────┴──────────┴──────────┴──────────┴──────────┘     │
 └─────────────────────────────────────────────────────────────────┘

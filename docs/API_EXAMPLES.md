@@ -15,18 +15,18 @@ This document provides practical examples of integrating with the Bituncoin Wall
 
 **Request:**
 ```http
-GET /api/wallet/portfolio/BTN123abc456def
+GET /api/wallet/portfolio/BTNG123abc456def
 Authorization: Bearer <token>
 ```
 
 **Response:**
 ```json
 {
-  "address": "BTN123abc456def",
+  "address": "BTNG123abc456def",
   "totalValueUSD": 82500.00,
   "assets": [
     {
-      "symbol": "BTN",
+      "symbol": "BTNG",
       "name": "Bituncoin",
       "balance": 1000.0,
       "priceUSD": 1.0,
@@ -60,7 +60,7 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "address": "BTN123abc456def",
+  "address": "BTNG123abc456def",
   "symbol": "ETH",
   "name": "Ethereum",
   "balance": 2.0,
@@ -121,7 +121,7 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "userAddress": "BTN123abc456def",
+  "userAddress": "BTNG123abc456def",
   "fromAsset": "BTC",
   "toAsset": "ETH",
   "amount": 0.5
@@ -148,7 +148,7 @@ Content-Type: application/json
 
 **Request:**
 ```http
-GET /api/exchange/orders/BTN123abc456def
+GET /api/exchange/orders/BTNG123abc456def
 Authorization: Bearer <token>
 ```
 
@@ -182,7 +182,7 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "userAddress": "BTN123abc456def",
+  "userAddress": "BTNG123abc456def",
   "cardType": "virtual",
   "provider": "visa",
   "dailyLimit": 1000.0
@@ -282,7 +282,7 @@ Content-Type: application/json
   "walletAddress": "GLD789xyz012abc",
   "status": "active",
   "acceptedMethods": ["qr_code", "nfc", "wallet_transfer"],
-  "acceptedAssets": ["BTN", "GLD", "BTC", "ETH", "USDT"],
+  "acceptedAssets": ["BTNG", "GLD", "BTC", "ETH", "USDT"],
   "registrationDate": "2025-10-19T13:00:00Z"
 }
 ```
@@ -329,7 +329,7 @@ Content-Type: application/json
 
 {
   "requestId": "PAY-1760879661101070571",
-  "customerAddress": "BTN123abc456def",
+  "customerAddress": "BTNG123abc456def",
   "txHash": "0x123456789abcdef"
 }
 ```
@@ -384,7 +384,7 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "userAddress": "BTN123abc456def"
+  "userAddress": "BTNG123abc456def"
 }
 ```
 
@@ -411,7 +411,7 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "userAddress": "BTN123abc456def",
+  "userAddress": "BTNG123abc456def",
   "code": "123456"
 }
 ```
@@ -428,7 +428,7 @@ Content-Type: application/json
 
 **Request:**
 ```http
-GET /api/security/alerts/BTN123abc456def
+GET /api/security/alerts/BTNG123abc456def
 Authorization: Bearer <token>
 ```
 
@@ -510,7 +510,7 @@ Configure webhooks to receive real-time notifications:
     "merchantId": "MERCH-789012",
     "amount": 25.50,
     "asset": "GLD",
-    "customerAddress": "BTN123abc456def"
+    "customerAddress": "BTNG123abc456def"
   }
 }
 ```

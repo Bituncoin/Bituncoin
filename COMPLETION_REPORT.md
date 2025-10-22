@@ -7,7 +7,7 @@ We have successfully implemented a comprehensive, enterprise-grade cryptocurrenc
 ## What Was Delivered
 
 ### 1. Core Wallet Infrastructure ✅
-- **Portfolio Management**: Multi-currency support for BTN, GLD, BTC, ETH, USDT, BNB
+- **Portfolio Management**: Multi-currency support for BTNG, GLD, BTC, ETH, USDT, BNB
 - **Transaction History**: Complete tracking with filtering and status updates
 - **Real-time Updates**: Live balance tracking and performance metrics
 - **USD Conversion**: Automatic conversion for all assets
@@ -127,7 +127,7 @@ Bituncoin/
 │   ├── USER_GUIDE.md         # User guide (420 lines)
 │   ├── LAUNCH_STRATEGY.md    # Launch plan (450 lines)
 │   ├── API_EXAMPLES.md       # API examples (400 lines)
-│   └── BTN-PAY.md            # Payment protocol (existing)
+│   └── BTNG-PAY.md            # Payment protocol (existing)
 ├── examples/
 │   ├── demo.go               # Gold-Coin demo (existing)
 │   └── wallet_demo.go        # Wallet demo (260 lines)

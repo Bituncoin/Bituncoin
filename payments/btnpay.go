@@ -34,21 +34,21 @@ type Invoice struct {
     TxID      string        `json:"txId,omitempty"`
 }
 
-// BtnPay is a minimal in-memory BTN-PAY service
-type BtnPay struct {
+// BtngPay is a minimal in-memory BTNG-PAY service
+type BtngPay struct {
     invoices map[string]*Invoice
     mutex    sync.RWMutex
 }
 
-// NewBtnPay creates a new service
-func NewBtnPay() *BtnPay {
-    return &BtnPay{
+// NewBtngPay creates a new service
+func NewBtngPay() *BtngPay {
+    return &BtngPay{
         invoices: make(map[string]*Invoice),
     }
 }
 
 // CreateInvoice creates a new invoice
-func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, ttlSeconds int64) (*Invoice, error) {
+func (bp *BtngPay) CreateInvoice(merchant string, amount float64, memo string, ttlSeconds int64) (*Invoice, error) {
     if merchant == "" {
         return nil, errors.New("merchant required")
     }
@@ -56,7 +56,7 @@ func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, tt
         return nil, errors.New("amount must be > 0")
     }
 
-    id := fmt.Sprintf("btnpay_%d", time.Now().UnixNano())
+    id := fmt.Sprintf("btngpay_%d", time.Now().UnixNano())
     now := time.Now().Unix()
     inv := &Invoice{
         ID:        id,
@@ -77,7 +77,7 @@ func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, tt
 }
 
 // GetInvoice retrieves an invoice
-func (bp *BtnPay) GetInvoice(id string) (*Invoice, error) {
+func (bp *BtngPay) GetInvoice(id string) (*Invoice, error) {
     bp.mutex.RLock()
     defer bp.mutex.RUnlock()
 
@@ -95,7 +95,7 @@ func (bp *BtnPay) GetInvoice(id string) (*Invoice, error) {
 }
 
 // MarkPaid marks an invoice as paid (typically after verifying tx)
-func (bp *BtnPay) MarkPaid(id, txId string) error {
+func (bp *BtngPay) MarkPaid(id, txId string) error {
     bp.mutex.Lock()
     defer bp.mutex.Unlock()
 
@@ -114,8 +114,8 @@ func (bp *BtnPay) MarkPaid(id, txId string) error {
 
 // --- HTTP Helpers (optional) ---
 
-// CreateInvoiceHandler handles POST /api/btnpay/invoice
-func (bp *BtnPay) CreateInvoiceHandler(w http.ResponseWriter, r *http.Request) {
+// CreateInvoiceHandler handles POST /api/btngpay/invoice
+func (bp *BtngPay) CreateInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     if r.Method != http.MethodPost {
         http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
         return
@@ -146,8 +146,8 @@ func (bp *BtnPay) CreateInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(inv)
 }
 
-// GetInvoiceHandler handles GET /api/btnpay/invoice/{id}
-func (bp *BtnPay) GetInvoiceHandler(w http.ResponseWriter, r *http.Request) {
+// GetInvoiceHandler handles GET /api/btngpay/invoice/{id}
+func (bp *BtngPay) GetInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     // assume the last path segment is the invoice id
     parts := splitPath(r.URL.Path)
     if len(parts) == 0 {
@@ -166,8 +166,8 @@ func (bp *BtnPay) GetInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(inv)
 }
 
-// PayInvoiceHandler handles POST /api/btnpay/pay
-func (bp *BtnPay) PayInvoiceHandler(w http.ResponseWriter, r *http.Request) {
+// PayInvoiceHandler handles POST /api/btngpay/pay
+func (bp *BtngPay) PayInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     if r.Method != http.MethodPost {
         http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
         return

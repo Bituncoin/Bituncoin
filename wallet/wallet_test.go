@@ -122,7 +122,7 @@ func TestCalculateExchange(t *testing.T) {
 func TestCreateExchangeOrder(t *testing.T) {
 	exchange := NewExchange()
 	
-	order, err := exchange.CreateExchangeOrder("BTN123", "BTC", "ETH", 0.5)
+	order, err := exchange.CreateExchangeOrder("BTNG123", "BTC", "ETH", 0.5)
 	if err != nil {
 		t.Fatalf("Failed to create exchange order: %v", err)
 	}
@@ -145,7 +145,7 @@ func TestCreateExchangeOrder(t *testing.T) {
 func TestCreateCard(t *testing.T) {
 	cardManager := NewCardManager()
 	
-	card, err := cardManager.CreateCard("BTN123", CardTypeVirtual, ProviderVisa, 1000.0)
+	card, err := cardManager.CreateCard("BTNG123", CardTypeVirtual, ProviderVisa, 1000.0)
 	if err != nil {
 		t.Fatalf("Failed to create card: %v", err)
 	}
@@ -165,7 +165,7 @@ func TestCreateCard(t *testing.T) {
 
 func TestTopUpCard(t *testing.T) {
 	cardManager := NewCardManager()
-	card, _ := cardManager.CreateCard("BTN123", CardTypeVirtual, ProviderVisa, 1000.0)
+	card, _ := cardManager.CreateCard("BTNG123", CardTypeVirtual, ProviderVisa, 1000.0)
 	
 	err := cardManager.TopUpCard(card.ID, 500.0)
 	if err != nil {
@@ -180,7 +180,7 @@ func TestTopUpCard(t *testing.T) {
 
 func TestProcessCardTransaction(t *testing.T) {
 	cardManager := NewCardManager()
-	card, _ := cardManager.CreateCard("BTN123", CardTypeVirtual, ProviderVisa, 1000.0)
+	card, _ := cardManager.CreateCard("BTNG123", CardTypeVirtual, ProviderVisa, 1000.0)
 	cardManager.TopUpCard(card.ID, 500.0)
 	
 	tx, err := cardManager.ProcessCardTransaction(card.ID, "Test Store", 100.0, "purchase")
@@ -247,8 +247,8 @@ func TestAddTransaction(t *testing.T) {
 	tx := &Transaction{
 		ID:        "TX123",
 		Type:      TypeSent,
-		From:      "BTN123",
-		To:        "BTN456",
+		From:      "BTNG123",
+		To:        "BTNG456",
 		Amount:    100.0,
 		Asset:     "GLD",
 		Timestamp: time.Now(),
@@ -275,8 +275,8 @@ func TestGetUserTransactions(t *testing.T) {
 	tx1 := &Transaction{
 		ID:        "TX1",
 		Type:      TypeSent,
-		From:      "BTN123",
-		To:        "BTN456",
+		From:      "BTNG123",
+		To:        "BTNG456",
 		Amount:    100.0,
 		Asset:     "GLD",
 		Timestamp: time.Now(),
@@ -285,8 +285,8 @@ func TestGetUserTransactions(t *testing.T) {
 	tx2 := &Transaction{
 		ID:        "TX2",
 		Type:      TypeReceived,
-		From:      "BTN789",
-		To:        "BTN123",
+		From:      "BTNG789",
+		To:        "BTNG123",
 		Amount:    50.0,
 		Asset:     "GLD",
 		Timestamp: time.Now(),
@@ -295,7 +295,7 @@ func TestGetUserTransactions(t *testing.T) {
 	history.AddTransaction(tx1)
 	history.AddTransaction(tx2)
 	
-	transactions := history.GetUserTransactions("BTN123")
+	transactions := history.GetUserTransactions("BTNG123")
 	if len(transactions) != 2 {
 		t.Errorf("Expected 2 transactions, got %d", len(transactions))
 	}
@@ -402,7 +402,7 @@ func TestFraudDetector(t *testing.T) {
 	detector := NewFraudDetector()
 	
 	// Test large transaction
-	isSuspicious, reason := detector.CheckTransaction("BTN123", "BTN456", 15000.0)
+	isSuspicious, reason := detector.CheckTransaction("BTNG123", "BTNG456", 15000.0)
 	if !isSuspicious {
 		t.Error("Expected large transaction to be flagged")
 	}
@@ -415,9 +415,9 @@ func TestFraudDetector(t *testing.T) {
 func TestBlockAddress(t *testing.T) {
 	detector := NewFraudDetector()
 	
-	detector.BlockAddress("BTN123")
+	detector.BlockAddress("BTNG123")
 	
-	if !detector.IsAddressBlocked("BTN123") {
+	if !detector.IsAddressBlocked("BTNG123") {
 		t.Error("Expected address to be blocked")
 	}
 }
@@ -425,9 +425,9 @@ func TestBlockAddress(t *testing.T) {
 func TestAlertSystem(t *testing.T) {
 	alertSystem := NewAlertSystem()
 	
-	alertSystem.SendAlert("security", "high", "Test alert", "BTN123")
+	alertSystem.SendAlert("security", "high", "Test alert", "BTNG123")
 	
-	alerts := alertSystem.GetAlerts("BTN123")
+	alerts := alertSystem.GetAlerts("BTNG123")
 	if len(alerts) != 1 {
 		t.Errorf("Expected 1 alert, got %d", len(alerts))
 	}

@@ -12,7 +12,7 @@
 - **30-day Lock Period** for staking security
 
 ### 💼 Comprehensive Universal Wallet
-- **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB
+- **Multi-Currency Support**: BTNG, GLD, BTC, ETH, USDT, BNB
 - **Real-time Portfolio Tracking**: Live balance updates and performance metrics
 - **Cross-Chain Transactions**: Seamless asset transfers between blockchains
 - **Transaction History**: Complete tracking with filtering and search
@@ -25,7 +25,7 @@
 - **Real-time Rates**: Live exchange rates from multiple sources
 - **Exchange History**: Track all your trades
 
-### 💳 BTN-Pay Payment Cards
+### 💳 BTNG-Pay Payment Cards
 - **Virtual Cards**: Instant creation for online payments
 - **Physical Cards**: MasterCard and Visa support
 - **Real-time Transaction Tracking**: Monitor all card transactions
@@ -104,13 +104,13 @@ bituncoin-btn/
 │   ├── security.go     # Security & fraud detection
 │   └── crosschain.go   # Cross-chain bridge
 ├── payments/           # Payment protocols
-│   └── btnpay.go       # BTN-Pay implementation
+│   └── btnpay.go       # BTNG-Pay implementation
 ├── identity/           # Address management
 │   └── btnaddress.go   # Address generation
 ├── storage/            # Data persistence
 │   └── leveldb.go      # Key-value storage
 ├── docs/               # Documentation
-│   ├── BTN-PAY.md      # Payment protocol docs
+│   ├── BTNG-PAY.md      # Payment protocol docs
 │   ├── DEVELOPER_GUIDE.md # Developer documentation
 │   ├── USER_GUIDE.md   # End-user guide
 │   └── LAUNCH_STRATEGY.md # Launch plan
@@ -302,7 +302,7 @@ npm run build
 - [Developer Guide](docs/DEVELOPER_GUIDE.md) - Developer documentation
 - [User Guide](docs/USER_GUIDE.md) - End-user documentation
 - [Launch Strategy](docs/LAUNCH_STRATEGY.md) - Launch and marketing plan
-- [BTN-Pay Protocol](docs/BTN-PAY.md) - Payment protocol specification
+- [BTNG-Pay Protocol](docs/BTNG-PAY.md) - Payment protocol specification
 - [Configuration](config.yml) - Configuration options
 
 ## Contributing

@@ -1,6 +1,6 @@
-# BTN-PAY - Bituncoin Payment Protocol
+# BTNG-PAY - Bituncoin Payment Protocol
 
-This document describes BTN-PAY, a lightweight on-chain/off-chain payment flow for Bituncoin (Gold-Coin, GLD). It includes a specification, API endpoints, example Go server integration, and a simple client workflow.
+This document describes BTNG-PAY, a lightweight on-chain/off-chain payment flow for Bituncoin (Gold-Coin, GLD). It includes a specification, API endpoints, example Go server integration, and a simple client workflow.
 
 ## Goals
 
@@ -16,29 +16,29 @@ This document describes BTN-PAY, a lightweight on-chain/off-chain payment flow f
 
 ## Endpoints (suggested)
 
-- POST /api/btnpay/invoice
+- POST /api/btngpay/invoice
   - Create a new invoice
   - Body: { "merchant": "addr", "amount": 123.45, "currency": "GLD", "memo": "Order #123" }
-  - Returns: { "invoiceId": "btnpay_...", "expiresAt": 169... }
+  - Returns: { "invoiceId": "btngpay_...", "expiresAt": 169... }
 
-- GET /api/btnpay/invoice/{id}
+- GET /api/btngpay/invoice/{id}
   - Get invoice details/status
 
-- POST /api/btnpay/pay
+- POST /api/btngpay/pay
   - Submit proof-of-payment or on-chain tx id
   - Body: { "invoiceId": "...", "from": "addr", "txId": "tx_..." }
   - Returns: { "status": "pending|paid|failed" }
 
-- POST /api/btnpay/callback
+- POST /api/btngpay/callback
   - (Optional) Merchant webhook to notify of invoice status changes
 
 ## Recommended flow
 
-1. Merchant creates invoice using /api/btnpay/invoice.
+1. Merchant creates invoice using /api/btngpay/invoice.
 2. Wallet fetches invoice and displays amount + QR code with payee address and invoiceId.
 3. Customer pays on-chain using GLD to merchant address (including invoiceId in metadata) or uses off-chain channel.
-4. Wallet submits /api/btnpay/pay with txId or proof.
-5. BTN-PAY service validates on-chain transaction (confirmations) or marks paid after proof is verified; merchant receives webhook callback.
+4. Wallet submits /api/btngpay/pay with txId or proof.
+5. BTNG-PAY service validates on-chain transaction (confirmations) or marks paid after proof is verified; merchant receives webhook callback.
 
 ## Example: Minimal Go implementation (in-memory)
 
@@ -79,22 +79,22 @@ type Invoice struct {
     TxID      string        `json:"txId,omitempty"`
 }
 
-// BtnPay is a minimal in-memory BTN-PAY service
+// BtngPay is a minimal in-memory BTNG-PAY service
 
-type BtnPay struct {
+type BtngPay struct {
     invoices map[string]*Invoice
     mutex    sync.RWMutex
 }
 
-// NewBtnPay creates a new service
-func NewBtnPay() *BtnPay {
-    return &BtnPay{
+// NewBtngPay creates a new service
+func NewBtngPay() *BtngPay {
+    return &BtngPay{
         invoices: make(map[string]*Invoice),
     }
 }
 
 // CreateInvoice creates a new invoice
-func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, ttlSeconds int64) (*Invoice, error) {
+func (bp *BtngPay) CreateInvoice(merchant string, amount float64, memo string, ttlSeconds int64) (*Invoice, error) {
     if merchant == "" {
         return nil, errors.New("merchant required")
     }
@@ -102,7 +102,7 @@ func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, tt
         return nil, errors.New("amount must be > 0")
     }
 
-    id := fmt.Sprintf("btnpay_%d", time.Now().UnixNano())
+    id := fmt.Sprintf("btngpay_%d", time.Now().UnixNano())
     now := time.Now().Unix()
     inv := &Invoice{
         ID:        id,
@@ -123,7 +123,7 @@ func (bp *BtnPay) CreateInvoice(merchant string, amount float64, memo string, tt
 }
 
 // GetInvoice retrieves an invoice
-func (bp *BtnPay) GetInvoice(id string) (*Invoice, error) {
+func (bp *BtngPay) GetInvoice(id string) (*Invoice, error) {
     bp.mutex.RLock()
     defer bp.mutex.RUnlock()
 
@@ -141,7 +141,7 @@ func (bp *BtnPay) GetInvoice(id string) (*Invoice, error) {
 }
 
 // MarkPaid marks an invoice as paid (typically after verifying tx)
-func (bp *BtnPay) MarkPaid(id, txId string) error {
+func (bp *BtngPay) MarkPaid(id, txId string) error {
     bp.mutex.Lock()
     defer bp.mutex.Unlock()
 
@@ -163,9 +163,9 @@ func (bp *BtnPay) MarkPaid(id, txId string) error {
 ## Integration notes
 
 - To integrate with existing api/btnnode.go, add routes:
-  - POST /api/btnpay/invoice -> create invoice
-  - GET /api/btnpay/invoice/{id} -> get invoice
-  - POST /api/btnpay/pay -> submit payment proof
+  - POST /api/btngpay/invoice -> create invoice
+  - GET /api/btngpay/invoice/{id} -> get invoice
+  - POST /api/btngpay/pay -> submit payment proof
 
 - Validation of on-chain txs can reuse existing Gold-Coin logic (e.g., checking mempool or block confirmations) — a simple approach is to require the payer to POST the txId and the service verifies a few confirmations before marking paid.
 
@@ -173,10 +173,10 @@ func (bp *BtnPay) MarkPaid(id, txId string) error {
 
 ## Wallet UI
 
-- Wallet should call POST /api/btnpay/invoice to create an invoice (merchant side), or retrieve invoice and display a QR with params:
-  - gld:<merchantAddress>?amount=123.45&memo=btnpay_... 
+- Wallet should call POST /api/btngpay/invoice to create an invoice (merchant side), or retrieve invoice and display a QR with params:
+  - gld:<merchantAddress>?amount=123.45&memo=btngpay_... 
 
-- After sending funds, wallet calls POST /api/btnpay/pay with invoiceId and txId, then polls GET /api/btnpay/invoice/{id} for status changes.
+- After sending funds, wallet calls POST /api/btngpay/pay with invoiceId and txId, then polls GET /api/btngpay/invoice/{id} for status changes.
 
 ## Security
 
@@ -189,7 +189,7 @@ func (bp *BtnPay) MarkPaid(id, txId string) error {
 Create invoice:
 
 ```bash
-curl -X POST "http://localhost:8080/api/btnpay/invoice" \
+curl -X POST "http://localhost:8080/api/btngpay/invoice" \
   -H "Content-Type: application/json" \
   -d '{"merchant":"GLDmerchantAddr","amount":12.5,"memo":"Order #100"}'
 ```
@@ -197,14 +197,14 @@ curl -X POST "http://localhost:8080/api/btnpay/invoice" \
 Pay invoice (wallet submits tx id after sending funds):
 
 ```bash
-curl -X POST "http://localhost:8080/api/btnpay/pay" \
+curl -X POST "http://localhost:8080/api/btngpay/pay" \
   -H "Content-Type: application/json" \
-  -d '{"invoiceId":"btnpay_...","from":"GLDfromAddr","txId":"tx_123"}'
+  -d '{"invoiceId":"btngpay_...","from":"GLDfromAddr","txId":"tx_123"}'
 ```
 
 ---
 
-This file is intended as a specification + starter implementation for BTN-PAY. You can ask me to:
+This file is intended as a specification + starter implementation for BTNG-PAY. You can ask me to:
 - Add the minimal Go implementation file under payments/btnpay.go and wire API handlers in api/btnnode.go.
 - Add persistence using storage/leveldb.go.
 - Add tests and examples.

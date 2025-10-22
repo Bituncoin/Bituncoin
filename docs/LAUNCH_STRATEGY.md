@@ -78,7 +78,7 @@ This document outlines the comprehensive launch strategy for the Bituncoin Walle
 - "Introducing the Bituncoin Comprehensive Wallet"
 - "How to Secure Your Crypto with Bituncoin Wallet"
 - "The Future of Multi-Platform Crypto Wallets"
-- "BTN-Pay Cards: Bridging Crypto and Traditional Finance"
+- "BTNG-Pay Cards: Bridging Crypto and Traditional Finance"
 
 **Video Content:**
 - Product demo videos
@@ -136,12 +136,12 @@ This document outlines the comprehensive launch strategy for the Bituncoin Walle
 #### 2. Promotional Offers
 **Early Adopter Benefits:**
 - Zero trading fees for first 30 days
-- Bonus BTN tokens for first 10,000 users
+- Bonus BTNG tokens for first 10,000 users
 - Exclusive NFT for early adopters
 - Priority support
 
 **Referral Program:**
-- Refer a friend: Both get $10 in BTN
+- Refer a friend: Both get $10 in BTNG
 - Tiered rewards for multiple referrals
 - Leaderboard with prizes
 

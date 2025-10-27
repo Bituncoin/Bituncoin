@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/Bituncoin/Bituncoin/addons"
+	"github.com/Bituncoin/Bituncoin/auth"
 	"github.com/Bituncoin/Bituncoin/payments"
 )
 
@@ -17,6 +19,8 @@ type Node struct {
 	mutex      sync.RWMutex
 	endpoints  map[string]http.HandlerFunc
 	payments   *payments.BtnPay
+	accounts   *auth.AccountManager
+	addons     *addons.ModuleRegistry
 }
 
 // NodeInfo represents node information
@@ -36,6 +40,8 @@ func NewNode(host string, port int) *Node {
 		IsRunning: false,
 		endpoints: make(map[string]http.HandlerFunc),
 		payments:  payments.NewBtnPay(),
+		accounts:  auth.NewAccountManager(),
+		addons:    addons.NewModuleRegistry(),
 	}
 }
 
@@ -93,6 +99,23 @@ func (n *Node) registerEndpoints() {
 	// register a path prefix for invoice lookups — the handler extracts the last segment as ID
 	n.endpoints["/api/btnpay/invoice/"] = n.payments.GetInvoiceHandler
 	n.endpoints["/api/btnpay/pay"] = n.payments.PayInvoiceHandler
+	
+	// Authentication endpoints
+	n.endpoints["/api/auth/register"] = n.handleRegister
+	n.endpoints["/api/auth/login"] = n.handleLogin
+	n.endpoints["/api/auth/logout"] = n.handleLogout
+	n.endpoints["/api/auth/validate"] = n.handleValidateSession
+	
+	// User management endpoints (admin only)
+	n.endpoints["/api/users/list"] = n.handleListUsers
+	n.endpoints["/api/users/update-role"] = n.handleUpdateUserRole
+	n.endpoints["/api/users/deactivate"] = n.handleDeactivateUser
+	
+	// Add-on module endpoints
+	n.endpoints["/api/addons/list"] = n.handleListAddons
+	n.endpoints["/api/addons/enable"] = n.handleEnableAddon
+	n.endpoints["/api/addons/disable"] = n.handleDisableAddon
+	n.endpoints["/api/addons/execute"] = n.handleExecuteAddon
 }
 
 // handleInfo returns node information
@@ -211,4 +234,297 @@ func (n *Node) GetNodeInfo() NodeInfo {
 		IsRunning:   n.IsRunning,
 		BlockHeight: 0,
 	}
+}
+
+// handleRegister handles user registration
+func (n *Node) handleRegister(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	var req struct {
+		Username string    `json:"username"`
+		Email    string    `json:"email"`
+		Password string    `json:"password"`
+		Role     auth.Role `json:"role"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	user, err := n.accounts.CreateUser(req.Username, req.Email, req.Password, req.Role)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(user)
+}
+
+// handleLogin handles user authentication
+func (n *Node) handleLogin(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	var req struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	session, err := n.accounts.Authenticate(req.Username, req.Password)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(session)
+}
+
+// handleLogout handles user logout
+func (n *Node) handleLogout(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	sessionID := r.Header.Get("X-Session-ID")
+	if sessionID == "" {
+		http.Error(w, "Session ID required", http.StatusBadRequest)
+		return
+	}
+	
+	if err := n.accounts.Logout(sessionID); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+}
+
+// handleValidateSession validates a user session
+func (n *Node) handleValidateSession(w http.ResponseWriter, r *http.Request) {
+	sessionID := r.Header.Get("X-Session-ID")
+	if sessionID == "" {
+		http.Error(w, "Session ID required", http.StatusBadRequest)
+		return
+	}
+	
+	user, err := n.accounts.ValidateSession(sessionID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(user)
+}
+
+// handleListUsers lists all users (admin only)
+func (n *Node) handleListUsers(w http.ResponseWriter, r *http.Request) {
+	sessionID := r.Header.Get("X-Session-ID")
+	if sessionID == "" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	user, err := n.accounts.ValidateSession(sessionID)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	if !n.accounts.HasPermission(user.ID, auth.PermissionManageUsers) {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+	
+	users := n.accounts.ListUsers()
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(users)
+}
+
+// handleUpdateUserRole updates a user's role (admin only)
+func (n *Node) handleUpdateUserRole(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	sessionID := r.Header.Get("X-Session-ID")
+	if sessionID == "" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	user, err := n.accounts.ValidateSession(sessionID)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	if !n.accounts.HasPermission(user.ID, auth.PermissionManageUsers) {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+	
+	var req struct {
+		UserID  string    `json:"userId"`
+		NewRole auth.Role `json:"newRole"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	if err := n.accounts.UpdateUserRole(req.UserID, req.NewRole); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+}
+
+// handleDeactivateUser deactivates a user account (admin only)
+func (n *Node) handleDeactivateUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	sessionID := r.Header.Get("X-Session-ID")
+	if sessionID == "" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	user, err := n.accounts.ValidateSession(sessionID)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	
+	if !n.accounts.HasPermission(user.ID, auth.PermissionManageUsers) {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+	
+	var req struct {
+		UserID string `json:"userId"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	if err := n.accounts.DeactivateUser(req.UserID); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+}
+
+// handleListAddons lists all registered add-ons
+func (n *Node) handleListAddons(w http.ResponseWriter, r *http.Request) {
+	modules := n.addons.ListModules()
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(modules)
+}
+
+// handleEnableAddon enables an add-on module
+func (n *Node) handleEnableAddon(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	var req struct {
+		Name   string                 `json:"name"`
+		Config map[string]interface{} `json:"config"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	if err := n.addons.Enable(req.Name, req.Config); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+}
+
+// handleDisableAddon disables an add-on module
+func (n *Node) handleDisableAddon(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	var req struct {
+		Name string `json:"name"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	if err := n.addons.Disable(req.Name); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+}
+
+// handleExecuteAddon executes an add-on module action
+func (n *Node) handleExecuteAddon(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	
+	var req struct {
+		Name   string                 `json:"name"`
+		Action string                 `json:"action"`
+		Params map[string]interface{} `json:"params"`
+	}
+	
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	
+	result, err := n.addons.Execute(req.Name, req.Action, req.Params)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
 }

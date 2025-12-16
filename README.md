@@ -25,7 +25,7 @@
 - **Real-time Rates**: Live exchange rates from multiple sources
 - **Exchange History**: Track all your trades
 
-### 💳 BTN-Pay Payment Cards
+### 💳 BTNG-Pay Payment Cards
 - **Virtual Cards**: Instant creation for online payments
 - **Physical Cards**: MasterCard and Visa support
 - **Real-time Transaction Tracking**: Monitor all card transactions
@@ -80,7 +80,7 @@
 ## Repository Structure
 
 ```
-bituncoin-btn/
+bituncoin-btng/
 ├── goldcoin/           # Gold-Coin cryptocurrency implementation
 │   ├── goldcoin.go     # Core token logic
 │   └── staking.go      # Staking pool management

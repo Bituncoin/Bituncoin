@@ -1,6 +1,6 @@
 # BITUNCOIN Blockchain Ecosystem
 
-🪙 **BING Gold-Coin (GLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
+🪙 **BING Gold-Coin (BGLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
 
 ## Features
 

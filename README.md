@@ -12,7 +12,7 @@
 - **30-day Lock Period** for staking security
 
 ### 💼 Comprehensive Universal Wallet
-- **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB
+- **Multi-Currency Support**: BTNG, GLD, BTC, ETH, USDT, BNB
 - **Real-time Portfolio Tracking**: Live balance updates and performance metrics
 - **Cross-Chain Transactions**: Seamless asset transfers between blockchains
 - **Transaction History**: Complete tracking with filtering and search

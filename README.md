@@ -1,10 +1,10 @@
 # BITUNCOIN Blockchain Ecosystem
 
-🪙 **Gold-Coin (GLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
+🪙 **BING Gold-Coin (GLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
 
 ## Features
 
-### 🌟 Gold-Coin Cryptocurrency
+### 🌟BTNG Gold-Coin Cryptocurrency
 - **Proof-of-Stake (PoS)** consensus mechanism for energy efficiency
 - **100 Million GLD** maximum supply with 8 decimal precision
 - **5% Annual Staking Rewards** for validators and stakers
@@ -81,7 +81,7 @@
 
 ```
 bituncoin-btng/
-├── goldcoin/           # Gold-Coin cryptocurrency implementation
+├── goldcoin/           # BTNG Gold-Coin cryptocurrency implementation
 │   ├── goldcoin.go     # Core token logic
 │   └── staking.go      # Staking pool management
 ├── consensus/          # Proof-of-Stake consensus
@@ -110,7 +110,7 @@ bituncoin-btng/
 ├── storage/            # Data persistence
 │   └── leveldb.go      # Key-value storage
 ├── docs/               # Documentation
-│   ├── BTN-PAY.md      # Payment protocol docs
+│   ├── BTNG-PAY.md      # Payment protocol docs
 │   ├── DEVELOPER_GUIDE.md # Developer documentation
 │   ├── USER_GUIDE.md   # End-user guide
 │   └── LAUNCH_STRATEGY.md # Launch plan
@@ -161,15 +161,15 @@ npm start
 
 | Parameter | Value |
 |-----------|-------|
-| Name | Gold-Coin |
-| Symbol | GLD |
-| Max Supply | 100,000,000 GLD |
+| Name | BGold-Coin |
+| Symbol | BGLD |
+| Max Supply | 100,000,000 BGLD |
 | Decimals | 8 |
 | Consensus | Proof-of-Stake |
 | Block Time | 10 seconds |
 | Staking Reward | 5% annual |
-| Min Stake | 100 GLD |
-| Min Validator Stake | 1,000 GLD |
+| Min Stake | 100 BGLD |
+| Min Validator Stake | 1,000 BGLD |
 | Transaction Fee | 0.1% |
 
 ## Proof-of-Stake Features
@@ -208,7 +208,7 @@ npm start
 
 ### Staking Tab
 - View staked amount and rewards
-- Stake more GLD
+- Stake more BGLD
 - Claim accumulated rewards
 - Unstake after lock period
 

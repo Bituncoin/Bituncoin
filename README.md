@@ -4,7 +4,7 @@
 
 ## Features
 
-### 🌟BTNG Gold-Coin Cryptocurrency
+### 🌟Bituncoin BTNG Gold-Coin Cryptocurrency
 - **Proof-of-Stake (PoS)** consensus mechanism for energy efficiency
 - **100 Million GLD** maximum supply with 8 decimal precision
 - **5% Annual Staking Rewards** for validators and stakers

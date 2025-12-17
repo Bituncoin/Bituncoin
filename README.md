@@ -161,7 +161,7 @@ npm start
 
 | Parameter | Value |
 |-----------|-------|
-| Name | BGold-Coin |
+| Name | Bituncoin Gold-Coin |
 | Symbol | BGLD |
 | Max Supply | 100,000,000 BGLD |
 | Decimals | 8 |

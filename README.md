@@ -80,7 +80,7 @@
 ## Repository Structure
 
 ```
-bituncoin-btng/
+Bituncoin Gold-btng/
 ├── goldcoin/           # BTNG Gold-Coin cryptocurrency implementation
 │   ├── goldcoin.go     # Core token logic
 │   └── staking.go      # Staking pool management

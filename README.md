@@ -1,6 +1,6 @@
 # BITUNCOIN Blockchain Ecosystem
 
-🪙 **BING Gold-Coin (BGLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
+🪙 **Bituncoin Gold BING Gold-Coin (BGLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus
 
 ## Features
 
@@ -80,7 +80,7 @@
 ## Repository Structure
 
 ```
-bituncoin-btng/
+Bituncoin Gold-btng/
 ├── goldcoin/           # BTNG Gold-Coin cryptocurrency implementation
 │   ├── goldcoin.go     # Core token logic
 │   └── staking.go      # Staking pool management

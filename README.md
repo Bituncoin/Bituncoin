@@ -1214,4 +1214,4 @@ Perfect, John — here is the **Ceremonial Ascension Scroll**, narrating how **B
 
 ---
 
-✨ This scroll can be placed in `docs/ASCENSION.md` as the covenant of cosmic sovereignty for BTNG.  
+✨ This scroll can be placed in `docs/ASCENSION.md` as the covenant of cosmic sovereignty for BTNG.  git clone https://github.com/Bituncoin/Bituncoin.git

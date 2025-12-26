@@ -1,0 +1,192 @@
+name: Multi-Platform Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-backend:
+    name: Build Backend for Multiple Platforms
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+        exclude:
+          - goos: windows
+            goarch: arm64
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.18'
+        
+    - name: Build API Node
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+      run: |
+        mkdir -p dist/${{ matrix.goos }}-${{ matrix.goarch }}
+        go build -o dist/${{ matrix.goos }}-${{ matrix.goarch }}/btnnode${{ matrix.goos == 'windows' && '.exe' || '' }} ./api
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: btnnode-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: dist/${{ matrix.goos }}-${{ matrix.goarch }}/*
+
+  build-wallet-web:
+    name: Build Web Wallet
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      working-directory: wallet
+      run: npm ci
+      
+    - name: Build wallet
+      working-directory: wallet
+      run: npm run build
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wallet-web
+        path: wallet/build/*
+
+  build-electron-windows:
+    name: Build Electron App for Windows
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      working-directory: wallet
+      run: npm ci
+      
+    - name: Install Electron Builder
+      working-directory: wallet
+      run: npm install --save-dev electron electron-builder
+      
+    - name: Build Electron app
+      working-directory: wallet
+      run: npm run build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wallet-windows
+        path: wallet/dist/*.exe
+
+  build-electron-macos:
+    name: Build Electron App for macOS
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      working-directory: wallet
+      run: npm ci
+      
+    - name: Install Electron Builder
+      working-directory: wallet
+      run: npm install --save-dev electron electron-builder
+      
+    - name: Build Electron app
+      working-directory: wallet
+      run: npm run build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wallet-macos
+        path: wallet/dist/*.dmg
+
+  build-electron-linux:
+    name: Build Electron App for Linux
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      working-directory: wallet
+      run: npm ci
+      
+    - name: Install Electron Builder
+      working-directory: wallet
+      run: npm install --save-dev electron electron-builder
+      
+    - name: Build Electron app
+      working-directory: wallet
+      run: npm run build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wallet-linux
+        path: wallet/dist/*.AppImage
+
+  create-release:
+    name: Create Release
+    needs: [build-backend, build-wallet-web, build-electron-windows, build-electron-macos, build-electron-linux]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+      
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          btnnode-*/*
+          wallet-web/*
+          wallet-windows/*.exe
+          wallet-macos/*.dmg
+          wallet-linux/*.AppImage
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

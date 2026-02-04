@@ -1,4 +1,4 @@
-# BITUNCOIN GOLD Blockchain Ecosystem
+# BITUNCOIN GOLD Blockchain Ecosystem btng-root-member
 This description is tailored for the Ekuye Digital Gateway Trust GitHub organization. It frames the repository not just as a software project, but as a sovereign infrastructure for Africa, led by John Kojo Zi and backed by the Pure Trust legal framework.
 🌍 BTNGAI: Sovereign African Gold Ledger & AI Fiduciary System
 Maintained by Ekuye Digital Gateway Trust Ltd

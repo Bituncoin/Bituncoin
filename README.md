@@ -160,9 +160,6 @@ Review proposals
     CODE_OF_CONDUCT.md
     CROSS_ORG_CHARTER.md
 
-
-Message Copilot
-
 Help shape the future of African digital sovereignty
 
 Your contributions matter.

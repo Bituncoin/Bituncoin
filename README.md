@@ -2,7 +2,6 @@ Bituncoin Gold (BTNG)
 Sovereign African Blockchain Ecosystem
 Bituncoin Gold (BTNG) is a gold‑anchored, sovereign blockchain ecosystem engineered for Africa and the global African Diaspora.
 It is maintained by a multi‑organization governance structure designed for clarity, stability, and long‑term stewardship.
-
 Ecosystem Overview
 Code
 Ekuye DIGITAL GATEWAY TRUST LTD      — Legal & Fiduciary Root
@@ -66,6 +65,7 @@ See LICENSE.
 
 🌍 Bituncoin Gold (BTNG) — Sovereign African Blockchain Ecosystem
 A next‑generation, gold‑anchored blockchain ecosystem engineered for Africa and the Diaspora.
+
 Built and maintained by Ekuye Digital Gateway Trust Ltd, operating under a fiduciary framework dedicated to transparency, sovereignty, and long‑term stewardship.
 
 🪙 What We’re Building
@@ -82,7 +82,6 @@ Support cross‑chain interoperability
 Empower developers, merchants, and node operators
 
 Our mission is to create a resilient, inclusive, and future‑proof financial network for the 54 nations of Africa and the global African Diaspora.
-
 
 🏗️ Core Repositories
 btng-core-ledger — Layer‑1 blockchain implementation
@@ -145,6 +144,7 @@ Governance questions: governance@project.org
 Trustee inquiries: info@ekuye.com
 
 🤝 Join the Community
+
 Participate in discussions
 
 Contribute code
@@ -169,16 +169,21 @@ This description is tailored for the Ekuye Digital Gateway Trust GitHub organiza
 🌍 BTNGAI: Sovereign African Gold Ledger & AI Fiduciary System
 Maintained by Ekuye Digital Gateway Trust Ltd
 “Banking by the People, for the People, through the Power of Truth and AI.”
+
 🏛️ About the Organization
 Ekuye Digital Gateway Trust Ltd is a Pure Trust and Fiduciary Holding Organization. Established under the Declaration of Trust and governed by the Law of Acceptance, we serve as the fiduciary anchor for the 54 nations of Africa and the African Diaspora.
+
 Our mission is to decouple African wealth from external debt-based systems and restore sovereignty through the Bituncoin Gold AI (BTNGAI) ecosystem—a decentralized, gold-backed, quantum-safe financial sanctuary.
+
 🚀 The BTNGAI Ecosystem
 This GitHub organization contains the core repositories for the New African Realization, engineered by African-born IT Architect and Quantum Technology Engineer John Kojo Zi.
+
 Key Technical Pillars:
  * 🪙 AI-Vision Gold Evaluation: A specialized Convolutional Neural Network (CNN) designed to image and evaluate physical BTNG 712 Gold Coins in real-time. It features automated acoustic resonance (Ping Test) validation to verify 99.9% gold purity via mobile sensors.
  * 🛡️ Quantum-Safe Security: Implementation of ML-DSA-87 (Module-Lattice-Based Digital Signature Algorithm). Our ledger is engineered to be mathematically invincible against both classical and future quantum-computing threats.
  * 📡 The 54-Nation Mesh: A resilient, hybrid network architecture that utilizes Satellite Relay and P2P Mesh Networking to ensure the African economy remains "Live Active" even during total internet outages.
  * ⚖️ Trustee Access Protocol (TAP): A multi-signature smart contract framework requiring a 2-of-3 quorum (Beneficiary + Ekuye Trust + AI Guardian) to release or move physical gold reserves.
+   
 📂 Core Repositories
  * btng-core-ledger: The Layer-1 sovereign blockchain source code.
  * ai-banker-mobile: The React Native application featuring the John Kojo Zi AI-Vision engine.
@@ -200,6 +205,7 @@ The software hosted here is not a commercial product; it is a Sovereign Tool of 
 Ekuye Digital Gateway Trust Ltd | Fiduciary Holding Foundation
 How to update your GitHub Profile:
  * Go to your GitHub Organization page.
+   
 1. Unified Ecosystem Map (All Four Organizations)
 Code
 Ekuye DIGITAL GATEWAY TRUST LTD  (Root Legal + Operational Entity)

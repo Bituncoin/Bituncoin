@@ -202,7 +202,163 @@ BITUNCOIN GOLD Blockchain Ecosystem
 
 ## Repository Structure
 
-```
+Code
+README.md
+Bituncoin Gold (BTNG) — Sovereign African Blockchain Ecosystem
+Bituncoin Gold (BTNG) is a gold‑anchored, sovereign blockchain ecosystem engineered for Africa and the global African Diaspora.
+It is built and maintained by Ekuye Digital Gateway Trust Ltd, operating under a fiduciary framework dedicated to transparency, sovereignty, and long‑term stewardship.
+
+Mission
+BTNG provides:
+
+Gold‑backed digital transactions
+
+Secure, post‑quantum‑resistant signatures
+
+Cross‑chain interoperability
+
+Offline access via USSD (*712#)
+
+Institutional integration via Hyperledger Fabric
+
+A clear, community‑driven governance model
+
+The goal is to create a resilient, inclusive, future‑proof financial network for all 54 African nations and the Diaspora.
+
+Core Repositories
+Repository	Description
+btng-core-ledger	Layer‑1 blockchain: consensus, blocks, transactions, state.
+ai-banker-mobile	Mobile wallet with AI‑assisted insights.
+quantum-shield-lib	Post‑quantum cryptographic primitives.
+ussd-relay-bridge	Offline access via *712# USSD flows.
+btng-fabric-network	Hyperledger Fabric network for institutional integrations.
+Each repository follows strict governance, contribution, and security standards.
+
+Developer Onboarding
+Start here:
+
+Contributor Handbook  
+/docs/CONTRIBUTOR_HANDBOOK.md
+
+Governance Overview  
+/governance/GOVERNANCE.md
+
+Technical Architecture  
+/docs/TECHNICAL_ARCHITECTURE.md
+
+Start‑Here Issue Template  
+.github/ISSUE_TEMPLATE/start_here.md
+
+Contribution Workflow
+Fork the repository
+
+Create a feature branch
+
+Make changes and commit (GPG‑signed)
+
+Open a Pull Request
+
+Participate in review
+
+Merge after approval
+
+See:
+/governance/CONTRIBUTING.md
+
+Governance
+BTNG uses a community‑driven governance model with:
+
+Maintainers
+
+Contributors
+
+Steering Committee
+
+Clear decision‑making processes
+
+Transparent release management
+
+Responsible security disclosure
+
+Full governance suite:
+/governance
+
+Security
+We take security seriously.
+
+Report vulnerabilities privately:
+security@project.org
+
+Security policy:
+/governance/SECURITY_DISCLOSURE.md
+
+Architecture Diagram
+Code
+                        Ekuye Digital Gateway Trust
+                                   │
+                                   ▼
+                     Bituncoin Gold (BTNG) Ecosystem
+                                   │
+        ┌──────────────────────────┼──────────────────────────┐
+        ▼                          ▼                          ▼
+ btng-core-ledger        ai-banker-mobile           quantum-shield-lib
+   Layer-1 chain            Wallet + AI             Post-quantum crypto
+        │                          │                          │
+        ▼                          ▼                          ▼
+ consensus/pos            merchant services          ML-DSA signatures
+
+        ┌────────────────────────────────────────────────────────────┐
+        │                    Governance Framework                     │
+        │  Maintainers • Contributors • Steering Committee • Security │
+        └────────────────────────────────────────────────────────────┘
+Repository Structure
+Code
+/governance
+    README.md
+    GOVERNANCE.md
+    CONTRIBUTING.md
+    STEERING_COMMITTEE.md
+    RELEASE_POLICY.md
+    SECURITY_DISCLOSURE.md
+    MAINTAINER_ONBOARDING.md
+
+/.github
+    CODEOWNERS
+    SECURITY.md
+    PULL_REQUEST_TEMPLATE.md
+    /ISSUE_TEMPLATE
+        bug_report.md
+        feature_request.md
+        governance_proposal.md
+        start_here.md
+
+/docs
+    CONTRIBUTOR_HANDBOOK.md
+    TECHNICAL_ARCHITECTURE.md
+Badges
+Governance ( in Bing)
+Security ( in Bing)
+Contributors ( in Bing)
+Releases ( in Bing)
+
+Contact
+Technical inquiries: info@bituncoin.com
+
+Governance questions: governance@project.org
+
+Trustee inquiries: info@ekuye.com
+
+Community
+Participate in discussions
+
+Contribute code
+
+Review proposals
+
+Help shape the future of African digital sovereignty
+
+Your contributions matter.
+
 Bituncoin Gold-btng/
 ├── goldcoin/           # BTNG Gold-Coin cryptocurrency implementation
 │   ├── goldcoin.go     # Core token logic
@@ -797,7 +953,8 @@ Perfect, John — here is the **Developer Onboarding Scroll** for **Bituncoin Go
   ```bash
   git clone https://github.com/bituncoin-gold/btng.git
   cd btng
-  ```
+
+  /docs/TECHNICAL_ARCHITECTURE.md
 
 ## 🔑 2. Core Build
 - **Compile Goldcoin Logic**:  

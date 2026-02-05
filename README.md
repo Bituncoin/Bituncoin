@@ -124,6 +124,182 @@ Ekuye Digital Gateway Trust Ltd | Fiduciary Holding Foundation
 How to update your GitHub Profile:
  * Go to your GitHub Organization page.
 
+1. Unified Ecosystem Map (All Four Organizations)
+Code
+Ekuye DIGITAL GATEWAY TRUST LTD  (Root Legal + Operational Entity)
+│
+├── INTERNATIONAL EQUITY TRUST CO
+│     (Global fiduciary + cross‑border institutional arm)
+│
+├── Bituncoin Gold BTNG
+│     (Core engineering + blockchain protocol development)
+│
+└── Ekuye Digital Gateway Trust
+      (Community, documentation, onboarding, governance)
+Each org has a clear, non‑overlapping purpose.
+Together they form a complete sovereign infrastructure.
+
+2. Recommended Repository Layout Across All Orgs
+A. Ekuye DIGITAL GATEWAY TRUST LTD
+Purpose: Legal, operational, infrastructure, compliance.
+
+Repos that belong here:
+
+infrastructure‑ops
+
+cloud‑deployment
+
+devops‑pipelines
+
+compliance‑docs
+
+legal‑framework
+
+trust‑policies
+
+internal‑admin‑tools
+
+This org is the “root validator” of your real‑world governance.
+
+B. INTERNATIONAL EQUITY TRUST CO
+Purpose: International partnerships, cross‑border trust structures.
+
+Repos that belong here:
+
+international‑agreements
+
+cross‑border‑compliance
+
+institutional‑onboarding
+
+global‑settlement‑framework
+
+multi‑jurisdiction‑policies
+
+This org handles everything that touches global institutions.
+
+C. Bituncoin Gold BTNG
+Purpose: Core engineering and protocol development.
+
+Repos that belong here:
+
+btng‑core‑ledger
+
+quantum‑shield‑lib
+
+ussd‑relay‑bridge
+
+btng‑fabric‑network
+
+ai‑banker‑mobile
+
+btng‑sdk
+
+btng‑cli
+
+btng‑node‑tools
+
+btng‑testnet
+
+btng‑specifications
+
+This is the engineering heart of the ecosystem.
+
+D. Ekuye Digital Gateway Trust
+Purpose: Community, documentation, governance, onboarding.
+
+Repos that belong here:
+
+documentation
+
+governance
+
+contributor‑portal
+
+website
+
+community‑guides
+
+tutorials
+
+examples
+
+design‑system
+
+ecosystem‑map
+
+This is the public‑facing entry point for contributors.
+
+3. Cross‑Org Governance Structure
+A clean, professional governance model across all four orgs looks like this:
+
+Top‑Level Governance (Legal + Fiduciary)
+Ekuye DIGITAL GATEWAY TRUST LTD
+
+Oversees legal compliance
+
+Owns trademarks, IP, and fiduciary responsibilities
+
+Approves major protocol changes
+
+Maintains long‑term stewardship
+
+INTERNATIONAL EQUITY TRUST CO
+
+Manages international agreements
+
+Handles cross‑border institutional relationships
+
+Ensures global compliance
+
+Technical Governance (Engineering + Protocol)
+Bituncoin Gold BTNG
+
+Maintainers for core ledger
+
+Security team for protocol integrity
+
+Release managers for versioning
+
+Technical steering committee
+
+Community Governance (Docs + Onboarding + Participation)
+Ekuye Digital Gateway Trust
+
+Contributor onboarding
+
+Documentation standards
+
+Community guidelines
+
+Issue triage and support
+
+Public governance proposals
+
+4. Public‑Facing Explanation of the Four‑Pillar Model
+This is the version you can place on your organization landing page or website.
+
+The Four‑Pillar Structure of the Bituncoin Ecosystem
+The Bituncoin ecosystem is built on a multi‑organization architecture designed for clarity, sovereignty, and long‑term stability.
+
+1. Ekuye DIGITAL GATEWAY TRUST LTD
+The legal and fiduciary foundation.
+This entity provides operational stability, compliance, and long‑term stewardship.
+
+2. INTERNATIONAL EQUITY TRUST CO
+The global institutional arm.
+It manages cross‑border trust structures, international partnerships, and multi‑jurisdictional compliance.
+
+3. Bituncoin Gold BTNG
+The engineering core.
+This organization maintains the blockchain protocol, cryptographic libraries, mobile wallet, USSD bridge, and Fabric integrations.
+
+4. Ekuye Digital Gateway Trust
+The community and documentation hub.
+This is the public entry point for contributors, developers, and ecosystem participants.
+
+Together, these four pillars form a complete sovereign digital infrastructure.
+
 /lore
     CONSTITUTION.md
     CHARTER.md

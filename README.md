@@ -63,6 +63,10 @@ Legal: legal@ekuye.com
 License
 See LICENSE.
 
+🌍 Bituncoin Gold (BTNG) Sovereign African Blockchain Ecosystem 
+
+A next‑generation, gold‑anchored blockchain ecosystem engineered for Africa and the Diaspora.
+
 Built and maintained by Ekuye Digital Gateway Trust Ltd, operating under a fiduciary framework dedicated to transparency, sovereignty, and long‑term stewardship.
 
 🪙 What We’re Building
@@ -80,9 +84,7 @@ Empower developers, merchants, and node operators
 
 Our mission is to create a resilient, inclusive, and future‑proof financial network for the 54 nations of Africa and the global African Diaspora.
 
-🏗️ Core 
-
-btng-core-ledger — Layer‑1 blockchain implementation
+🏗️ Core  btng-core-ledger — Layer‑1 blockchain implementation
 
 ai-banker-mobile — Mobile wallet with AI‑driven insights
 

@@ -1,6 +1,7 @@
 Bituncoin Gold (BTNG)
 Sovereign African Blockchain Ecosystem
 Bituncoin Gold (BTNG) is a gold‑anchored, sovereign blockchain ecosystem engineered for Africa and the global African Diaspora.
+
 It is maintained by a multi‑organization governance structure designed for clarity, stability, and long‑term stewardship.
 
 Ecosystem Overview'Code
@@ -111,7 +112,6 @@ Strengthen consensus
 Enhance documentation
 
 Participate in governance
-
 Start here:
 👉 /governance/CONTRIBUTING.md
 

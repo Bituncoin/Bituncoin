@@ -111,6 +111,7 @@ Enhance documentation
 Participate in governance
 
 Start here:
+
 👉 /governance/CONTRIBUTING.md
 
 👉 /docs/CONTRIBUTOR_HANDBOOK.md

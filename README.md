@@ -123,6 +123,24 @@ The software hosted here is not a commercial product; it is a Sovereign Tool of 
 Ekuye Digital Gateway Trust Ltd | Fiduciary Holding Foundation
 How to update your GitHub Profile:
  * Go to your GitHub Organization page.
+
+/lore
+    CONSTITUTION.md
+    CHARTER.md
+    TREATY.md
+    ALLIANCE.md
+    PROPHECY.md
+    ETERNITY.md
+
+/docs
+    /architecture
+    /wallet
+    /ledger
+    /fabric
+    /ussd
+    /governance
+    /lore
+
  * Click "Edit profile".
 BITUNCOIN GOLD Blockchain Ecosystem
 🪙 **Bituncoin Gold BTNG Gold-Coin (BGLD)** - A next-generation cryptocurrency powered by Proof-of-Stake consensus

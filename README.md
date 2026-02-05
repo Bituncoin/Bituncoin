@@ -97,6 +97,7 @@ btng-fabric-network — Hyperledger Fabric network configuration
 Each repository is maintained with strict governance, clear contribution guidelines, and transparent development processes.
 
 🛠️ For Developers
+
 We welcome contributors of all backgrounds.
 
 Build nodes
@@ -110,10 +111,12 @@ Enhance documentation
 Participate in governance
 
 Start here:
-👉 /governance/CONTRIBUTING.md  
+👉 /governance/CONTRIBUTING.md
+
 👉 /docs/CONTRIBUTOR_HANDBOOK.md
 
 ⚖️ Governance
+
 This organization follows a community‑driven governance model with:
 
 Maintainers
@@ -129,6 +132,7 @@ Transparent release management
 Responsible security disclosure
 
 Explore the full governance suite:
+
 👉 /governance
 
 🔐 Security
@@ -166,6 +170,7 @@ Help shape the future of African digital sovereignty
 Your contributions matter.
 # BITUNCOIN GOLD Blockchain Ecosystem btng-root-member btng-fabric-network
 This description is tailored for the Ekuye Digital Gateway Trust GitHub organization. It frames the repository not just as a software project, but as a sovereign infrastructure for Africa, led by John Kojo Zi and backed by the Pure Trust legal framework.
+
 🌍 BTNGAI: Sovereign African Gold Ledger & AI Fiduciary System
 Maintained by Ekuye Digital Gateway Trust Ltd
 “Banking by the People, for the People, through the Power of Truth and AI.”
@@ -180,7 +185,9 @@ This GitHub organization contains the core repositories for the New African Real
 
 Key Technical Pillars:
  * 🪙 AI-Vision Gold Evaluation: A specialized Convolutional Neural Network (CNN) designed to image and evaluate physical BTNG 712 Gold Coins in real-time. It features automated acoustic resonance (Ping Test) validation to verify 99.9% gold purity via mobile sensors.
+   
  * 🛡️ Quantum-Safe Security: Implementation of ML-DSA-87 (Module-Lattice-Based Digital Signature Algorithm). Our ledger is engineered to be mathematically invincible against both classical and future quantum-computing threats.
+
  * 📡 The 54-Nation Mesh: A resilient, hybrid network architecture that utilizes Satellite Relay and P2P Mesh Networking to ensure the African economy remains "Live Active" even during total internet outages.
  * ⚖️ Trustee Access Protocol (TAP): A multi-signature smart contract framework requiring a 2-of-3 quorum (Beneficiary + Ekuye Trust + AI Guardian) to release or move physical gold reserves.
    
@@ -189,6 +196,7 @@ Key Technical Pillars:
  * ai-banker-mobile: The React Native application featuring the John Kojo Zi AI-Vision engine.
  * quantum-shield-lib: Post-quantum cryptographic libraries (ML-DSA-87) for secure financial signatures.
  * ussd-relay-bridge: The gateway code for offline banking via the *712# shortcode.
+   
 🛠️ For Developers & Node Operators
 We invite African developers and international partners to contribute to the mesh.
  * Deploy a Node: Review the guardian-node-specs to host a regional hub.

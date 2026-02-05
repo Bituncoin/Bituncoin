@@ -150,6 +150,19 @@ Contribute code
 
 Review proposals
 
+/governance
+    GOVERNANCE.md
+    CONTRIBUTING.md
+    STEERING_COMMITTEE.md
+    MAINTAINER_GUIDE.md
+    RELEASE_POLICY.md
+    SECURITY_DISCLOSURE.md
+    CODE_OF_CONDUCT.md
+    CROSS_ORG_CHARTER.md
+
+
+Message Copilot
+
 Help shape the future of African digital sovereignty
 
 Your contributions matter.

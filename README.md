@@ -143,6 +143,274 @@ Together they form a complete sovereign infrastructure.
 A. Ekuye DIGITAL GATEWAY TRUST LTD
 Purpose: Legal, operational, infrastructure, compliance.
 
+A. Ekuye DIGITAL GATEWAY TRUST LTD — Landing Page
+markdown
+# Ekuye DIGITAL GATEWAY TRUST LTD
+
+Ekuye DIGITAL GATEWAY TRUST LTD is the fiduciary and operational foundation of the Bituncoin ecosystem.  
+It provides legal stewardship, compliance oversight, and long‑term governance stability for all protocol and ecosystem operations.
+
+## Responsibilities
+
+- Legal and fiduciary governance  
+- Intellectual property and trademark management  
+- Regulatory compliance  
+- Infrastructure and operational oversight  
+- Approval of major protocol changes  
+- Long‑term stewardship of the BTNG ecosystem  
+
+## Repositories
+
+- infrastructure‑ops  
+- cloud‑deployment  
+- devops‑pipelines  
+- compliance‑docs  
+- legal‑framework  
+- trust‑policies  
+- internal‑admin‑tools  
+
+## Contact
+
+- Legal inquiries: legal@ekuye.com  
+- Compliance: compliance@ekuye.com  
+B. INTERNATIONAL EQUITY TRUST CO — Landing Page
+markdown
+# INTERNATIONAL EQUITY TRUST CO
+
+INTERNATIONAL EQUITY TRUST CO is the global institutional arm of the Bituncoin ecosystem.  
+It manages cross‑border trust structures, international partnerships, and multi‑jurisdictional compliance.
+
+## Responsibilities
+
+- International institutional onboarding  
+- Cross‑border compliance  
+- Global settlement frameworks  
+- Multi‑jurisdictional trust structures  
+- International agreements and partnerships  
+
+## Repositories
+
+- international‑agreements  
+- institutional‑onboarding  
+- cross‑border‑compliance  
+- global‑settlement‑framework  
+- multi‑jurisdiction‑policies  
+
+## Contact
+
+- Institutional relations: institutions@equitytrust.co  
+- International compliance: global@equitytrust.co  
+C. Bituncoin Gold BTNG — Landing Page
+markdown
+# Bituncoin Gold (BTNG)
+
+Bituncoin Gold (BTNG) is the core engineering organization responsible for the blockchain protocol, cryptographic libraries, wallet clients, and infrastructure integrations.
+
+## Responsibilities
+
+- Core ledger development  
+- Consensus and protocol engineering  
+- Post‑quantum cryptography  
+- Mobile wallet development  
+- USSD offline access  
+- Hyperledger Fabric integrations  
+- SDKs, CLIs, and developer tools  
+
+## Repositories
+
+- btng‑core‑ledger  
+- quantum‑shield‑lib  
+- ussd‑relay‑bridge  
+- btng‑fabric‑network  
+- ai‑banker‑mobile  
+- btng‑sdk  
+- btng‑cli  
+- btng‑node‑tools  
+- btng‑testnet  
+- btng‑specifications  
+
+## Contact
+
+- Engineering: engineering@bituncoin.com  
+- Security: security@bituncoin.com  
+D. Ekuye Digital Gateway Trust — Landing Page
+markdown
+# Ekuye Digital Gateway Trust
+
+Ekuye Digital Gateway Trust is the community, documentation, and governance hub of the Bituncoin ecosystem.  
+It provides onboarding, contributor support, and public governance processes.
+
+## Responsibilities
+
+- Documentation and contributor onboarding  
+- Community governance  
+- Public proposals and discussions  
+- Tutorials, examples, and ecosystem guides  
+- Developer portal and ecosystem map  
+
+## Repositories
+
+- documentation  
+- governance  
+- contributor‑portal  
+- website  
+- tutorials  
+- examples  
+- design‑system  
+- ecosystem‑map  
+
+## Contact
+
+- Community: community@ekuye.com  
+- Documentation: docs@ekuye.com  
+2. /lore Directory Structure
+This is the clean, professional structure for your ceremonial texts:
+
+text
+/lore
+    CONSTITUTION.md
+    CHARTER.md
+    TREATY.md
+    ALLIANCE.md
+    PROPHECY.md
+    ETERNITY.md
+    LORE_INDEX.md
+And here’s the index file:
+
+markdown
+# Lore Index
+
+This directory contains the ceremonial, cultural, and narrative texts of the Bituncoin ecosystem.  
+These documents are separate from operational and technical files.
+
+## Contents
+
+- **CONSTITUTION.md** — Foundational principles  
+- **CHARTER.md** — Operational covenant  
+- **TREATY.md** — External relations  
+- **ALLIANCE.md** — Partnerships and cultural exchange  
+- **PROPHECY.md** — Long‑term vision  
+- **ETERNITY.md** — Unifying synthesis  
+3. Ecosystem Diagram (Text Blueprint)
+text
+                          Ekuye DIGITAL GATEWAY TRUST LTD
+                           Legal • Fiduciary • Operational
+                                         │
+                                         ▼
+                     ┌────────────────────────────────────────┐
+                     │     INTERNATIONAL EQUITY TRUST CO      │
+                     │  Global • Institutional • Compliance   │
+                     └────────────────────────────────────────┘
+                                         │
+                                         ▼
+                     ┌────────────────────────────────────────┐
+                     │           Bituncoin Gold BTNG          │
+                     │   Core Engineering • Protocol • SDKs   │
+                     └────────────────────────────────────────┘
+                                         │
+                                         ▼
+                     ┌────────────────────────────────────────┐
+                     │     Ekuye Digital Gateway Trust        │
+                     │ Community • Docs • Governance • Portal │
+                     └────────────────────────────────────────┘
+4. Cross‑Org Governance Charter
+markdown
+# Cross‑Organization Governance Charter
+
+This charter defines how the four organizations within the Bituncoin ecosystem coordinate governance, decision‑making, and long‑term stewardship.
+
+## 1. Governance Layers
+
+### A. Legal & Fiduciary Governance  
+**Ekuye DIGITAL GATEWAY TRUST LTD**
+- Legal authority  
+- IP and trademark ownership  
+- Regulatory compliance  
+- Approval of major protocol changes  
+
+### B. International Governance  
+**INTERNATIONAL EQUITY TRUST CO**
+- Cross‑border compliance  
+- Institutional onboarding  
+- International agreements  
+
+### C. Technical Governance  
+**Bituncoin Gold BTNG**
+- Protocol development  
+- Security and audits  
+- Release management  
+- Technical Steering Committee  
+
+### D. Community Governance  
+**Ekuye Digital Gateway Trust**
+- Documentation  
+- Contributor onboarding  
+- Public proposals  
+- Community guidelines  
+
+## 2. Decision Flow
+
+1. Technical proposals originate in BTNG  
+2. Community review occurs in Ekuye Digital Gateway Trust  
+3. International implications reviewed by INTERNATIONAL EQUITY TRUST CO  
+4. Final approval by Ekuye DIGITAL GATEWAY TRUST LTD  
+
+## 3. Security Authority
+
+- BTNG Security Team handles protocol issues  
+- Ekuye DIGITAL GATEWAY TRUST LTD handles legal disclosure  
+- Coordinated response across all orgs  
+
+## 4. Release Authority
+
+- BTNG manages technical releases  
+- Ekuye DIGITAL GATEWAY TRUST LTD approves major version changes  
+5. Developer Portal Homepage
+markdown
+# Bituncoin Developer Portal
+
+Welcome to the Bituncoin Developer Portal — the unified entry point for building on the BTNG ecosystem.
+
+## Get Started
+
+- Install the SDK  
+- Set up your wallet  
+- Send your first transaction  
+- Explore tutorials  
+
+## Build
+
+- BTNG SDK  
+- BTNG CLI  
+- Node tools  
+- Smart modules (if applicable)  
+
+## Protocol
+
+- Consensus  
+- Ledger  
+- Cryptography  
+- Gold logic  
+
+## Infrastructure
+
+- Node setup  
+- Validator guide  
+- Monitoring and observability  
+
+## Integrations
+
+- USSD (*712#)  
+- Hyperledger Fabric  
+- Merchant APIs  
+
+## Governance
+
+- Roles  
+- Processes  
+- Proposals  
+- Security disclosures  
+
 Repos that belong here:
 
 infrastructure‑ops

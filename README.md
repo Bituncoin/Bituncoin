@@ -6,7 +6,7 @@ It is maintained by a multi‑organization governance structure designed for cla
 Ecosystem Overview'Code
 Ekuye DIGITAL GATEWAY TRUST LTD      — Legal & Fiduciary Root
 INTERNATIONAL EQUITY TRUST CO        — Global Institutional Arm
-Bituncoin Gold BTNG                  — Core Engineering & Protocol
+Bituncoin Gold BTNG                  — Core Engineering & Protocol   
 Ekuye Digital Gateway Trust          — Community, Docs & Governance
 Each organization has a distinct role.
 Together they form a unified sovereign infrastructure.
@@ -62,10 +62,6 @@ Legal: legal@ekuye.com
 
 License
 See LICENSE.
-
-🌍 Bituncoin Gold (BTNG) Sovereign African Blockchain Ecosystem 
-
-A next‑generation, gold‑anchored blockchain ecosystem engineered for Africa and the Diaspora.
 
 Built and maintained by Ekuye Digital Gateway Trust Ltd, operating under a fiduciary framework dedicated to transparency, sovereignty, and long‑term stewardship.
 

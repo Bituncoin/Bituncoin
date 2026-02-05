@@ -83,6 +83,7 @@ Empower developers, merchants, and node operators
 
 Our mission is to create a resilient, inclusive, and future‑proof financial network for the 54 nations of Africa and the global African Diaspora.
 
+
 🏗️ Core Repositories
 btng-core-ledger — Layer‑1 blockchain implementation
 
@@ -199,7 +200,6 @@ The software hosted here is not a commercial product; it is a Sovereign Tool of 
 Ekuye Digital Gateway Trust Ltd | Fiduciary Holding Foundation
 How to update your GitHub Profile:
  * Go to your GitHub Organization page.
-
 1. Unified Ecosystem Map (All Four Organizations)
 Code
 Ekuye DIGITAL GATEWAY TRUST LTD  (Root Legal + Operational Entity)
@@ -211,11 +211,11 @@ Ekuye DIGITAL GATEWAY TRUST LTD  (Root Legal + Operational Entity)
 │     (Core engineering + blockchain protocol development)
 │
 └── Ekuye Digital Gateway Trust
-      (Community, documentation, onboarding, governance)
+(Community, documentation, onboarding, governance)
 Each org has a clear, non‑overlapping purpose.
 Together they form a complete sovereign infrastructure.
 
-2. Recommended Repository Layout Across All Orgs
+3. Recommended Repository Layout Across All Orgs
 A. Ekuye DIGITAL GATEWAY TRUST LTD
 Purpose: Legal, operational, infrastructure, compliance.
 
@@ -227,7 +227,6 @@ Ekuye DIGITAL GATEWAY TRUST LTD is the fiduciary and operational foundation of t
 It provides legal stewardship, compliance oversight, and long‑term governance stability for all protocol and ecosystem operations.
 
 ## Responsibilities
-
 - Legal and fiduciary governance  
 - Intellectual property and trademark management  
 - Regulatory compliance  

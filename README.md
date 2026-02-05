@@ -69,8 +69,7 @@ A next‑generation, gold‑anchored blockchain ecosystem engineered for Africa 
 
 Built and maintained by Ekuye Digital Gateway Trust Ltd, operating under a fiduciary framework dedicated to transparency, sovereignty, and long‑term stewardship.
 
-🪙 What We’re Building
-Bituncoin Gold (BTNG) is a decentralized financial infrastructure designed to:
+🪙 What We’re Building Bituncoin Gold (BTNG) is a decentralized financial infrastructure designed to:
 
 Restore African financial sovereignty
 

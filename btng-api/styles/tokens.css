@@ -1,0 +1,59 @@
+/**
+ * BTNG Design Tokens
+ * CSS custom properties for consistent styling across the platform
+ */
+
+:root {
+  /* BTNG Sovereign Color Palette */
+  --btng-gold: #D4AF37;
+  --btng-gold-light: #F4E4B7;
+  --btng-gold-dark: #B8941F;
+  
+  --btng-trust-blue: #1A4B8C;
+  --btng-trust-blue-light: #2E6AB8;
+  --btng-trust-blue-dark: #0D2B54;
+  
+  --btng-sovereign-black: #0A0A0A;
+  --btng-sovereign-white: #FEFEFE;
+  --btng-neutral-100: #F5F5F5;
+  --btng-neutral-200: #E5E5E5;
+  --btng-neutral-700: #404040;
+  --btng-neutral-900: #171717;
+  
+  /* Typography Scale */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Menlo', 'Monaco', 'Courier New', monospace;
+  
+  /* Spacing System */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* Border & Radius */
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --border-width: 1px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.3);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* Sovereign Emblem Rhythm */
+  --emblem-pulse-cycle: 2.4s;
+  --emblem-pulse-timing: linear;
+  --emblem-glow-base: rgba(212, 175, 55, 0.3);
+  --emblem-glow-peak: rgba(212, 175, 55, 0.8);
+  --emblem-glow-trigger: rgba(212, 175, 55, 1.0);
+  --emblem-intensify-multiplier: 1.6;
+}

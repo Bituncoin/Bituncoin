@@ -1,0 +1,37 @@
+{
+  "name": "btng-gold-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for the BTNG Gold Token system",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy-gold-system.js",
+    "deploy:localhost": "hardhat run scripts/deploy-gold-system.js --network localhost",
+    "verify": "hardhat verify",
+    "coverage": "hardhat coverage",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "format": "prettier --write 'contracts/**/*.sol'"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "chai": "^4.2.0",
+    "ethers": "^6.4.0",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "prettier": "^3.0.0",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solhint": "^4.0.0",
+    "solidity-coverage": "^0.8.0",
+    "typechain": "^8.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,121 @@
+.wallet {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-lg);
+  max-width: 400px;
+  border: 2px solid var(--btng-gold);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--btng-neutral-200);
+}
+
+.title {
+  font-size: 1.5rem;
+  color: var(--btng-sovereign-black);
+}
+
+.id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--btng-neutral-700);
+  background: var(--btng-neutral-100);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+}
+
+.balanceSection {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--btng-gold-light) 0%, var(--btng-neutral-100) 100%);
+  border-radius: var(--border-radius);
+}
+
+.label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--btng-neutral-700);
+  margin-bottom: var(--space-xs);
+}
+
+.balance {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--btng-sovereign-black);
+}
+
+.currency {
+  font-size: 1.25rem;
+  color: var(--btng-gold-dark);
+  font-weight: 600;
+}
+
+.qrSection {
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.qrContainer {
+  display: inline-block;
+  padding: var(--space-md);
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+.qrLabel {
+  margin-top: var(--space-md);
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+}
+
+.actions {
+  margin-bottom: var(--space-md);
+}
+
+.toggleButton {
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--btng-neutral-100);
+  color: var(--btng-sovereign-black);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all var(--transition-base);
+}
+
+.toggleButton:hover {
+  background: var(--btng-neutral-200);
+}
+
+.status {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--btng-trust-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.indicator {
+  color: #22c55e;
+  font-size: 1.2rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

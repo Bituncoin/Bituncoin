@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btng-sdk
+  namespace: btng-sovereign
+  labels:
+    app: btng-sdk
+    component: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: btng-sdk
+  template:
+    metadata:
+      labels:
+        app: btng-sdk
+        component: backend
+    spec:
+      containers:
+      - name: btng-sdk
+        image: btng-sdk:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: btng-config
+              key: NODE_ENV
+        - name: BTNG_NETWORK
+          valueFrom:
+            configMapKeyRef:
+              name: btng-config
+              key: BTNG_NETWORK
+        - name: BTNG_RPC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: btng-config
+              key: BTNG_RPC_URL
+        - name: BTNG_RPC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: btng-secrets
+              key: BTNG_RPC_PASSWORD
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: btng-data
+          mountPath: /app/data
+      volumes:
+      - name: btng-data
+        persistentVolumeClaim:
+          claimName: btng-data-pvc

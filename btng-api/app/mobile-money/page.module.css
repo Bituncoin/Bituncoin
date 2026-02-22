@@ -1,0 +1,233 @@
+.container {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: white;
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--space-md);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  opacity: 0.95;
+}
+
+.content {
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.overview {
+  max-width: 800px;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+}
+
+.overview h2 {
+  font-size: 2rem;
+  margin-bottom: var(--space-lg);
+  color: var(--btng-sovereign-black);
+}
+
+.overview p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--btng-neutral-700);
+}
+
+.providers {
+  margin-bottom: var(--space-2xl);
+}
+
+.providers h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+.providerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.provider {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--btng-neutral-200);
+  transition: transform var(--transition-base);
+}
+
+.provider:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.providerHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.flag {
+  font-size: 2.5rem;
+}
+
+.providerHeader h3 {
+  font-size: 1.25rem;
+  color: var(--btng-sovereign-black);
+}
+
+.providerInfo p {
+  margin-bottom: var(--space-sm);
+  color: var(--btng-neutral-700);
+}
+
+.active {
+  color: #059669;
+  font-weight: 600;
+}
+
+.planned {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.howItWorks {
+  margin-bottom: var(--space-2xl);
+  background: var(--btng-neutral-100);
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+}
+
+.howItWorks h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.workflowStep {
+  background: white;
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.stepIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+.workflowStep h4 {
+  font-size: 1.1rem;
+  color: var(--btng-trust-blue);
+  margin-bottom: var(--space-sm);
+}
+
+.workflowStep p {
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+  line-height: 1.6;
+}
+
+.arrow {
+  font-size: 2rem;
+  color: var(--btng-gold);
+  font-weight: bold;
+}
+
+.features {
+  margin-bottom: var(--space-2xl);
+}
+
+.features h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+.featureList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.feature {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  background: var(--btng-neutral-100);
+  padding: var(--space-lg);
+  border-radius: var(--border-radius);
+}
+
+.check {
+  font-size: 1.5rem;
+  color: #059669;
+  font-weight: bold;
+}
+
+.feature h4 {
+  font-size: 1.1rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-xs);
+}
+
+.feature p {
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+  line-height: 1.6;
+}
+
+.callout {
+  background: linear-gradient(135deg, var(--btng-gold-light) 0%, var(--btng-gold) 100%);
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-gold);
+}
+
+.callout h3 {
+  font-size: 2rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-md);
+}
+
+.callout p {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+@media (max-width: 768px) {
+  .workflow {
+    flex-direction: column;
+  }
+  
+  .arrow {
+    transform: rotate(90deg);
+  }
+}

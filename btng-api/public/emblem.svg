@@ -1,0 +1,31 @@
+<!-- BTNG Platform Emblem -->
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Golden Shield -->
+  <path d="M100 10 L160 40 L160 120 C160 160 100 190 100 190 C100 190 40 160 40 120 L40 40 Z" 
+        fill="#D4AF37" 
+        stroke="#B8941F" 
+        stroke-width="3"/>
+  
+  <!-- Trust Symbol (Interlocking Rings) -->
+  <circle cx="85" cy="80" r="25" fill="none" stroke="#1A4B8C" stroke-width="4"/>
+  <circle cx="115" cy="80" r="25" fill="none" stroke="#1A4B8C" stroke-width="4"/>
+  
+  <!-- BTNG Text -->
+  <text x="100" y="140" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="#0A0A0A">
+    BTNG
+  </text>
+  
+  <!-- Tagline -->
+  <text x="100" y="160" 
+        font-family="Arial, sans-serif" 
+        font-size="10" 
+        text-anchor="middle" 
+        fill="#1A4B8C">
+    BUILDING TRUST
+  </text>
+</svg>

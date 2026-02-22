@@ -1,0 +1,113 @@
+.header {
+  background: var(--btng-sovereign-black);
+  border-bottom: 2px solid var(--btng-gold);
+  padding: var(--space-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  text-decoration: none;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--btng-gold);
+  letter-spacing: 0.05em;
+}
+
+.logoTagline {
+  font-size: 0.75rem;
+  color: var(--btng-sovereign-white);
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.navLink {
+  color: var(--btng-sovereign-white);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--btng-gold-light);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--btng-sovereign-black);
+  min-width: 200px;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--btng-gold);
+  padding: var(--space-sm) 0;
+  z-index: 1000;
+  margin-top: var(--space-sm);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownContent a {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--btng-sovereign-white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background var(--transition-fast);
+}
+
+.dropdownContent a:hover {
+  background: var(--btng-gold);
+  color: var(--btng-sovereign-black);
+}
+
+.goldCard {
+  background: var(--btng-gold);
+  color: var(--btng-sovereign-black);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.goldCard:hover {
+  background: var(--btng-gold-light);
+  color: var(--btng-sovereign-black);
+}

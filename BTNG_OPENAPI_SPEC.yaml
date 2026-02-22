@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: BTNG Sovereign API
+  version: 1.0.0
+  description: >
+    Official OpenAPI specification for the BTNG backend.
+    Designed for sovereign deployment on MTN public IP and future domain mapping.
+    Supports wallet, explorer, mining, oracle, PoV, and system health.
+
+servers:
+  - url: http://<MTN_PUBLIC_IP>:64799
+    description: MTN Router Sovereign Endpoint
+  - url: https://api.btng.africa
+    description: Future Production Domain
+
+paths:
+
+  /health:
+    get:
+      summary: Health check for BTNG backend
+      responses:
+        '200':
+          description: Backend is operational
+
+  /wallet/balance/{address}:
+    get:
+      summary: Get BTNG wallet balance
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wallet balance response
+
+  /wallet/transactions/{address}:
+    get:
+      summary: Get transaction history for a wallet
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of transactions
+
+  /wallet/send:
+    post:
+      summary: Send BTNG from one address to another
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+                amount:
+                  type: number
+                fee:
+                  type: number
+                signature:
+                  type: string
+      responses:
+        '200':
+          description: Transaction broadcast result
+
+  /explorer/block/{height}:
+    get:
+      summary: Get block by height
+      parameters:
+        - name: height
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Block data
+
+  /explorer/tx/{hash}:
+    get:
+      summary: Get transaction by hash
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transaction details
+
+  /explorer/address/{address}:
+    get:
+      summary: Get address summary
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Address summary
+
+  /mining/info:
+    get:
+      summary: Get mining status and difficulty
+      responses:
+        '200':
+          description: Mining info
+
+  /mining/hashrate:
+    get:
+      summary: Get network hashrate
+      responses:
+        '200':
+          description: Hashrate data
+
+  /oracle/price:
+    get:
+      summary: Get current BTNG price
+      responses:
+        '200':
+          description: Price data
+
+  /oracle/marketcap:
+    get:
+      summary: Get BTNG market cap
+      responses:
+        '200':
+          description: Market cap data
+
+  /pov/verify:
+    post:
+      summary: Verify Proof-of-Value signature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                signature:
+                  type: string
+                payload:
+                  type: string
+      responses:
+        '200':
+          description: Verification result

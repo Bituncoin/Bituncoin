@@ -1,0 +1,131 @@
+.card {
+  width: 400px;
+  height: 250px;
+  background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+  border-radius: 16px;
+  padding: var(--space-xl);
+  position: relative;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+  color: var(--btng-sovereign-black);
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-lg);
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--btng-sovereign-black);
+}
+
+.previewBadge {
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.chip {
+  width: 50px;
+  height: 40px;
+  background: linear-gradient(135deg, #FFD700 0%, #E6BE00 100%);
+  border-radius: 6px;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.chipPattern {
+  position: absolute;
+  inset: 4px;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(0, 0, 0, 0.1) 30%, 
+    rgba(0, 0, 0, 0.1) 70%, 
+    transparent 70%);
+  border-radius: 3px;
+}
+
+.cardNumber {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-lg);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.name,
+.date {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.badge {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+}
+
+.badgeText {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+    max-width: 350px;
+    height: 220px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .cardNumber {
+    font-size: 1rem;
+  }
+}

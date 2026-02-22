@@ -1,0 +1,63 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BTNGVulnVex
+metadata:
+  name: btng-vuln-vex-enforced
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    enforcementAction: deny
+
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BTNGSignatureRequired
+metadata:
+  name: btng-signature-required
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    enforcementAction: deny
+
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BTNGProvenanceRequired
+metadata:
+  name: btng-provenance-required
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    enforcementAction: deny
+
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BTNGRuntimeHardening
+metadata:
+  name: btng-runtime-hardening
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    enforcementAction: deny
+
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BTNGBaseImageAllowlist
+metadata:
+  name: btng-baseimage-allowlist
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    enforcementAction: deny

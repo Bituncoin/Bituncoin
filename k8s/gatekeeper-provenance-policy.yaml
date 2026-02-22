@@ -1,0 +1,29 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: btngprovenance
+spec:
+  crd:
+    spec:
+      names:
+        kind: BTNGProvenanceRequired
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package btng.provenance
+
+        violation[{"msg": msg}] {
+          not input.review.object.metadata.annotations["btng.sovereign/sbom-digest"]
+          msg := "BTNG: SBOM digest required"
+        }
+
+        violation[{"msg": msg}] {
+          not input.review.object.metadata.annotations["btng.sovereign/provenance-commit"]
+          msg := "BTNG: SLSA provenance commit hash required"
+        }
+
+        violation[{"msg": msg}] {
+          sbom_sig := input.review.object.metadata.annotations["btng.sovereign/sbom-signature"]
+          not sbom_sig
+          msg := "BTNG: SBOM must be signed with BTNG sovereign key"
+        }

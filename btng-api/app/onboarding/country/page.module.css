@@ -1,0 +1,189 @@
+.container {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--btng-trust-blue) 0%, var(--btng-trust-blue-dark) 100%);
+  color: var(--btng-sovereign-white);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--space-md);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+.content {
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.intro {
+  max-width: 800px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.intro h2 {
+  font-size: 2rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-lg);
+}
+
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--btng-neutral-700);
+  margin-bottom: var(--space-lg);
+}
+
+.benefits {
+  list-style: none;
+  padding: 0;
+}
+
+.benefits li {
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  background: var(--btng-neutral-100);
+  border-radius: var(--border-radius);
+}
+
+.countries {
+  margin-bottom: var(--space-2xl);
+}
+
+.countries h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+.countryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.countryCard {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base);
+}
+
+.countryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.countryHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.flag {
+  font-size: 3rem;
+}
+
+.countryHeader h3 {
+  font-size: 1.5rem;
+  color: var(--btng-sovereign-black);
+}
+
+.countryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-weight: 600;
+  color: var(--btng-neutral-700);
+  font-size: 0.9rem;
+}
+
+.status {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status.active {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.planned {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.process {
+  margin-bottom: var(--space-2xl);
+}
+
+.process h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--btng-sovereign-black);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+}
+
+.step {
+  background: var(--btng-neutral-100);
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+}
+
+.stepNumber {
+  width: 60px;
+  height: 60px;
+  background: var(--btng-gold);
+  color: var(--btng-sovereign-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 auto var(--space-md);
+}
+
+.step h4 {
+  font-size: 1.25rem;
+  color: var(--btng-trust-blue);
+  margin-bottom: var(--space-sm);
+}
+
+.step p {
+  color: var(--btng-neutral-700);
+  line-height: 1.6;
+}
+
+.cta {
+  text-align: center;
+  padding: var(--space-2xl) 0;
+}

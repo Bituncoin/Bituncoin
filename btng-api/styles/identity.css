@@ -1,0 +1,152 @@
+/**
+ * BTNG Identity Styles
+ * Sovereign identity visual components and utilities
+ */
+
+/* Sovereign Emblem Animations */
+@keyframes emblem-sovereign-pulse {
+  0% {
+    filter: drop-shadow(0 0 8px var(--emblem-glow-base));
+    opacity: 0.9;
+  }
+  50% {
+    filter: drop-shadow(0 0 16px var(--emblem-glow-peak));
+    opacity: 1;
+  }
+  100% {
+    filter: drop-shadow(0 0 8px var(--emblem-glow-base));
+    opacity: 0.9;
+  }
+}
+
+.sovereign-emblem {
+  display: inline-block;
+  position: relative;
+  animation: emblem-sovereign-pulse var(--emblem-pulse-cycle) var(--emblem-pulse-timing) infinite;
+  will-change: filter, opacity;
+}
+
+.sovereign-emblem.emblem-trigger {
+  animation: emblem-sovereign-pulse calc(var(--emblem-pulse-cycle) / var(--emblem-intensify-multiplier)) var(--emblem-pulse-timing) infinite;
+}
+
+.sovereign-emblem.emblem-trigger::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, var(--emblem-glow-trigger) 0%, transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+  animation: emblem-trigger-burst 0.6s var(--emblem-pulse-timing) forwards;
+}
+
+@keyframes emblem-trigger-burst {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Emblem in different contexts */
+.emblem-header {
+  width: 40px;
+  height: 40px;
+}
+
+.emblem-hero {
+  width: 120px;
+  height: 120px;
+}
+
+.emblem-card {
+  width: 32px;
+  height: 32px;
+}
+
+/* Gold Card Visual Identity */
+.gold-card {
+  background: linear-gradient(135deg, var(--btng-gold) 0%, var(--btng-gold-dark) 100%);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-gold);
+  color: var(--btng-sovereign-black);
+}
+
+/* Trust Badge */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--btng-trust-blue);
+  color: var(--btng-sovereign-white);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Identity Card Container */
+.identity-card {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.identity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Verification Status */
+.verification-basic {
+  background: var(--btng-neutral-200);
+  color: var(--btng-neutral-900);
+}
+
+.verification-enhanced {
+  background: var(--btng-trust-blue-light);
+  color: white;
+}
+
+.verification-sovereign {
+  background: var(--btng-gold);
+  color: var(--btng-sovereign-black);
+}
+
+/* Trust Score Display */
+.trust-score {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--btng-gold) 0%, var(--btng-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Identity Stat Card */
+.identity-stat {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--btng-neutral-100);
+  border-radius: var(--border-radius);
+}
+
+.identity-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--btng-trust-blue);
+  margin-bottom: var(--space-xs);
+}
+
+.identity-stat-label {
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

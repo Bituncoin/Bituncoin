@@ -1,0 +1,201 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/chunks/app/_not-found/page-af606c709b358c95.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/15b602379bbacc16.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/layout-d1c683ab9adf62f0.js"
+    ],
+    "/(countries)/burkina-faso/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/burkina-faso/page-edcd3f5f09322b5f.js"
+    ],
+    "/(countries)/kenya/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/kenya/page-3dcb2fda08fbc64a.js"
+    ],
+    "/(countries)/ghana/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/ghana/page-946721b687aba8b2.js"
+    ],
+    "/(countries)/ivory-coast/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/ivory-coast/page-2192f7b28bdb4ce4.js"
+    ],
+    "/(countries)/nigeria/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/nigeria/page-6599e4fc35731a14.js"
+    ],
+    "/(countries)/south-africa/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/south-africa/page-cf0eb186b611a414.js"
+    ],
+    "/(countries)/togo/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/togo/page-25c27534b09c8ad1.js"
+    ],
+    "/(countries)/uganda/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/bf1e1eadbd6996d0.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/app/(countries)/uganda/page-aabed51597ed41e1.js"
+    ],
+    "/(identity)/profile/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/d2743260bba82bdb.css",
+      "static/chunks/app/(identity)/profile/page-c8a9c0ccfee3ba17.js"
+    ],
+    "/(identity)/card/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/4ea3c2549be2af3e.css",
+      "static/chunks/app/(identity)/card/page-9a1cc4ca74b04033.js"
+    ],
+    "/(identity)/wallet/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/a425e776f87c3cfb.css",
+      "static/chunks/app/(identity)/wallet/page-af91aa2b0630ea52.js"
+    ],
+    "/(onboarding)/merchant/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/ca471e727005a726.css",
+      "static/chunks/app/(onboarding)/merchant/page-eac4017ed6360bf6.js"
+    ],
+    "/(onboarding)/user/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/4ea3c2549be2af3e.css",
+      "static/chunks/app/(onboarding)/user/page-5e075a6ef10f3a7b.js"
+    ],
+    "/gold-price-demo/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/chunks/app/gold-price-demo/page-e91b70fc33ac7184.js"
+    ],
+    "/onboarding/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/4ea3c2549be2af3e.css",
+      "static/chunks/app/onboarding/page-d7c47e48fafb6832.js"
+    ],
+    "/mobile-money/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/ded36ea0b0d89b3a.css",
+      "static/chunks/app/mobile-money/page-3bca4c311bb4ee7e.js"
+    ],
+    "/onboarding/country/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/54e785cf39952f61.css",
+      "static/chunks/app/onboarding/country/page-d194d13285bde557.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/1dfe44569efc8ed2.css",
+      "static/chunks/485-a39e05b0f735ff0b.js",
+      "static/chunks/784-77d8e1ce8c643893.js",
+      "static/chunks/808-050680610b1b7b26.js",
+      "static/chunks/app/page-4be9877432dff59f.js"
+    ],
+    "/trust-union/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/f18edbab013b8be2.css",
+      "static/chunks/app/trust-union/page-77982d6ef0a43aa1.js"
+    ],
+    "/(sandbox)/btng-demo/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/61348c7ad79ce99f.css",
+      "static/chunks/app/(sandbox)/btng-demo/page-a1a77771ed588902.js"
+    ],
+    "/gold-coin/page": [
+      "static/chunks/webpack-0728ca9fc69b6e4b.js",
+      "static/chunks/618f8807-f045e1b7f0d35a42.js",
+      "static/chunks/364-abc34a845c593441.js",
+      "static/chunks/main-app-ca9b55ef117cd602.js",
+      "static/css/0d96a51bb3d178b8.css",
+      "static/css/1dfe44569efc8ed2.css",
+      "static/chunks/784-77d8e1ce8c643893.js",
+      "static/chunks/808-050680610b1b7b26.js",
+      "static/chunks/app/gold-coin/page-d3aff5f4c88fcd2c.js"
+    ]
+  }
+}

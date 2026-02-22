@@ -1,0 +1,59 @@
+# BTNG Sovereign Gold Standard - Production Dockerfile
+# Multi-stage build for both Next.js API (port 3003) and Genesis platform (port 8080)
+
+# ---------- Stage 1: Build the Next.js API (port 3003) ----------
+FROM node:20-alpine AS api-builder
+WORKDIR /app
+
+# Copy package files for better caching
+COPY btng-api/package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy source and build
+COPY btng-api/ ./
+RUN npm run build
+
+# ---------- Stage 2: Build the Genesis JAR (port 8080) ----------
+FROM eclipse-temurin:21-jdk AS genesis-builder
+WORKDIR /app
+
+# Copy Genesis project
+COPY genesis-app/ ./
+
+# Build the JAR
+RUN ./gradlew clean build --no-daemon -x test
+
+# ---------- Stage 3: Runtime image ----------
+FROM eclipse-temurin:21-jre-alpine AS runtime
+WORKDIR /app
+
+# Install Node.js in the runtime image
+RUN apk add --no-cache nodejs npm
+
+# Copy built assets from previous stages
+COPY --from=api-builder /app/out ./btng-api
+COPY --from=genesis-builder /app/build/libs/*.jar ./genesis.jar
+
+# Copy package files for any runtime dependencies
+COPY btng-api/package*.json ./btng-api/
+RUN cd btng-api && npm ci --only=production
+
+# Create a non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
+# Change ownership of the app directory
+RUN chown -R nextjs:nodejs /app
+USER nextjs
+
+# Expose both ports
+EXPOSE 3003 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3003/api/health', (res) => { \
+    process.exit(res.statusCode === 200 ? 0 : 1) \
+  }).on('error', () => process.exit(1))"
+
+# Entrypoint - run both services
+CMD ["sh", "-c", "java -jar genesis.jar & node ./btng-api/server.js"]

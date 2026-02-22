@@ -1,0 +1,7 @@
+/* SovereignEmblem component styles are in styles/identity.css */
+/* This file exists for consistency with other components */
+
+.container {
+  display: inline-block;
+  position: relative;
+}

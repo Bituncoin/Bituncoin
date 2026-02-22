@@ -1,0 +1,212 @@
+.container {
+  width: 100%;
+}
+
+.hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1A4B8C 0%, #0D2B54 100%);
+  color: var(--btng-sovereign-white);
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.heroContent {
+  text-align: center;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.heroEmblem {
+  margin-bottom: var(--space-sm);
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  line-height: 1.1;
+}
+
+.gold {
+  color: var(--btng-gold);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2xl);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.ctaGroup {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.features {
+  padding: var(--space-2xl) var(--space-lg);
+  background: var(--btng-neutral-100);
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: var(--space-2xl);
+  color: var(--btng-sovereign-black);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.feature {
+  background: white;
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.countries {
+  padding: var(--space-2xl) var(--space-lg);
+  background: white;
+}
+
+.subsectionTitle {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: var(--space-2xl) 0 var(--space-lg);
+  color: var(--btng-trust-blue);
+}
+
+.countryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.countryCard {
+  background: var(--btng-neutral-100);
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.countryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.countryFlag {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+.countryCard h3 {
+  font-size: 1.25rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-sm);
+}
+
+.countryCard p {
+  color: var(--btng-neutral-700);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-md);
+}
+
+.activeStatus {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background: #d1fae5;
+  color: #065f46;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.launchingStatus {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.featureIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+.feature h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+  color: var(--btng-trust-blue);
+}
+
+.feature p {
+  color: var(--btng-neutral-700);
+  line-height: 1.6;
+}
+
+.callout {
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.callout .gold-card {
+  max-width: 800px;
+  text-align: center;
+}
+
+.callout h2 {
+  font-size: 2rem;
+  color: var(--btng-sovereign-black);
+}
+
+/* BTNG 54 Africa Gold Coin Section */
+.goldCoinSection {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  padding: var(--space-4xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.goldCoinSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}

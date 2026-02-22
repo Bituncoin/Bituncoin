@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-tests:
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      API_SECRET: ${{ secrets.API_SECRET }}
+      ETH_RPC_URL: ${{ secrets.ETH_RPC_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Node.js setup and testing
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build BTNG API
+        run: npm run build --workspace=btng-api
+
+      - name: Run API tests
+        run: npm run test --workspace=btng-api
+
+      - name: Run integration tests
+        run: npm run test:integration --workspace=btng-api
+
+      # Java/Kotlin setup for Genesis
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.5'
+
+      - name: Build Genesis platform
+        run: |
+          cd genesis-app
+          ./gradlew clean build --no-daemon
+
+      - name: Test Genesis platform
+        run: |
+          cd genesis-app
+          ./gradlew test --no-daemon
+
+      # Docker build and test
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build BTNG API Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.btng-api
+          tags: btng-api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test Docker image
+        run: |
+          docker run --rm btng-api:${{ github.sha }} node --version
+
+      # Optional: Push to registry (uncomment when ready)
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Push Docker image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: Dockerfile.btng-api
+      #     push: true
+      #     tags: |
+      #       myregistry/btng-api:latest
+      #       myregistry/btng-api:${{ github.sha }}
+
+  deploy-staging:
+    needs: build-tests
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: staging
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      API_SECRET: ${{ secrets.API_SECRET }}
+      ETH_RPC_URL: ${{ secrets.ETH_RPC_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        run: |
+          echo "🚀 Deploying to staging environment..."
+          # Add your staging deployment commands here
+          # Example: kubectl apply -f k8s/staging/ or docker-compose up -d
+
+      - name: Run smoke tests
+        run: |
+          echo "🧪 Running smoke tests on staging..."
+          # Add smoke test commands here
+          # Example: curl -f https://staging-api.btng.com/api/health
+
+      - name: Notify deployment
+        run: |
+          echo "✅ Staging deployment completed successfully!"
+          # Add notification commands here (Slack, Discord, etc.)

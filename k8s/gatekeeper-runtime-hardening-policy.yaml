@@ -1,0 +1,33 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: btnruntimehardening
+spec:
+  crd:
+    spec:
+      names:
+        kind: BTNGRuntimeHardening
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package btng.runtime
+
+        violation[{"msg": msg}] {
+          input.review.object.spec.template.spec.securityContext.runAsNonRoot != true
+          msg := "BTNG: Container must run as non-root user"
+        }
+
+        violation[{"msg": msg}] {
+          not input.review.object.spec.template.spec.securityContext.readOnlyRootFilesystem
+          msg := "BTNG: Container must have read-only root filesystem"
+        }
+
+        violation[{"msg": msg}] {
+          input.review.object.spec.template.spec.containers[_].securityContext.privileged == true
+          msg := "BTNG: Privileged containers not allowed"
+        }
+
+        violation[{"msg": msg}] {
+          input.review.object.spec.template.spec.containers[_].securityContext.allowPrivilegeEscalation == true
+          msg := "BTNG: Privilege escalation not allowed"
+        }

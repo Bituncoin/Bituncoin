@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: btng-config
+  namespace: btng-sovereign
+data:
+  NODE_ENV: "production"
+  BTNG_NETWORK: "mainnet"
+  BTNG_RPC_URL: "https://btng-node.btng-sovereign.svc.cluster.local:8332"
+  NEXT_PUBLIC_BTNG_API_URL: "https://api.btng-sovereign.com"
+  NEXT_PUBLIC_BTNG_NETWORK: "mainnet"

@@ -1,0 +1,26 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: btngbaseimageallowlist
+spec:
+  crd:
+    spec:
+      names:
+        kind: BTNGBaseImageAllowlist
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package btng.baseimage
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.template.spec.containers[_]
+          image := container.image
+          not allowed_image(image)
+          msg := sprintf("BTNG: Image '%s' not in approved base image allowlist", [image])
+        }
+
+        allowed_image(image) {
+          approved_images := ["debian:13", "gcr.io/distroless", "btng.sovereign/base"]
+          some approved
+          startswith(image, approved)
+        }

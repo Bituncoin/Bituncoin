@@ -1,0 +1,246 @@
+.container {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--btng-trust-blue) 0%, var(--btng-trust-blue-dark) 100%);
+  color: var(--btng-sovereign-white);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--space-md);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+.content {
+  padding: var(--space-2xl) var(--space-lg);
+  background: var(--btng-neutral-100);
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-2xl);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.avatarSection {
+  background: white;
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--btng-gold) 0%, var(--btng-gold-dark) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-lg);
+  box-shadow: var(--shadow-gold);
+}
+
+.avatarIcon {
+  font-size: 4rem;
+}
+
+.name {
+  font-size: 1.5rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-xs);
+}
+
+.cardNumber {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+  margin-bottom: var(--space-md);
+}
+
+.trustBadge {
+  display: flex;
+  justify-content: center;
+}
+
+.quickActions {
+  background: white;
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.quickActions h3 {
+  font-size: 1.1rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-lg);
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.section {
+  background: white;
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid var(--btng-gold);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--btng-neutral-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--btng-sovereign-black);
+}
+
+.sovereign {
+  color: var(--btng-gold-dark);
+  font-weight: 700;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+.metric {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--btng-neutral-100);
+  border-radius: var(--border-radius);
+}
+
+.metricValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--btng-gold-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.metricLabel {
+  font-size: 0.9rem;
+  color: var(--btng-neutral-700);
+  margin-bottom: var(--space-xs);
+}
+
+.metricChange {
+  font-size: 0.8rem;
+  color: #059669;
+  font-weight: 500;
+}
+
+.countryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.countryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--btng-neutral-100);
+  border-radius: var(--border-radius);
+}
+
+.activeStatus {
+  color: #059669;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.povList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.povItem {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--btng-neutral-100);
+  border-radius: var(--border-radius);
+}
+
+.povIcon {
+  font-size: 2rem;
+}
+
+.povDetails {
+  flex: 1;
+}
+
+.povType {
+  font-weight: 600;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-xs);
+}
+
+.povAmount {
+  color: var(--btng-gold-dark);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.povDate {
+  font-size: 0.85rem;
+  color: var(--btng-neutral-700);
+}
+
+@media (max-width: 968px) {
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoGrid,
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}

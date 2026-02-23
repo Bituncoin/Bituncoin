@@ -2,7 +2,7 @@
 # Multi-stage build with Nginx reverse proxy
 
 # ---------- Stage 1: Build the Next.js API (port 3003) ----------
-FROM node:20.19.0-alpine3.21 AS api-builder
+FROM node:22.11.0-alpine3.21 AS api-builder
 WORKDIR /app
 
 # Copy package files and install dependencies

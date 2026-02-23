@@ -1,15 +1,4 @@
-# BTNG Real-API Validation Status Report
-
-## 🔍 Current Status: LIVE OPERATIONS ACTIVE
-
-### Smart Contract Deployment Results
-- **Network**: Localhost (Hardhat Development)
-- **Status**: ✅ DEPLOYMENT COMPLETE
-- **Gold Token**: `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`
-- **Custody Contract**: `0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0`
-- **Oracle Contract**: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
-- **Gold Price**: $60.00 per gram
-- **African Reserves**: 553.8 tonnes
+                                                                   
 
 ### Backend Health Check Results
 - **Endpoint**: `http://74.118.126.72:64799/health`

@@ -8,6 +8,7 @@
 stages:
 - test
 - secret-detection
+- deploy
 sast:
   stage: test
 include:
@@ -17,3 +18,19 @@ variables:
   SECRET_DETECTION_ENABLED: 'true'
 secret_detection:
   stage: secret-detection
+deploy_to_vps:
+  stage: deploy
+  image: ubuntu:latest
+  before_script:
+    - apt-get update && apt-get install -y rsync openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $VPS_IP >> ~/.ssh/known_hosts
+  script:
+    # This sends only changed files to your VPS /var/www/btng folder
+    - rsync -atv --delete ./ $VPS_USER@$VPS_IP:/var/www/btng/
+    # This restarts your Node.js API on the VPS
+    - ssh $VPS_USER@$VPS_IP "cd /var/www/btng && npm install && pm2 restart all"
+  only:
+    - main

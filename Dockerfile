@@ -2,7 +2,7 @@
 # Multi-stage build with Nginx reverse proxy
 
 # ---------- Stage 1: Build the Next.js API (port 3003) ----------
-FROM node:20-alpine AS api-builder
+FROM node:20.19.0-alpine3.21 AS api-builder
 WORKDIR /app
 
 # Copy package files and install dependencies
@@ -15,14 +15,14 @@ COPY btng-api/public ./btng-api/public
 COPY btng-api/package.json ./btng-api/
 
 # ---------- Stage 2: Build the Genesis JAR (port 8080) ----------
-FROM eclipse-temurin:21-jdk AS genesis-builder
+FROM eclipse-temurin:21.0.8_9-jdk-alpine AS genesis-builder
 WORKDIR /app
 
 # Copy pre-built JAR
 COPY genesis-app/build/libs/*.jar ./genesis.jar
 
 # ---------- Stage 3: Nginx configuration ----------
-FROM alpine:latest AS nginx-builder
+FROM alpine:3.21.3 AS nginx-builder
 
 # Install nginx and create configuration
 RUN apk add --no-cache nginx wget
@@ -74,7 +74,7 @@ RUN echo 'server { \
 RUN rm -f /etc/nginx/http.d/default.conf
 
 # ---------- Stage 4: Runtime image ----------
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:21.0.8_9-jre-alpine AS runtime
 WORKDIR /app
 
 # Install Node.js and Nginx in the runtime image

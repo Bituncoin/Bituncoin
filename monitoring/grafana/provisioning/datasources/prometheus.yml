@@ -1,5 +1,5 @@
+# yaml-language-server: $schema=https://grafana.com/schemas/provisioning/datasources.json
 apiVersion: 1
-
 datasources:
   - name: Prometheus
     type: prometheus

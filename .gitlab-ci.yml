@@ -7,7 +7,7 @@ variables:
   SECRET_DETECTION_ENABLED: 'true'
   # Increase timeout for long-running jobs
   GITLAB_CI_TIMEOUT: '30m'
-  BTNG_API_TOKEN: "25c7347f-c329-4a77-bd4b-62751da8db6c"
+  BTNG_API_TOKEN: "d6fb1438023348438c9bfafdf306a1cc0630111c"
 
 sast:
   stage: test

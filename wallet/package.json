@@ -2,12 +2,21 @@
   "name": "goldcoin-wallet",
   "version": "1.0.0",
   "description": "Universal wallet for Gold-Coin and other cryptocurrencies",
-  "main": "index.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:win": "electron-builder --win",
+    "build:mac-intel": "electron-builder --mac --x64",
+    "build:mac-arm": "electron-builder --mac --arm64",
+    "build:linux": "electron-builder --linux",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build:ios": "cd ios && xcodebuild -scheme BituncoinWallet -configuration Release -sdk iphoneos -archivePath build/BituncoinWallet.xcarchive archive",
+    "electron": "electron .",
+    "electron-dev": "ELECTRON_IS_DEV=true electron ."
   },
   "keywords": [
     "cryptocurrency",
@@ -20,11 +29,17 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "electron": "^25.0.0",
+    "react-native": "^0.72.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "@types/react-dom": "^18.0.0",
+    "electron-builder": "^24.0.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^14.4.3"
   },
   "browserslist": {
     "production": [
@@ -37,5 +52,32 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "build": {
+    "appId": "com.bituncoin.wallet",
+    "productName": "Bituncoin Wallet",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "public/electron.js"
+    ],
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ]
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"]
+    }
   }
 }

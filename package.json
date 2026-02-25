@@ -2,12 +2,10 @@
   "name": "btng-monorepo",
   "private": true,
   "version": "1.0.0",
-
   "workspaces": [
     "btng-api",
     "genesis-app"
   ],
-
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=btng-api\" \"npm run dev --workspace=genesis-app\"",
     "dev:api": "npm run dev --workspace=btng-api",
@@ -15,48 +13,70 @@
     "dev:frontend": "npm run dev --workspace=btng-api",
     "dev:backend": "npm run dev --workspace=genesis-app",
     "dev:all": "concurrently \"npm run dev --workspace=btng-api\" \"npm run dev --workspace=genesis-app\"",
-
     "start": "concurrently \"npm run start --workspace=btng-api\" \"npm run start --workspace=genesis-app\"",
     "start:api": "npm run start --workspace=btng-api",
     "start:genesis": "npm run start --workspace=genesis-app",
     "start:backend": "npm run start --workspace=genesis-app",
-
     "build": "npm run build --workspace=btng-api && npm run build --workspace=genesis-app",
     "build:api": "npm run build --workspace=btng-api",
     "build:genesis": "npm run build --workspace=genesis-app",
     "build:backend": "npm run build --workspace=genesis-app",
-
     "test": "npm run test --workspace=btng-api && npm run test --workspace=genesis-app",
     "test:api": "npm run test --workspace=btng-api",
     "test:genesis": "npm run test --workspace=genesis-app",
     "test:integration": "node scripts/test-btng-genesis-integration.js",
-
     "lint": "npm run lint --workspace=btng-api",
     "health": "node scripts/health-check.js",
     "compile": "npm run compile --workspace=btng-api",
-
     "deploy": "npm run deploy --workspace=btng-api",
     "deploy:local": "npm run deploy:local --workspace=btng-api",
     "deploy:testnet": "npm run deploy:testnet --workspace=btng-api",
     "deploy:oracle": "npm run deploy:oracle --workspace=btng-api",
     "deploy:full": "npm run deploy:full --workspace=btng-api",
-
     "check-env": "npm run check-env --workspace=btng-api",
     "test-connection": "npm run test-connection --workspace=btng-api",
     "test-jwt": "npm run test-jwt --workspace=btng-api",
+    "test-fabric": "node scripts/test-fabric-network.js",
+    "test:signed-registration": "node scripts/test-signed-node-registration.js",
+    "verify:watchtower-crypto": "powershell -ExecutionPolicy Bypass -File scripts/verify-watchtower-crypto.ps1",
+    "verify:watchtower-snapshot": "node scripts/verify-watchtower-snapshot.js",
+    "verify:mainnet-readiness": "node scripts/verify-mainnet-readiness.js",
+    "verify:btng-network": "node scripts/verify-btng-network.js --mode strict",
+    "verify:btng-network:strict": "node scripts/verify-btng-network.js --mode strict",
+    "verify:btng-network:soft": "node scripts/verify-btng-network.js --mode soft",
+    "verify:btng-network:ci": "node scripts/verify-btng-network.js --mode strict --output cache/verify-btng-network-ci.json",
+    "generate:second-node-package": "node scripts/generate-second-node-package.js",
+    "momo:live": "node scripts/momo_live.js",
+    "deploy-fabric": "node scripts/deploy-fabric-chaincode.js",
+    "build:watchtower-suite": "npx next build btng-api && npm run start:watchtower-suite:prod",
+    "start:watchtower-suite": "powershell -ExecutionPolicy Bypass -File scripts/start-watchtower-suite.ps1 -Port 3001",
+    "start:watchtower-suite:prod": "powershell -ExecutionPolicy Bypass -File scripts/start-watchtower-suite.ps1 -ApiMode prod -Port 3001",
     "broadcast-gold": "npm run broadcast-gold --workspace=btng-api",
     "test-gold-api": "npm run test-gold-api --workspace=btng-api",
-
+    "up:gold-stack": "docker compose up -d --build",
+    "oracle:push-price": "node scripts/push-gold-oracle-price.js",
+    "oracle:push-price:once": "node scripts/push-gold-oracle-price.js --once",
+    "oracle:push-price:ps": "powershell -ExecutionPolicy Bypass -File scripts/start-gold-oracle-updater.ps1",
+    "oracle:push-price:ps:once": "powershell -ExecutionPolicy Bypass -File scripts/start-gold-oracle-updater.ps1 -Once",
+    "docs:identity:generate": "node scripts/generate-doc-identity.js",
+    "docs:identity:propagate": "node scripts/propagate-doc-identity.js",
+    "docs:identity:verify": "node scripts/verify-doc-identity.js",
+    "docs:identity:refresh": "npm run docs:identity:generate && npm run docs:identity:propagate && npm run docs:identity:verify",
+    "docs:identity:watch": "node scripts/watch-doc-identity.js",
+    "pm2:oracle:start": "pm2 start gold-oracle.config.js",
+    "pm2:oracle:stop": "pm2 stop btng-gold-oracle",
+    "pm2:oracle:restart": "pm2 restart btng-gold-oracle",
+    "pm2:oracle:logs": "pm2 logs btng-gold-oracle",
+    "pm2:oracle:status": "pm2 status btng-gold-oracle",
+    "pm2:oracle:save": "pm2 save",
     "verify:sepolia": "bash scripts/verify-sepolia-deployment.sh",
     "verify:gatekeeper": "bash scripts/verify-gatekeeper-policies.sh",
     "verify:admission": "bash scripts/verify-admission-control.sh",
     "verify:crypto": "bash scripts/verify-cryptography.sh",
     "verify:all": "bash scripts/btng-verification-suite.sh || scripts\\btng-verification-suite.bat",
     "verify:metamask": "npm run verify:metamask --workspace=btng-api",
-
     "setup:genesis": "echo 'Run: cd genesis-app && ./gradlew build'"
   },
-
   "dependencies": {
     "axios": "^1.6.0",
     "framer-motion": "^12.34.3",
@@ -68,7 +88,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.0",
@@ -94,7 +113,6 @@
     "typechain": "^8.3.0",
     "typescript": "^5.3.0"
   },
-
   "engines": {
     "node": ">=18.0.0"
   }

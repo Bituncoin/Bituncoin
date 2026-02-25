@@ -1,0 +1,193 @@
+.container {
+    min-height: 100vh;
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--btng-trust-blue-dark) 0%, var(--btng-trust-blue) 100%);
+    color: var(--btng-sovereign-white);
+    padding: var(--space-2xl) var(--space-lg);
+    text-align: center;
+}
+
+.title {
+    color: var(--btng-sovereign-white);
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-md);
+}
+
+.subtitle {
+    opacity: 0.95;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
+
+.content {
+    background: var(--btng-neutral-100);
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+.metricsGrid {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: var(--space-xl);
+}
+
+.metricCard {
+    background: var(--btng-sovereign-white);
+    border: var(--border-width) solid var(--btng-neutral-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.metricCard h2 {
+    font-size: 0.95rem;
+    color: var(--btng-neutral-700);
+    margin-bottom: var(--space-sm);
+}
+
+.metricCard p {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--btng-trust-blue);
+    font-weight: 700;
+}
+
+.mapCard {
+    background: var(--btng-sovereign-white);
+    border: var(--border-width) solid var(--btng-neutral-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.mapCard h3 {
+    margin-bottom: var(--space-lg);
+}
+
+.mesh {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.meshNode {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 999px;
+    border: 1px solid var(--btng-gold);
+    background: var(--btng-gold-light);
+    box-shadow: var(--shadow-gold);
+}
+
+.mapLabel {
+    text-align: center;
+    letter-spacing: 0.08em;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--btng-sovereign-black);
+}
+
+.statusHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.refreshMeta {
+    color: var(--btng-neutral-700);
+    font-size: 0.9rem;
+}
+
+.error {
+    margin-bottom: var(--space-md);
+    color: var(--btng-trust-blue-dark);
+    font-weight: 600;
+}
+
+.nodeList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+}
+
+.nodeCard {
+    background: var(--btng-sovereign-white);
+    border: var(--border-width) solid var(--btng-neutral-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.nodeTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xs);
+}
+
+.endpoint {
+    margin-top: var(--space-sm);
+    font-family: var(--font-mono);
+    color: var(--btng-neutral-700);
+    word-break: break-word;
+    font-size: 0.85rem;
+}
+
+.nodeMeta {
+    margin-top: var(--space-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    color: var(--btng-neutral-700);
+    font-size: 0.9rem;
+}
+
+.heartbeat {
+    margin-top: var(--space-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.online,
+.offline {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.online {
+    background: var(--btng-gold-light);
+    color: var(--btng-sovereign-black);
+}
+
+.offline {
+    background: var(--btng-neutral-200);
+    color: var(--btng-neutral-700);
+}
+
+@media (max-width: 968px) {
+
+    .metricsGrid,
+    .nodeList {
+        grid-template-columns: 1fr;
+    }
+
+    .statusHeader {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .mesh {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}

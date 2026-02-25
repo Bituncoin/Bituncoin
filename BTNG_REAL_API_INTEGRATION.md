@@ -1,4 +1,4 @@
-# BTNG Demo - Real API Integration Complete
+# 🔗 BTNG Demo — Real API Integration Complete
 
 ## ✅ Integration Status: SUCCESS
 

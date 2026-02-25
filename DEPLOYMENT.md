@@ -271,4 +271,14 @@ $env:PORT=3001; npm run dev
 
 ---
 
+## 🌐 Network Anchors
+
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
+
+---
+
 **BTNG Platform** — Sovereign. Stable. Operational.

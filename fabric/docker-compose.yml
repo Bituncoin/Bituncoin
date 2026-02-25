@@ -1,0 +1,90 @@
+version: '2.4'
+
+networks:
+  btng-fabric-network:
+    name: btng-fabric-network
+
+services:
+  # Orderer
+  orderer.btng-fabric-network.com:
+    container_name: orderer.btng-fabric-network.com
+    image: hyperledger/fabric-orderer:2.5
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_GENESISPROFILE=SampleInsecureSolo
+      - ORDERER_GENERAL_SYSTEMCHANNEL=system-channel
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_FILELEDGER_LOCATION=/var/hyperledger/production/orderer
+      - ORDERER_CONSENSUS_WALDIR=/var/hyperledger/production/orderer
+      - ORDERER_CONSENSUS_SNAPDIR=/var/hyperledger/production/orderer
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./crypto-config/ordererOrganizations/btng-fabric-network.com/orderers/orderer.btng-fabric-network.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/btng-fabric-network.com/orderers/orderer.btng-fabric-network.com/tls:/var/hyperledger/orderer/tls
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    networks:
+      - btng-fabric-network
+    ports:
+      - 7050:7050
+
+  # Peer
+  peer0.btng-root-member.btng-fabric-network.com:
+    container_name: peer0.btng-root-member.btng-fabric-network.com
+    image: hyperledger/fabric-peer:2.5
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=peer0.btng-root-member.btng-fabric-network.com
+      - CORE_PEER_ADDRESS=peer0.btng-root-member.btng-fabric-network.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.btng-root-member.btng-fabric-network.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.btng-root-member.btng-fabric-network.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.btng-root-member.btng-fabric-network.com:7051
+      - CORE_PEER_LOCALMSPID=btng-root-memberMSP
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/peer/msp
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/peer/tls/ca.crt
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - ./crypto-config/peerOrganizations/btng-root-member.btng-fabric-network.com/peers/peer0.btng-root-member.btng-fabric-network.com/msp:/var/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/btng-root-member.btng-fabric-network.com/peers/peer0.btng-root-member.btng-fabric-network.com/tls:/var/hyperledger/peer/tls
+    networks:
+      - btng-fabric-network
+    ports:
+      - 7051:7051
+      - 7052:7052
+      - 7053:7053
+
+  # CA
+  ca.btng-root-member.btng-fabric-network.com:
+    container_name: ca.btng-root-member.btng-fabric-network.com
+    image: hyperledger/fabric-ca:1.5
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.btng-root-member
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/btng-root-member.btng-fabric-network.com/ca:/etc/hyperledger/fabric-ca-server-config
+    networks:
+      - btng-fabric-network

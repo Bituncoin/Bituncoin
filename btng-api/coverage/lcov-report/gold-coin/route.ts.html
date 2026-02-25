@@ -1,0 +1,346 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for gold-coin/route.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">gold-coin</a> route.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { NextResponse } from 'next/server'</span>
+&nbsp;
+// African countries data with gold reserves and population
+const africanCountriesData = <span class="cstat-no" title="statement not covered" >[</span>
+  { name: 'Algeria', code: 'DZ', flag: '🇩🇿', goldReserves: 173.6, population: 43851044 },
+  { name: 'Angola', code: 'AO', flag: '🇦🇴', goldReserves: 17.8, population: 32866272 },
+  { name: 'Benin', code: 'BJ', flag: '🇧🇯', goldReserves: 0.2, population: 12123200 },
+  { name: 'Botswana', code: 'BW', flag: '🇧🇼', goldReserves: 0.1, population: 2351627 },
+  { name: 'Burkina Faso', code: 'BF', flag: '🇧🇫', goldReserves: 0.1, population: 20903273 },
+  { name: 'Burundi', code: 'BI', flag: '🇧🇮', goldReserves: 0.1, population: 11890784 },
+  { name: 'Cameroon', code: 'CM', flag: '🇨🇲', goldReserves: 0.1, population: 26545863 },
+  { name: 'Cape Verde', code: 'CV', flag: '🇨🇻', goldReserves: 0.1, population: 555987 },
+  { name: 'Central African Republic', code: 'CF', flag: '🇨🇫', goldReserves: 0.1, population: 4829767 },
+  { name: 'Chad', code: 'TD', flag: '🇹🇩', goldReserves: 0.1, population: 16425864 },
+  { name: 'Comoros', code: 'KM', flag: '🇰🇲', goldReserves: 0.1, population: 869601 },
+  { name: 'Congo', code: 'CG', flag: '🇨🇬', goldReserves: 0.1, population: 5518087 },
+  { name: 'Democratic Republic of the Congo', code: 'CD', flag: '🇨🇩', goldReserves: 0.1, population: 89561403 },
+  { name: 'Djibouti', code: 'DJ', flag: '🇩🇯', goldReserves: 0.1, population: 988000 },
+  { name: 'Egypt', code: 'EG', flag: '🇪🇬', goldReserves: 79.3, population: 102334404 },
+  { name: 'Equatorial Guinea', code: 'GQ', flag: '🇬🇶', goldReserves: 0.1, population: 1402985 },
+  { name: 'Eritrea', code: 'ER', flag: '🇪🇷', goldReserves: 0.1, population: 3546421 },
+  { name: 'Eswatini', code: 'SZ', flag: '🇸🇿', goldReserves: 0.1, population: 1160164 },
+  { name: 'Ethiopia', code: 'ET', flag: '🇪🇹', goldReserves: 0.1, population: 114963588 },
+  { name: 'Gabon', code: 'GA', flag: '🇬🇦', goldReserves: 0.1, population: 2225728 },
+  { name: 'Gambia', code: 'GM', flag: '🇬🇲', goldReserves: 0.1, population: 2416668 },
+  { name: 'Ghana', code: 'GH', flag: '🇬🇭', goldReserves: 8.7, population: 31072940 },
+  { name: 'Guinea', code: 'GN', flag: '🇬🇳', goldReserves: 0.1, population: 13132795 },
+  { name: 'Guinea-Bissau', code: 'GW', flag: '🇬🇼', goldReserves: 0.1, population: 1968001 },
+  { name: 'Ivory Coast', code: 'CI', flag: '🇨🇮', goldReserves: 0.1, population: 26378274 },
+  { name: 'Kenya', code: 'KE', flag: '🇰🇪', goldReserves: 0.1, population: 53771296 },
+  { name: 'Lesotho', code: 'LS', flag: '🇱🇸', goldReserves: 0.1, population: 2142249 },
+  { name: 'Liberia', code: 'LR', flag: '🇱🇷', goldReserves: 0.1, population: 5057681 },
+  { name: 'Libya', code: 'LY', flag: '🇱🇾', goldReserves: 116.6, population: 6871292 },
+  { name: 'Madagascar', code: 'MG', flag: '🇲🇬', goldReserves: 0.1, population: 27691018 },
+  { name: 'Malawi', code: 'MW', flag: '🇲🇼', goldReserves: 0.1, population: 19129952 },
+  { name: 'Mali', code: 'ML', flag: '🇲🇱', goldReserves: 0.1, population: 20250833 },
+  { name: 'Mauritania', code: 'MR', flag: '🇲🇷', goldReserves: 0.1, population: 4649658 },
+  { name: 'Mauritius', code: 'MU', flag: '🇲🇺', goldReserves: 0.1, population: 1271768 },
+  { name: 'Morocco', code: 'MA', flag: '🇲🇦', goldReserves: 22.1, population: 36910560 },
+  { name: 'Mozambique', code: 'MZ', flag: '🇲🇿', goldReserves: 0.1, population: 31255435 },
+  { name: 'Namibia', code: 'NA', flag: '🇳🇦', goldReserves: 0.1, population: 2540905 },
+  { name: 'Niger', code: 'NE', flag: '🇳🇪', goldReserves: 0.1, population: 24206644 },
+  { name: 'Nigeria', code: 'NG', flag: '🇳🇬', goldReserves: 21.4, population: 218541000 },
+  { name: 'Rwanda', code: 'RW', flag: '🇷🇼', goldReserves: 0.1, population: 12952218 },
+  { name: 'Sao Tome and Principe', code: 'ST', flag: '🇸🇹', goldReserves: 0.1, population: 219159 },
+  { name: 'Senegal', code: 'SN', flag: '🇸🇳', goldReserves: 0.1, population: 16743927 },
+  { name: 'Seychelles', code: 'SC', flag: '🇸🇨', goldReserves: 0.1, population: 98347 },
+  { name: 'Sierra Leone', code: 'SL', flag: '🇸🇱', goldReserves: 0.1, population: 7976983 },
+  { name: 'Somalia', code: 'SO', flag: '🇸🇴', goldReserves: 0.1, population: 15893222 },
+  { name: 'South Africa', code: 'ZA', flag: '🇿🇦', goldReserves: 125.3, population: 59308690 },
+  { name: 'South Sudan', code: 'SS', flag: '🇸🇸', goldReserves: 0.1, population: 11193725 },
+  { name: 'Sudan', code: 'SD', flag: '🇸🇩', goldReserves: 0.1, population: 43849260 },
+  { name: 'Tanzania', code: 'TZ', flag: '🇹🇿', goldReserves: 0.1, population: 59734218 },
+  { name: 'Togo', code: 'TG', flag: '🇹🇬', goldReserves: 0.1, population: 8278724 },
+  { name: 'Tunisia', code: 'TN', flag: '🇹🇳', goldReserves: 6.8, population: 11818619 },
+  { name: 'Uganda', code: 'UG', flag: '🇺🇬', goldReserves: 0.1, population: 45741007 },
+  { name: 'Zambia', code: 'ZM', flag: '🇿🇲', goldReserves: 0.1, population: 18383955 },
+  { name: 'Zimbabwe', code: 'ZW', flag: '🇿🇼', goldReserves: 0.1, population: 14862924 }
+];
+&nbsp;
+// Calculate sovereign values
+const countriesWithSovereignValue = <span class="cstat-no" title="statement not covered" >africanCountriesData.map(<span class="fstat-no" title="function not covered" >country </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+  ...country,
+  sovereignValue: (country.goldReserves * 1000000) / country.population
+}));
+&nbsp;
+const totalGoldValue = <span class="cstat-no" title="statement not covered" >countriesWithSovereignValue.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, country) =&gt; <span class="cstat-no" title="statement not covered" >sum + country.sovereignValue,</span> 0);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export a</span>sync function <span class="fstat-no" title="function not covered" >GET(</span>) {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    return NextResponse.json({</span>
+      success: true,
+      data: {
+        countries: countriesWithSovereignValue,
+        totalGoldValue,
+        totalCountries: countriesWithSovereignValue.length,
+        totalPopulation: countriesWithSovereignValue.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, c) =&gt; <span class="cstat-no" title="statement not covered" >sum + c.population,</span> 0),
+        totalGoldReserves: countriesWithSovereignValue.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, c) =&gt; <span class="cstat-no" title="statement not covered" >sum + c.goldReserves,</span> 0),
+        lastUpdated: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    return NextResponse.json(</span>
+      { success: false, error: 'Failed to fetch gold coin data' },
+      { status: 500 }
+    );
+  }
+}</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-02-24T21:50:58.731Z
+            </div>
+        <script src="../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
+    </body>
+</html>
+    

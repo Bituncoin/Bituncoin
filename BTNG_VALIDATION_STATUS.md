@@ -1,4 +1,6 @@
-                                                                   
+# 📊 BTNG Validation Status
+
+## Backend Health Check and Activation Readiness
 
 ### Backend Health Check Results
 - **Endpoint**: `http://74.118.126.72:64799/health`
@@ -111,6 +113,16 @@ Once your backend responds to health checks, the full validation sequence will a
 6. **PoV Verification** (signature validation)
 
 The BTNG demo will transform from simulation to **live sovereign interface**!
+
+---
+
+## 🌐 Network Anchors
+
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
 
 ---
 *Report generated: February 18, 2026*

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-02-23T18:59:18.034Z",
+  "country": "Nigeria",
+  "nodeProfile": {
+    "nodeId": "nigeria-peer-0",
+    "organization": "btng-nigeria-member",
+    "mspid": "BtngNigeriaMSP",
+    "peerEndpoint": "peer0.btng-nigeria-member.btng-fabric-network.com:8051",
+    "caEndpoint": "ca.btng-nigeria-member.btng-fabric-network.com:8054",
+    "sovereign": true,
+    "role": "regional-validator"
+  },
+  "fabricJoin": {
+    "channelName": "btng-sovereign-channel",
+    "orderer": "orderer.btng-fabric-network.com:7050",
+    "commands": [
+      "peer channel fetch 0 btng-sovereign-channel.block -c btng-sovereign-channel -o orderer.btng-fabric-network.com:7050 --tls --cafile <ORDERER_CA_FILE>",
+      "peer channel join -b btng-sovereign-channel.block",
+      "peer lifecycle chaincode queryinstalled"
+    ]
+  },
+  "watchtowerRegistration": {
+    "endpoint": "http://localhost:3001/api/watchtower/nodes",
+    "payloadTemplate": {
+      "nodeId": "nigeria-peer-0",
+      "ip": "<PUBLIC_OR_PRIVATE_IP>",
+      "port": 8051,
+      "role": "regional-validator",
+      "timestamp": 1771873158,
+      "country": "Nigeria",
+      "weight": 1,
+      "name": "Nigeria Sovereign Node",
+      "signature": "<BASE64_ES256_SIGNATURE>"
+    },
+    "signingStringTemplate": "{\"nodeId\":\"nigeria-peer-0\",\"ip\":\"<PUBLIC_OR_PRIVATE_IP>\",\"port\":8051,\"role\":\"regional-validator\",\"timestamp\":\"<UNIX_SECONDS>\"}"
+  },
+  "postJoinChecklist": [
+    "Confirm peer health endpoint responds with blockHeight",
+    "Register signed node with watchtower",
+    "Run npm run verify:mainnet-readiness",
+    "Confirm onlineNodes >= 2 and anchored snapshot sequence increments"
+  ]
+}

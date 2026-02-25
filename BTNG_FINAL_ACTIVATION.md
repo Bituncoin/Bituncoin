@@ -1,4 +1,4 @@
-# 🚀 FINAL BTNG BACKEND ACTIVATION SEQUENCE
+# 🚀 Final BTNG Backend Activation Sequence
 
 ## Execute These Commands on Your MTN-Connected Machine
 

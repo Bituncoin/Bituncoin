@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: btng-sovereign
-  labels:
-    name: btng-sovereign
-    app: btng-platform

@@ -29,6 +29,7 @@ This monorepo contains three integrated systems:
 1. **BTNG Node.js API** (Port 3003) - Sovereign identity and gold price API
 2. **Genesis Trading Platform** - Real-time trading platform with gold price integration
 3. **Ethereum Smart Contracts** - Sovereign gold standard smart contracts
+4. **Developer Master Folder** - `BTNG-DEVELOPER-MASTER/12_BITUNCOINOS` houses the sovereign BituncoinOS modules, CLI, SDK, and docs so the OS shares the Quantum Memory Container.
 
 ### Project Structure
 
@@ -42,6 +43,8 @@ This monorepo contains three integrated systems:
 /components          # Sovereign UI components
 /lib                 # Core logic modules
 /scripts             # Build & test scripts
+BTNG-DEVELOPER-MASTER/ # BituncoinOS master container (Quantum Memory + Developer Master Folder)
+  12_BITUNCOINOS/     # Sovereign OS modules, CLI, SDK, docs
 ```
 
 ---
@@ -130,9 +133,131 @@ npx hardhat node
 ### Testing & Verification
 - `npm run health` - API health check
 - `npm run test-jwt` - Test JWT authentication
+- `npm run test-fabric` - Test fabric network integration
 - `npm run test-gold-api` - Test gold price endpoints
 - `npm run test:integration` - Full BTNG-Genesis integration test
 - `npm run verify:all` - Complete verification suite
+
+---
+
+## 📚 Operations Docs
+
+- [BTNG Gold Price System Runbook](BTNG_GOLD_PRICE_SYSTEM.md)
+- [BTNG Merchant API Guide](BTNG_MERCHANT_API_GUIDE.md)
+- [BTNG Gold System Completion Notes](BTNG_GOLD_SYSTEM_COMPLETE.md)
+- [BTNG Fabric Network Configuration Inquiry](BTNG_FABRIC_NETWORK_CONFIGURATION_INQUIRY.md)
+
+### PM2 Oracle Service
+
+- `npm run pm2:oracle:start` - Start gold oracle updater service
+- `npm run pm2:oracle:status` - View current PM2 service state
+- `npm run pm2:oracle:logs` - Tail updater logs
+- `npm run pm2:oracle:save` - Persist PM2 process list across reboot
+
+### Documentation Identity (SHA-256 + ES256)
+
+- `npm run docs:identity:refresh` - Regenerate, propagate, and verify canonical docs identity
+- `npm run docs:identity:watch` - Auto-regenerate identity on canonical docs changes
+- `npm run docs:identity:verify` - Verify manifest hash and ES256 signature
+- Watchtower metadata endpoint: `GET /api/watchtower/meta`
+- Watchtower hard-fail gate: snapshots and node registrations are blocked when documentation identity is invalid
+- Optional override (not recommended for production): set `BTNG_ENFORCE_DOCUMENTATION_IDENTITY=false`
+
+### All-in-One Network Verification
+
+- `npm run verify:btng-network` - Strict consolidated checks (production gate)
+- `npm run verify:btng-network:strict` - Explicit strict mode
+- `npm run verify:btng-network:soft` - Rollout mode (treats readiness failures as warnings)
+- `npm run verify:btng-network:ci` - Strict mode with deterministic CI artifact path
+
+Verifier JSON artifact outputs:
+- strict: `cache/verify-btng-network-strict.json`
+- soft: `cache/verify-btng-network-soft.json`
+- custom: `--output <path>` or `BTNG_NETWORK_VERIFY_OUTPUT`
+
+---
+
+## 🏗️ Hyperledger Fabric Network
+
+**Network ID:** `btng-fabric-network`  
+**Root Member:** `btng-root-member`  
+**Node ID:** `nd-6HRNJ6OUIBGP3MV74YAW53NWYQ`
+
+### Fabric Integration
+
+The BTNG platform integrates with Hyperledger Fabric for distributed ledger operations:
+
+#### Network Configuration
+- **Channel:** `btng-sovereign-channel`
+- **Chaincodes:** `btng-gold-token`, `btng-sovereign-identity`
+- **Organizations:** Sovereign member nodes
+- **Consensus:** Raft ordering service
+
+#### API Endpoints
+```bash
+# Network status (public)
+curl http://localhost:3003/api/btng/fabric/network
+
+# Node status (public)
+curl http://localhost:3003/api/btng/fabric/node
+
+# Chaincode operations (requires JWT)
+curl -X POST http://localhost:3003/api/btng/fabric/network \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"action":"invoke","chaincode":"btng-gold-token","function":"mint"}'
+```
+
+#### Testing Fabric Integration
+```bash
+# Test fabric network endpoints
+npm run test-fabric
+```
+
+#### Deploying Chaincode
+```bash
+# Generate fabric deployment files
+npm run deploy-fabric
+
+# Start fabric network (requires Docker)
+docker-compose -f fabric/docker-compose.yml up -d
+
+# Create channel
+./fabric/scripts/create-channel.sh
+
+# Deploy chaincodes
+./fabric/scripts/deploy-btng-gold-token.sh
+./fabric/scripts/deploy-btng-sovereign-identity.sh
+```
+
+### Sovereign Operations
+- **Gold Token Minting** - Fabric-based gold token issuance
+- **Identity Verification** - Distributed identity validation
+- **Transaction Ledger** - Immutable transaction records
+- **Consensus Validation** - Multi-party transaction validation
+
+#### Chaincode Operations via API
+```bash
+# Mint gold tokens
+curl -X POST http://localhost:3003/api/btng/fabric/chaincode \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "chaincode": "btng-gold-token",
+    "function": "Mint",
+    "args": ["1000", "BTNG-SOVEREIGN-001"]
+  }'
+
+# Register sovereign identity
+curl -X POST http://localhost:3003/api/btng/fabric/chaincode \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "chaincode": "btng-sovereign-identity",
+    "function": "RegisterIdentity",
+    "args": ["BTNG-IDENTITY-001", "public-key", "{\"type\":\"sovereign\"}"]
+  }'
+```
 
 ---
 
@@ -246,5 +371,13 @@ Monitors:
 - **Genesis database integration**
 
 ---
+
+## 🌐 Network Anchors
+
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
 
 **BTNG** — Building Trust. Nurturing Growth.

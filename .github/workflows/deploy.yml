@@ -1,0 +1,22 @@
+name: Deploy BTNG to VPS
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync to Hostinger VPS
+        uses: Burnett01/rsync-deployments@7.0.0
+        with:
+          switches: -avzr --delete
+          path: ./
+          remote_path: /var/www/btng
+          remote_host: ${{ secrets.VPS_IP }}
+          remote_user: root
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Restart PM2 on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} "cd /var/www/btng && npm install && pm2 restart all"

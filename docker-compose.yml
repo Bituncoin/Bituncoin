@@ -1,94 +1,37 @@
 version: '3.8'
 
 services:
-  # BTNG Sovereign API
-  btng-api:
+  btng-backend:
     build:
       context: .
-      dockerfile: Dockerfile.btng-api
-    container_name: btng-api
+      dockerfile: Dockerfile
+    container_name: btng-backend
     ports:
-      - "3003:3003"
+      - "64799:64799"
     environment:
       - NODE_ENV=production
-      - JWT_SECRET=${JWT_SECRET}
-      - API_SECRET=${API_SECRET}
-      - ETH_RPC_URL=${ETH_RPC_URL}
-      - MONGODB_URI=${MONGODB_URI}
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3003/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    networks:
-      - btng-network
-
-  # MongoDB Database (optional - API falls back to in-memory storage)
-  mongodb:
-    image: mongo:7-jammy
-    container_name: btng-mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=btng
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
-    volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
-    networks:
-      - btng-network
-
-  # Genesis Trading Platform (uncomment when available)
-  # genesis-app:
-  #   build:
-  #     context: ./genesis-app
-  #     dockerfile: Dockerfile
-  #   container_name: genesis-app
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     btng-api:
-  #       condition: service_healthy
-  #   environment:
-  #     - BTNG_API_URL=http://btng-api:3003
-  #   networks:
-  #     - btng-network
-
-  # Nginx Reverse Proxy (for production SSL termination)
-  nginx:
-    image: nginx:alpine
-    container_name: btng-nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - PORT=64799
+      - HOST=0.0.0.0
+      - MONGO_URI=mongodb://btng-db:27017/gold_system
+      - GENESIS_BLOCK=12458
+      - GENESIS_HASH=0x1111111111111111111111111111111111111111111111111111111111111111
     depends_on:
-      - btng-api
-    restart: unless-stopped
+      - btng-db
     networks:
       - btng-network
 
-  # Redis for caching (optional)
-  redis:
-    image: redis:7-alpine
-    container_name: btng-redis
-    ports:
-      - "6379:6379"
+  btng-db:
+    image: mongo:latest
+    container_name: btng-db
+    restart: unless-stopped
     volumes:
-      - redis_data:/data
-    restart: unless-stopped
-    command: redis-server --appendonly yes
+      - gold_data:/data/db
     networks:
       - btng-network
-
-volumes:
-  mongodb_data:
-  redis_data:
 
 networks:
   btng-network:
     driver: bridge
+
+volumes:
+  gold_data:

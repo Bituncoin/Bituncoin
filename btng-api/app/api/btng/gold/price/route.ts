@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { saveGoldPrice, setLatestGoldPrice } from '@/lib/gold-price/model';
 import { requireAdmin } from '@/lib/auth/jwt';
 import connectToDatabase from '@/lib/mongodb';
+import { mintGoldTokensOnPriceUpdate } from '@/lib/fabric/chaincode';
 
 import { JWTPayload } from '@/lib/auth/jwt';
 
@@ -60,23 +61,35 @@ async function handleGoldPriceUpdate(request: NextRequest, user: JWTPayload) {
     // Update in-memory cache
     await setLatestGoldPrice(record);
 
+    // Mint corresponding gold tokens on Fabric network
+    const mintResult = await mintGoldTokensOnPriceUpdate(record, user);
+    if (!mintResult.success) {
+      console.warn('BTNG Gold token minting failed, but price update succeeded:', mintResult.error);
+      // Don't fail the entire operation if token minting fails
+    }
+
     console.log('BTNG Gold Price Updated by:', user.sub, {
       timestamp: record.timestamp,
       base_price_gram: record.base_price_gram,
-      currencies_count: record.currencies.length
+      currencies_count: record.currencies.length,
+      token_minted: mintResult.success,
+      transaction_id: mintResult.transactionId
     });
 
     return NextResponse.json({
       status: "ok",
       stored: savedRecord,
       updated_by: user.sub,
-      message: "Gold price update stored successfully"
+      token_minted: mintResult.success,
+      transaction_id: mintResult.transactionId,
+      message: "Gold price update stored successfully" + (mintResult.success ? " and tokens minted" : " (token minting failed)")
     }, {
       status: 200,
       headers: {
         'X-BTNG-Platform': 'Sovereign',
         'X-Service-Status': 'Operational',
-        'X-Auth-User': user.sub
+        'X-Auth-User': user.sub,
+        'X-Token-Minted': mintResult.success ? 'true' : 'false'
       }
     });
 
@@ -89,4 +102,5 @@ async function handleGoldPriceUpdate(request: NextRequest, user: JWTPayload) {
   }
 }
 
+export { handleGoldPriceUpdate };
 export const POST = requireAdmin(handleGoldPriceUpdate);

@@ -1,4 +1,4 @@
-# BTNG Demo Integration - Success Report
+# ✅ BTNG Demo Integration — Success Report
 
 ## Overview
 Successfully integrated the BTNG demo as a sandbox module within the sovereign Next.js 14 platform, preserving the global sovereign identity frame, emblem glow, verification chime, and multi-country structure.
@@ -65,6 +65,13 @@ Successfully integrated the BTNG demo as a sandbox module within the sovereign N
 - Navigation preserves identity frame
 - Responsive design verified
 - No breaking changes to existing architecture
+
+## Network Anchors
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
 
 ## Next Steps
 1. Replace placeholder APK URL with real download link

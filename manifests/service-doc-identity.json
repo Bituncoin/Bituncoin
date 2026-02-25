@@ -1,0 +1,20 @@
+{
+  "documentation": {
+    "versionHash": "sha256-d06fb6e3f83231cbc57e145b06bef28ecdf376898db792bb1610adcb80d2894a",
+    "signature": "MEUCIQDLcigwfVjuBLO0Y8PD6lWr+81edou2DVEzhd6HFp4cmAIgAYM+aJf0vRbwx8bdF3OeHFZyOE++pWRvTdkqIicmJ5k=",
+    "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbEjPb7qL+iHwg8fDKg426cWf/8Jz\nFAYGr7HAWi1Dqa0lteetkIFZr1KufQrU4J0u1X5zukznwnh0/jtdMVfK9A==\n-----END PUBLIC KEY-----\n",
+    "timestamp": 1771881053,
+    "source": "BTNG Sovereign Documentation Suite",
+    "signatureAlgorithm": "ES256/SHA256"
+  },
+  "services": {
+    "watchtower": {
+      "manifestPath": "btng-api/app/api/watchtower/meta/route.ts",
+      "enforceOnStartup": true
+    },
+    "goldOracle": {
+      "manifestPath": "gold-oracle.config.js",
+      "enforceOnStartup": true
+    }
+  }
+}

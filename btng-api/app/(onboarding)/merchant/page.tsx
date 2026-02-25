@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './page.module.css'
 
 export default function MerchantOnboardingPage() {
@@ -18,7 +19,7 @@ export default function MerchantOnboardingPage() {
             <div className={styles.info}>
               <h2>Why Join as a Merchant?</h2>
               <p>
-                BTNG merchants gain access to a growing network of Gold Card holders 
+                BTNG merchants gain access to a growing network of Gold Card holders
                 across 8 countries with instant, low-cost payment processing.
               </p>
 
@@ -150,7 +151,7 @@ export default function MerchantOnboardingPage() {
                       <span>I confirm that all information is accurate and agree to merchant terms</span>
                     </label>
                   </div>
-                  <button type="submit" className="btn-primary" style={{width: '100%'}}>
+                  <button type="submit" className="btn-primary" style={{ width: '100%' }}>
                     Submit Merchant Application
                   </button>
                 </form>
@@ -166,6 +167,19 @@ export default function MerchantOnboardingPage() {
                 <div className={styles.contactItem}>
                   <span>💬</span>
                   <span>Live Chat Support</span>
+                </div>
+
+                <div className={styles.packageSection}>
+                  <h4>Merchant App Deployment Package</h4>
+                  <p>Download the latest install package and sovereign bootstrap config for your first 10 vendors.</p>
+                  <div className={styles.packageActions}>
+                    <a href="/api/merchant/deployment-package" className="btn-primary">
+                      Download Package JSON
+                    </a>
+                    <Link href="/watchtower" className="btn-secondary">
+                      Open Watchtower Map
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-# BTNG 54 Africa Gold Coin
+# 🪙 BTNG 54 Africa Gold Coin
 
 ## Overview
 
@@ -12,22 +12,22 @@ The BTNG 54 Africa Gold Coin unites all African nations under a single sovereign
 
 ## Core Principles
 
-### 1. **Sovereign Backing**
+### 1. Sovereign Backing
 - 1 BTNG = 1 Gram of Pure African Gold
 - Backed by the collective gold reserves of 54 African nations
 - Sovereign wealth fund guaranteed
 
-### 2. **Pan-African Unity**
+### 2. Pan-African Unity
 - All 54 African countries represented
 - Equal sovereign value regardless of nation size
 - Unified economic policy framework
 
-### 3. **Digital Innovation**
+### 3. Digital Innovation
 - Blockchain-powered transparency
 - Instant global transactions
 - Zero-knowledge proof security
 
-### 4. **Economic Sovereignty**
+### 4. Economic Sovereignty
 - Independent from foreign currencies
 - African-controlled monetary policy
 - Wealth preservation and growth
@@ -111,7 +111,7 @@ The BTNG 54 Africa Gold Coin integrates seamlessly with the existing BTNG Sovere
 - **Global Influence**: Major player in global gold markets
 - **Development Funding**: Sovereign wealth for infrastructure
 
-## Security & Compliance
+## Security and Compliance
 
 ### Blockchain Security
 - **Immutable Ledger**: Every transaction permanently recorded
@@ -201,7 +201,7 @@ contract BTNG54AfricaGoldCoin {
 }
 ```
 
-## Community & Governance
+## Community and Governance
 
 ### African Union Integration
 - Official African Union gold standard
@@ -225,8 +225,16 @@ The BTNG 54 Africa Gold Coin represents a historic moment for African economic s
 
 **Join the gold revolution. Embrace the future of African sovereignty.**
 
+## 🌐 Network Anchors
+
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
+
 ---
 
 *Built with ❤️ for Africa's economic liberation*
 
-*BTNG Sovereign Platform - February 2026*
+*BTNG Sovereign Platform — February 2026*

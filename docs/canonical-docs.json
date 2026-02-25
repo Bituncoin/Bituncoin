@@ -1,0 +1,13 @@
+{
+    "source": "BTNG Sovereign Documentation Suite",
+    "files": [
+        "README.md",
+        "ARCHITECTURE.md",
+        "DEPLOYMENT.md",
+        "BTNG_GOLD_PRICE_SYSTEM.md",
+        "BTNG_MERCHANT_API_GUIDE.md",
+        "BTNG_GOLD_SYSTEM_COMPLETE.md",
+        "BTNG_FINAL_ACTIVATION.md",
+        "BTNG_GENESIS_TX_LOG.md"
+    ]
+}

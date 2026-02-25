@@ -1,0 +1,106 @@
+name: Bituncoin Wallet Test
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'Bituncoin/wallet/**'
+      - 'Bituncoin/auth/**'
+      - 'Bituncoin/addons/**'
+      - 'Bituncoin/consensus/**'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'Bituncoin/wallet/**'
+      - 'Bituncoin/auth/**'
+      - 'Bituncoin/addons/**'
+      - 'Bituncoin/consensus/**'
+
+jobs:
+  test-go:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Cache Go modules
+      uses: actions/cache@v3
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Install dependencies
+      run: |
+        cd Bituncoin
+        go mod download
+
+    - name: Run Go tests
+      run: |
+        cd Bituncoin
+        go test ./... -v -coverprofile=coverage.out
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./Bituncoin/coverage.out
+        flags: go
+        name: go-coverage
+
+  test-js:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: Bituncoin/wallet/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd Bituncoin/wallet
+        npm ci
+
+    - name: Run tests
+      run: |
+        cd Bituncoin/wallet
+        npm test -- --coverage --watchAll=false
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./Bituncoin/wallet/coverage/lcov.info
+        flags: js
+        name: js-coverage
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: latest
+        working-directory: Bituncoin
+        args: --timeout=5m

@@ -1,0 +1,53 @@
+{
+  "documentation": {
+    "versionHash": "sha256-d06fb6e3f83231cbc57e145b06bef28ecdf376898db792bb1610adcb80d2894a",
+    "signature": "MEUCIQDLcigwfVjuBLO0Y8PD6lWr+81edou2DVEzhd6HFp4cmAIgAYM+aJf0vRbwx8bdF3OeHFZyOE++pWRvTdkqIicmJ5k=",
+    "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbEjPb7qL+iHwg8fDKg426cWf/8Jz\nFAYGr7HAWi1Dqa0lteetkIFZr1KufQrU4J0u1X5zukznwnh0/jtdMVfK9A==\n-----END PUBLIC KEY-----\n",
+    "timestamp": 1771881053,
+    "source": "BTNG Sovereign Documentation Suite",
+    "hashAlgorithm": "sha256",
+    "signatureAlgorithm": "ES256/SHA256",
+    "files": [
+      {
+        "path": "ARCHITECTURE.md",
+        "sha256": "60a4277f76fd8f85235e2993f642e262de35adc4b79a9bc78ec73e4d323b822c",
+        "size": 6460
+      },
+      {
+        "path": "BTNG_FINAL_ACTIVATION.md",
+        "sha256": "2f371a8f177cdb09361cfe192e80abca4f197595230c1917322848d7707bf115",
+        "size": 3404
+      },
+      {
+        "path": "BTNG_GENESIS_TX_LOG.md",
+        "sha256": "aa978611812766af0344c269c3010c498d06cc53f11fdc21b874f45fc11aebb6",
+        "size": 3405
+      },
+      {
+        "path": "BTNG_GOLD_PRICE_SYSTEM.md",
+        "sha256": "2933d23c58ac7fc72660b61eb17600d098f0e446db48612e62a9375f67ce7687",
+        "size": 12200
+      },
+      {
+        "path": "BTNG_GOLD_SYSTEM_COMPLETE.md",
+        "sha256": "e063dcb02058674e46a2c978274332b76ad065431a2655d51bbc8ef48816b164",
+        "size": 10003
+      },
+      {
+        "path": "BTNG_MERCHANT_API_GUIDE.md",
+        "sha256": "1d1d172f721577ae9ffb486c28102a7ebc07bcd77c17bce1b491c8b94aa89ddc",
+        "size": 2518
+      },
+      {
+        "path": "DEPLOYMENT.md",
+        "sha256": "21f21b1b31294372fade7bed82fe6b6605a016f98a68725293c9a008b0a3698f",
+        "size": 6419
+      },
+      {
+        "path": "README.md",
+        "sha256": "816c4c6549a82d8d26e6bd70b8d0f1adbf0f8e6735b8d6b0273f53bb3da9c62d",
+        "size": 9521
+      }
+    ]
+  }
+}

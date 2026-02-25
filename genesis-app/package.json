@@ -1,27 +1,8 @@
 {
-  "name": "genesis-app",
-  "version": "1.0.0",
-  "description": "BTNG Genesis Bridge Application - Trading Platform Integration",
-  "private": true,
-  "scripts": {
-    "dev": "gradlew server",
-    "build": "gradlew build",
-    "test": "gradlew test",
-    "start": "gradlew server",
-    "clean": "gradlew clean",
-    "mon": "gradlew mon",
-    "db": "gradlew db"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "keywords": [
-    "genesis",
-    "trading-platform",
-    "btng",
-    "gold-standard",
-    "bridge"
-  ],
-  "author": "BTNG Sovereign",
-  "license": "UNLICENSED"
+    "name": "genesis-app",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "test": "echo 'No tests for genesis-app'"
+    }
 }

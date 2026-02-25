@@ -31,6 +31,9 @@ export default function Home() {
             <Link href="/gold-coin" className="btn-primary">
               BTNG 54 Africa Gold Coin
             </Link>
+            <Link href="/watchtower" className="btn-secondary">
+              Open Sovereign Watchtower
+            </Link>
             <Link href="/(onboarding)/user" className="btn-secondary">
               Get Your Gold Card
             </Link>
@@ -69,6 +72,11 @@ export default function Home() {
               <h3>Merchant Network</h3>
               <p>Accept BTNG payments across 8 countries</p>
             </Link>
+            <Link href="/watchtower" className={styles.feature}>
+              <div className={styles.featureIcon}>🛰️</div>
+              <h3>Sovereign Watchtower</h3>
+              <p>Monitor consensus depth and node heartbeat in real-time</p>
+            </Link>
           </div>
         </div>
       </section>
@@ -86,7 +94,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          
+
           {launchingCountries.length > 0 && (
             <>
               <h3 className={styles.subsectionTitle}>Launching Soon</h3>
@@ -109,7 +117,7 @@ export default function Home() {
         <div className="gold-card">
           <h2>Ready to join the trust revolution?</h2>
           <p style={{ marginTop: 'var(--space-md)', marginBottom: 'var(--space-lg)' }}>
-            BTNG combines sovereign identity, institutional trust, and proof-of-value workflows 
+            BTNG combines sovereign identity, institutional trust, and proof-of-value workflows
             into a unified platform spanning 8 African nations.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>

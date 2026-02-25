@@ -193,6 +193,29 @@
   font-size: 0.9rem;
 }
 
+.packageSection {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--btng-neutral-200);
+}
+
+.packageSection h4 {
+  font-size: 1.1rem;
+  color: var(--btng-sovereign-black);
+  margin-bottom: var(--space-sm);
+}
+
+.packageSection p {
+  color: var(--btng-neutral-700);
+  margin-bottom: var(--space-md);
+}
+
+.packageActions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
 @media (max-width: 968px) {
   .grid {
     grid-template-columns: 1fr;

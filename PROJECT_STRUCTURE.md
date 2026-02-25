@@ -274,6 +274,16 @@ import { TrustProfile, ProofOfValue, ValueProfile } from '@/types/trust-union'
 
 ---
 
+## 🌐 Network Anchors
+
+- **Primary Backend Endpoint**: `http://74.118.126.72:64799`
+- **Genesis Transaction Hash**: `0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Explorer URL**: `http://74.118.126.72:64799/explorer/tx/0x1111111111111111111111111111111111111111111111111111111111111111`
+- **Genesis Block Height**: `12458`
+- **Genesis Timestamp**: `1771457774`
+
+---
+
 *For detailed migration notes, see [RESTRUCTURE.md](./RESTRUCTURE.md)*  
 *For architecture overview, see [ARCHITECTURE.md](./ARCHITECTURE.md)*  
 *For deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)*

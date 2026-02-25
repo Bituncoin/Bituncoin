@@ -1,13 +1,243 @@
-# Admin Guide
+# Bituncoin Universal Wallet - Administrator Guide
 
 ## Overview
-This guide provides administrators with instructions for managing the Bituncoin wallet system, including user management, system configuration, and add-on module administration.
 
-## Table of Contents
-1. [User Management](#user-management)
-2. [Role-Based Access Control](#role-based-access-control)
-3. [Add-On Module Management](#add-on-module-management)
-4. [System Monitoring](#system-monitoring)
+The Bituncoin Universal Wallet is a comprehensive financial platform supporting multiple cryptocurrencies with enterprise-grade security and AI-driven insights. This guide covers administrative operations, user management, and system configuration.
+
+## System Architecture
+
+### Core Components
+- **Authentication System**: bcrypt password hashing, JWT tokens, role-based access control
+- **AI Wallet Manager**: Automated balance verification, transaction analysis, personalized insights
+- **Multi-Currency Support**: BTN, GLD, BTC, ETH, USDT, BNB with cross-chain capabilities
+- **Security Layers**: AES-256 encryption, 2FA, biometric authentication, fraud detection
+- **Add-on System**: Plug-and-play modules for staking, DeFi lending, and custom features
+
+### Supported Platforms
+- Web (React)
+- Windows (Electron)
+- macOS Intel/ARM (Electron)
+- Linux (Electron)
+- Android (React Native)
+- iOS (React Native)
+
+## User Management
+
+### Roles and Permissions
+
+The system supports 4 distinct roles with granular permissions:
+
+1. **User** (Basic user access)
+   - View own wallet
+   - Send/receive crypto
+   - View transaction history
+   - Basic AI insights
+
+2. **Merchant** (Business user)
+   - All User permissions
+   - Accept payments
+   - Generate payment links
+   - Business analytics
+
+3. **Admin** (System administrator)
+   - All Merchant permissions
+   - User management
+   - System configuration
+   - Security monitoring
+
+4. **Validator** (Network validator)
+   - All Admin permissions
+   - Network validation
+   - Consensus participation
+   - Block production
+
+### Permission Matrix
+
+| Permission | User | Merchant | Admin | Validator |
+|------------|------|----------|-------|-----------|
+| view_wallet | ✅ | ✅ | ✅ | ✅ |
+| send_crypto | ✅ | ✅ | ✅ | ✅ |
+| receive_crypto | ✅ | ✅ | ✅ | ✅ |
+| view_history | ✅ | ✅ | ✅ | ✅ |
+| ai_insights | ✅ | ✅ | ✅ | ✅ |
+| accept_payments | ❌ | ✅ | ✅ | ✅ |
+| payment_links | ❌ | ✅ | ✅ | ✅ |
+| business_analytics | ❌ | ✅ | ✅ | ✅ |
+| user_management | ❌ | ❌ | ✅ | ✅ |
+| system_config | ❌ | ❌ | ✅ | ✅ |
+| security_monitor | ❌ | ❌ | ✅ | ✅ |
+| network_validation | ❌ | ❌ | ❌ | ✅ |
+| consensus_participation | ❌ | ❌ | ❌ | ✅ |
+| block_production | ❌ | ❌ | ❌ | ✅ |
+
+## Security Configuration
+
+### Password Policies
+- Minimum length: 12 characters
+- Must contain: uppercase, lowercase, numbers, special characters
+- bcrypt hashing with 12 rounds
+- Password history: last 5 passwords cannot be reused
+
+### Session Management
+- JWT tokens with 24-hour expiry
+- Automatic logout on inactivity (30 minutes)
+- Concurrent session limits: 3 per user
+- Secure token storage with AES-256 encryption
+
+### Two-Factor Authentication (2FA)
+- TOTP (Time-based One-Time Password) support
+- SMS backup codes
+- Hardware security keys (FIDO2/WebAuthn)
+- Biometric authentication on mobile devices
+
+### Encryption Standards
+- AES-256-GCM for data at rest
+- TLS 1.3 for data in transit
+- Hardware Security Module (HSM) integration
+- Quantum-resistant signatures (future upgrade)
+
+## System Monitoring
+
+### Key Metrics
+- Active users and sessions
+- Transaction volume and success rates
+- System uptime and performance
+- Security incidents and alerts
+
+### Alert Configuration
+- Critical alerts: System downtime, security breaches
+- Warning alerts: High CPU usage, failed transactions
+- Info alerts: New user registrations, large transactions
+
+### Audit Logging
+- All administrative actions logged
+- User activity tracking
+- Security events monitoring
+- 7-year retention policy
+- Immutable blockchain-based audit trails
+
+## Backup and Recovery
+
+### Automated Backups
+- Daily encrypted backups
+- Off-site storage with geo-redundancy
+- Point-in-time recovery capabilities
+- Backup integrity verification
+
+### Disaster Recovery
+- Multi-region failover
+- Automated recovery procedures
+- Business continuity planning
+- Regular DR testing
+
+## Add-on Module Management
+
+### Installing Modules
+```bash
+# Install from registry
+wallet-cli module install staking-module
+
+# Install from file
+wallet-cli module install /path/to/module.zip
+
+# List installed modules
+wallet-cli module list
+```
+
+### Module Permissions
+- Sandboxed execution environment
+- Granular permission system
+- Security scanning before installation
+- Automatic updates and patches
+
+### Custom Module Development
+See MODULE_DEVELOPER_GUIDE.md for detailed instructions on creating custom add-on modules.
+
+## Network Configuration
+
+### Multi-Currency Support
+- BTC: Bitcoin mainnet and testnet
+- ETH: Ethereum mainnet and testnets
+- BNB: Binance Smart Chain
+- BTN: Bituncoin Gold mainnet
+- GLD: Gold token network
+- USDT: Tether on multiple chains
+
+### Cross-Chain Operations
+- Atomic swaps support
+- Bridge protocols integration
+- Interoperability standards compliance
+- Multi-chain transaction monitoring
+
+## Compliance and Regulation
+
+### KYC/AML Integration
+- Automated KYC verification
+- AML transaction monitoring
+- Regulatory reporting
+- Geographic restrictions
+
+### Data Privacy
+- GDPR compliance
+- Data minimization principles
+- User consent management
+- Right to erasure implementation
+
+## Troubleshooting
+
+### Common Issues
+1. **Login failures**: Check password policies and 2FA settings
+2. **Transaction delays**: Verify network connectivity and gas fees
+3. **Module errors**: Check module permissions and compatibility
+4. **Performance issues**: Monitor system resources and optimize queries
+
+### Support Resources
+- Technical documentation: docs.bituncoin.com
+- Community forums: forum.bituncoin.com
+- Emergency support: support@bituncoin.com
+- Security incidents: security@bituncoin.com
+
+## Maintenance Procedures
+
+### Regular Tasks
+- Weekly security updates
+- Monthly performance optimization
+- Quarterly security audits
+- Annual disaster recovery testing
+
+### Emergency Procedures
+- Security breach response
+- System outage recovery
+- Data corruption handling
+- Regulatory compliance updates
+
+## API Reference
+
+### REST API Endpoints
+- `POST /api/auth/login` - User authentication
+- `GET /api/users` - List users (admin only)
+- `POST /api/users` - Create user (admin only)
+- `PUT /api/users/{id}` - Update user (admin only)
+- `DELETE /api/users/{id}` - Delete user (admin only)
+- `GET /api/wallet/balance` - Get wallet balance
+- `POST /api/wallet/send` - Send cryptocurrency
+- `GET /api/transactions` - Get transaction history
+- `POST /api/modules/install` - Install add-on module (admin only)
+
+### WebSocket Events
+- `wallet:update` - Wallet balance updates
+- `transaction:new` - New transaction notifications
+- `alert:security` - Security alerts
+- `system:status` - System status updates
+
+## Version Information
+
+- Current Version: 1.0.0
+- Release Date: February 24, 2026
+- Supported Platforms: Web, Windows, macOS, Linux, Android, iOS
+- Minimum Requirements: See PLATFORM_DEPLOYMENT.md
+
+For additional support or questions, please contact the Bituncoin support team.
 5. [Security Best Practices](#security-best-practices)
 
 ## User Management

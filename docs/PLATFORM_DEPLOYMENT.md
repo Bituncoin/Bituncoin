@@ -1,13 +1,531 @@
-# Multi-Platform Deployment Guide
+# Bituncoin Universal Wallet - Multi-Platform Deployment Guide
 
 ## Overview
-This guide provides instructions for building and deploying the Bituncoin wallet across all supported platforms.
 
-## Table of Contents
-1. [Prerequisites](#prerequisites)
-2. [Web Application](#web-application)
-3. [Desktop Applications](#desktop-applications)
-4. [Mobile Applications](#mobile-applications)
+The Bituncoin Universal Wallet supports deployment across 7 platforms with automated CI/CD pipelines. This guide covers building, testing, and deploying the wallet on all supported platforms.
+
+## Prerequisites
+
+### Development Environment
+- **Node.js**: 18.x or 20.x (LTS recommended)
+- **Go**: 1.21 or later
+- **Git**: 2.30 or later
+- **Docker**: 20.10 or later (for containerized builds)
+
+### Platform-Specific Requirements
+
+#### Windows
+- Windows 10/11
+- Visual Studio Build Tools 2022
+- Windows SDK 10.0.19041.0 or later
+
+#### macOS
+- macOS 11.0 or later
+- Xcode 13.0 or later
+- Command Line Tools for Xcode
+
+#### Linux
+- Ubuntu 18.04 or later / CentOS 7 or later
+- GCC 7.0 or later
+- GTK development libraries
+
+#### Android
+- Android Studio 2021.3.1 or later
+- Android SDK API level 21 or later
+- JDK 11 or later
+
+#### iOS
+- macOS with Xcode 13.0 or later
+- iOS Simulator
+- Apple Developer Account (for App Store deployment)
+
+### Build Tools
+```bash
+# Install global dependencies
+npm install -g electron-builder @electron-forge/cli react-native-cli
+
+# Install Go dependencies
+go install github.com/electron-userland/electron-builder@latest
+```
+
+## CI/CD Pipeline
+
+### GitHub Actions Setup
+
+The wallet uses GitHub Actions for automated multi-platform builds:
+
+```yaml
+# .github/workflows/build.yml
+name: Multi-Platform Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    # ... build configuration
+
+  build-windows:
+    runs-on: windows-latest
+    # ... build configuration
+
+  # ... other platform builds
+```
+
+### Build Triggers
+- **Version Tags**: `git tag v1.0.0 && git push --tags`
+- **Manual Dispatch**: GitHub UI or API call
+- **Scheduled Builds**: Weekly on Sundays for testing
+
+## Web Application
+
+### Development Build
+```bash
+cd Bituncoin/wallet
+npm install
+npm start
+# Opens http://localhost:3000
+```
+
+### Production Build
+```bash
+cd Bituncoin/wallet
+npm run build
+# Output: build/ directory
+```
+
+### Deployment Options
+
+#### Static Hosting
+```bash
+# Deploy to Netlify
+npm install -g netlify-cli
+netlify deploy --prod --dir=build
+
+# Deploy to Vercel
+npm install -g vercel
+vercel --prod
+
+# Deploy to AWS S3 + CloudFront
+aws s3 sync build/ s3://your-bucket-name
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+```
+
+#### Docker Container
+```dockerfile
+FROM nginx:alpine
+COPY build/ /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+```bash
+docker build -t bituncoin-wallet-web .
+docker run -p 8080:80 bituncoin-wallet-web
+```
+
+## Desktop Applications (Electron)
+
+### Development
+```bash
+cd Bituncoin/wallet
+npm install
+npm run electron-dev
+```
+
+### Production Builds
+
+#### Windows
+```bash
+npm run build:win
+# Output: dist/Bituncoin Wallet 1.0.0.exe
+# Output: dist/Bituncoin Wallet 1.0.0.exe.blockmap
+```
+
+Windows build artifacts:
+- `Bituncoin Wallet 1.0.0.exe` - Main installer
+- `Bituncoin Wallet 1.0.0.exe.blockmap` - Update manifest
+- `win-unpacked/` - Portable version
+
+#### macOS Intel
+```bash
+npm run build:mac-intel
+# Output: dist/Bituncoin Wallet-1.0.0.dmg
+# Output: dist/Bituncoin Wallet-1.0.0-mac.zip
+```
+
+macOS build artifacts:
+- `Bituncoin Wallet-1.0.0.dmg` - Disk image installer
+- `Bituncoin Wallet-1.0.0-mac.zip` - Archive for manual installation
+
+#### macOS ARM (Apple Silicon)
+```bash
+npm run build:mac-arm
+# Output: dist/Bituncoin Wallet-1.0.0-arm64.dmg
+```
+
+#### Linux
+```bash
+npm run build:linux
+# Output: dist/Bituncoin Wallet-1.0.0.AppImage
+# Output: dist/bituncoin-wallet_1.0.0_amd64.deb
+# Output: dist/bituncoin-wallet-1.0.0.x86_64.rpm
+```
+
+Linux build artifacts:
+- `Bituncoin Wallet-1.0.0.AppImage` - Universal Linux app
+- `bituncoin-wallet_1.0.0_amd64.deb` - Debian package
+- `bituncoin-wallet-1.0.0.x86_64.rpm` - RPM package
+
+### Code Signing
+
+#### Windows Code Signing
+```bash
+# Install certificate
+certutil -addstore -f "TRUSTEDPUBLISHER" your-cert.p12
+
+# Build with signing
+electron-builder --win --cert your-cert.p12 --certPassword your-password
+```
+
+#### macOS Code Signing
+```bash
+# Install certificate
+security import your-cert.p12 -k ~/Library/Keychains/login.keychain
+
+# Build with signing
+electron-builder --mac --cert your-cert.p12 --certPassword your-password
+```
+
+### Auto-Updates
+
+The wallet includes auto-update functionality:
+
+```javascript
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.checkForUpdatesAndNotify();
+
+// Check manually
+autoUpdater.checkForUpdates();
+
+// Handle updates
+autoUpdater.on('update-available', () => {
+  // Show update dialog
+});
+
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall();
+});
+```
+
+## Mobile Applications (React Native)
+
+### Development Setup
+
+#### Android
+```bash
+# Install Android SDK
+# Set ANDROID_HOME environment variable
+
+# Start Metro bundler
+npx react-native start
+
+# Run on Android emulator
+npx react-native run-android
+```
+
+#### iOS
+```bash
+# Install CocoaPods
+cd ios && pod install
+
+# Start Metro bundler
+npx react-native start
+
+# Run on iOS simulator
+npx react-native run-ios
+```
+
+### Production Builds
+
+#### Android APK
+```bash
+# Debug build
+npx react-native run-android --variant=debug
+
+# Release build
+cd android
+./gradlew assembleRelease
+# Output: android/app/build/outputs/apk/release/app-release.apk
+```
+
+#### Android AAB (Google Play)
+```bash
+cd android
+./gradlew bundleRelease
+# Output: android/app/build/outputs/bundle/release/app-release.aab
+```
+
+#### iOS Archive
+```bash
+# Archive for TestFlight/App Store
+cd ios
+xcodebuild -workspace BituncoinWallet.xcworkspace -scheme BituncoinWallet -configuration Release -archivePath build/BituncoinWallet.xcarchive archive
+
+# Export IPA
+xcodebuild -exportArchive -archivePath build/BituncoinWallet.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+```
+
+### App Store Deployment
+
+#### Google Play Store
+1. **Prepare Release**:
+   ```bash
+   # Generate signed AAB
+   cd android
+   ./gradlew bundleRelease
+   ```
+
+2. **Upload to Play Console**:
+   - Go to Google Play Console
+   - Create new release
+   - Upload AAB file
+   - Fill release notes
+   - Submit for review
+
+#### Apple App Store
+1. **Prepare Archive**:
+   ```bash
+   # Create archive
+   xcodebuild -workspace BituncoinWallet.xcworkspace -scheme BituncoinWallet -configuration Release -archivePath build/BituncoinWallet.xcarchive archive
+   ```
+
+2. **Upload to App Store Connect**:
+   ```bash
+   # Using Xcode
+   # Xcode -> Product -> Archive
+   # Distribute App -> App Store Connect
+
+   # Using Transporter
+   xcrun altool --upload-app --type ios --file "BituncoinWallet.ipa" --username "your-apple-id" --password "app-specific-password"
+   ```
+
+3. **Submit for Review**:
+   - Go to App Store Connect
+   - Select build
+   - Fill app information
+   - Submit for review
+
+## Testing
+
+### Automated Testing
+```bash
+# Run all tests
+npm run test
+
+# Run with coverage
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+```
+
+### Platform-Specific Testing
+
+#### Desktop Testing
+```bash
+# Test Electron app
+npm run test:electron
+
+# Test auto-updates
+npm run test:updates
+```
+
+#### Mobile Testing
+```bash
+# Android instrumentation tests
+cd android && ./gradlew test
+
+# iOS unit tests
+xcodebuild test -workspace BituncoinWallet.xcworkspace -scheme BituncoinWalletTests
+
+# E2E tests
+npx detox test
+```
+
+### Performance Testing
+```bash
+# Lighthouse for web
+npx lighthouse http://localhost:3000
+
+# Electron performance
+npm run test:performance
+
+# Mobile performance
+npx react-native-performance-monitor
+```
+
+## Distribution
+
+### Desktop Distribution
+
+#### Windows
+- **Microsoft Store**: Submit MSIX package
+- **Direct Download**: Host on GitHub Releases
+- **Enterprise**: Use SCCM or Group Policy
+
+#### macOS
+- **Mac App Store**: Submit through Xcode
+- **Direct Download**: Host DMG on website
+- **Enterprise**: Use MDM solutions
+
+#### Linux
+- **Snap Store**: `snapcraft upload bituncoin-wallet.snap`
+- **Flathub**: Submit Flatpak
+- **Direct Download**: Host AppImage
+
+### Mobile Distribution
+
+#### Android
+- **Google Play Store**: Main distribution
+- **Alternative Stores**: Amazon Appstore, Huawei AppGallery
+- **Enterprise**: APK sideloading
+
+#### iOS
+- **App Store**: Primary distribution
+- **TestFlight**: Beta testing
+- **Enterprise**: In-house distribution
+
+## Monitoring and Analytics
+
+### Crash Reporting
+```javascript
+// Sentry integration
+import * as Sentry from '@sentry/electron';
+
+Sentry.init({
+  dsn: 'your-dsn',
+  environment: process.env.NODE_ENV,
+});
+```
+
+### Usage Analytics
+```javascript
+// Mixpanel integration
+import mixpanel from 'mixpanel-browser';
+
+mixpanel.init('your-token');
+mixpanel.track('app_launched');
+```
+
+### Performance Monitoring
+```javascript
+// Application Insights
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+
+const appInsights = new ApplicationInsights({
+  config: {
+    instrumentationKey: 'your-key'
+  }
+});
+appInsights.loadAppInsights();
+```
+
+## Security Considerations
+
+### Code Signing
+- All desktop builds are code-signed
+- Mobile apps use proper certificates
+- Web app served over HTTPS
+
+### Binary Integrity
+- SHA256 checksums provided for all downloads
+- Automatic integrity verification
+- Secure update channels
+
+### Runtime Security
+- CSP (Content Security Policy) headers
+- Sandboxed execution environments
+- Regular security audits
+
+## Troubleshooting
+
+### Common Build Issues
+
+#### Electron Build Failures
+```bash
+# Clear cache
+npx electron-builder install-app-deps --force
+
+# Rebuild native modules
+npm rebuild
+
+# Check Node.js version compatibility
+node --version
+npm --version
+```
+
+#### React Native Issues
+```bash
+# Clear Metro cache
+npx react-native start --reset-cache
+
+# Clean Android build
+cd android && ./gradlew clean
+
+# Reset iOS dependencies
+cd ios && rm -rf Pods && pod install
+```
+
+#### Code Signing Problems
+```bash
+# Verify certificate
+security find-identity -v
+
+# Check provisioning profile
+xcodebuild -showBuildSettings
+```
+
+### Performance Optimization
+
+#### Bundle Size
+```bash
+# Analyze bundle
+npx webpack-bundle-analyzer build/static/js/*.js
+
+# Optimize imports
+# Use dynamic imports for large components
+const Component = lazy(() => import('./Component'));
+```
+
+#### Startup Time
+```javascript
+// Preload critical resources
+<link rel="preload" href="critical.css" as="style">
+<link rel="modulepreload" href="critical.js">
+```
+
+## Version Information
+
+- **Wallet Version**: 1.0.0
+- **Electron Version**: 25.0.0
+- **React Native Version**: 0.72.0
+- **Node.js Requirement**: 18.x+
+- **Go Requirement**: 1.21+
+
+## Support
+
+- **Documentation**: https://docs.bituncoin.com/deployment
+- **Community**: https://forum.bituncoin.com/c/deployment
+- **Issues**: https://github.com/bituncoin/wallet/issues
+- **Security**: security@bituncoin.com
+
+For additional support, please contact the Bituncoin development team.
 5. [Backend Services](#backend-services)
 6. [CI/CD Automation](#cicd-automation)
 

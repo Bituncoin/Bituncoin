@@ -1,13 +1,565 @@
-# Module Developer Guide
+# Bituncoin Universal Wallet - Module Developer Guide
 
 ## Overview
-This guide provides developers with instructions for creating custom add-on modules for the Bituncoin wallet platform.
 
-## Table of Contents
-1. [Module Architecture](#module-architecture)
-2. [Creating a Module](#creating-a-module)
-3. [Module Interface](#module-interface)
-4. [Module Registration](#module-registration)
+The Bituncoin Universal Wallet supports a plug-and-play add-on module system that allows developers to extend the wallet's functionality without modifying the core codebase. This guide covers the architecture, development process, and best practices for creating custom modules.
+
+## Module Architecture
+
+### Core Concepts
+- **Sandboxing**: Modules run in isolated environments with limited permissions
+- **Event-Driven**: Modules communicate through a publish-subscribe event system
+- **Permission-Based**: Granular permission system controls module capabilities
+- **Version Management**: Semantic versioning with automatic update support
+
+### Module Types
+1. **UI Modules**: Add new screens, dialogs, or UI components
+2. **Service Modules**: Background services for monitoring, alerts, or automation
+3. **Integration Modules**: Third-party service integrations (exchanges, DeFi protocols)
+4. **Analysis Modules**: Transaction analysis, portfolio optimization, risk assessment
+
+### Built-in Modules
+- **Advanced Staking**: Automated staking strategies across multiple protocols
+- **DeFi Lending**: Cross-platform lending and borrowing optimization
+- **Portfolio Tracker**: Advanced portfolio analytics and reporting
+- **Security Scanner**: Real-time security monitoring and threat detection
+
+## Development Environment Setup
+
+### Prerequisites
+- Go 1.21 or later
+- Node.js 18.x or later
+- Git
+- Docker (for testing)
+
+### Project Structure
+```
+module-name/
+├── manifest.json          # Module metadata and configuration
+├── main.go               # Main module entry point
+├── handlers/             # HTTP handlers and API endpoints
+│   └── api.go
+├── services/             # Background services
+│   └── service.go
+├── ui/                   # Frontend components (React)
+│   ├── components/
+│   └── index.js
+├── tests/                # Unit and integration tests
+│   ├── main_test.go
+│   └── integration_test.go
+├── docs/                 # Module documentation
+│   └── README.md
+└── Dockerfile            # Containerization for sandboxing
+```
+
+### Development Tools
+```bash
+# Install module development CLI
+go install github.com/bituncoin/module-cli@latest
+
+# Initialize new module
+module-cli init my-module
+
+# Test module
+module-cli test
+
+# Build module package
+module-cli build
+```
+
+## Module Manifest
+
+### Basic Structure
+```json
+{
+  "name": "my-custom-module",
+  "version": "1.0.0",
+  "description": "A custom module for enhanced wallet functionality",
+  "author": "Developer Name",
+  "license": "MIT",
+  "homepage": "https://github.com/username/my-module",
+
+  "module": {
+    "type": "service",
+    "entryPoint": "main.go",
+    "permissions": [
+      "wallet:read",
+      "transactions:read",
+      "network:access"
+    ],
+    "dependencies": {
+      "go": ">=1.21.0",
+      "node": ">=18.0.0"
+    }
+  },
+
+  "ui": {
+    "components": ["DashboardWidget", "SettingsPanel"],
+    "routes": [
+      {
+        "path": "/module/my-module",
+        "component": "MainView"
+      }
+    ]
+  },
+
+  "api": {
+    "endpoints": [
+      {
+        "path": "/api/module/my-module/data",
+        "method": "GET",
+        "handler": "GetData"
+      }
+    ]
+  },
+
+  "events": {
+    "subscribes": ["wallet:updated", "transaction:new"],
+    "publishes": ["module:my-module:alert"]
+  }
+}
+```
+
+### Permission System
+
+#### Available Permissions
+- **wallet:read** - Read wallet balances and addresses
+- **wallet:write** - Modify wallet settings (no funds access)
+- **transactions:read** - Read transaction history
+- **transactions:write** - Create transactions (requires user approval)
+- **network:access** - Access external APIs and networks
+- **storage:read** - Read module-specific data
+- **storage:write** - Write module-specific data
+- **ui:inject** - Inject UI components
+- **notifications:send** - Send user notifications
+
+#### Permission Request Format
+```json
+{
+  "permissions": [
+    {
+      "name": "wallet:read",
+      "reason": "Required to monitor balance changes for alerts"
+    },
+    {
+      "name": "notifications:send",
+      "reason": "Send alerts when conditions are met"
+    }
+  ]
+}
+```
+
+## Module Interface
+
+### Core Interface
+```go
+type Module interface {
+    // Initialize the module
+    Init(ctx context.Context, config ModuleConfig) error
+
+    // Start the module
+    Start() error
+
+    // Stop the module
+    Stop() error
+
+    // Get module information
+    Info() ModuleInfo
+
+    // Handle events
+    HandleEvent(event Event) error
+
+    // Handle API requests
+    HandleAPIRequest(req APIRequest) (APIResponse, error)
+}
+```
+
+### Module Configuration
+```go
+type ModuleConfig struct {
+    ID          string                 `json:"id"`
+    Name        string                 `json:"name"`
+    Version     string                 `json:"version"`
+    Settings    map[string]interface{} `json:"settings"`
+    Permissions []string               `json:"permissions"`
+    DataDir     string                 `json:"dataDir"`
+}
+```
+
+### Event Handling
+```go
+type Event struct {
+    Type      string                 `json:"type"`
+    Source    string                 `json:"source"`
+    Timestamp time.Time              `json:"timestamp"`
+    Data      map[string]interface{} `json:"data"`
+}
+
+// Example event handler
+func (m *MyModule) HandleEvent(event Event) error {
+    switch event.Type {
+    case "wallet:updated":
+        return m.handleWalletUpdate(event.Data)
+    case "transaction:new":
+        return m.handleNewTransaction(event.Data)
+    default:
+        return nil
+    }
+}
+```
+
+### API Request Handling
+```go
+type APIRequest struct {
+    Method  string                 `json:"method"`
+    Path    string                 `json:"path"`
+    Headers map[string]string      `json:"headers"`
+    Body    map[string]interface{} `json:"body"`
+    UserID  string                 `json:"userId"`
+}
+
+type APIResponse struct {
+    StatusCode int                    `json:"statusCode"`
+    Headers    map[string]string      `json:"headers"`
+    Body       map[string]interface{} `json:"body"`
+}
+
+// Example API handler
+func (m *MyModule) HandleAPIRequest(req APIRequest) (APIResponse, error) {
+    switch req.Path {
+    case "/api/module/my-module/data":
+        return m.handleGetData(req)
+    case "/api/module/my-module/settings":
+        return m.handleUpdateSettings(req)
+    default:
+        return APIResponse{StatusCode: 404}, nil
+    }
+}
+```
+
+## UI Components
+
+### React Component Structure
+```jsx
+import React, { useState, useEffect } from 'react';
+import { useWallet } from '@bituncoin/wallet-hooks';
+
+const MyModuleWidget = () => {
+  const { balance, transactions } = useWallet();
+  const [moduleData, setModuleData] = useState(null);
+
+  useEffect(() => {
+    // Fetch module-specific data
+    fetchModuleData();
+  }, []);
+
+  const fetchModuleData = async () => {
+    try {
+      const response = await fetch('/api/module/my-module/data');
+      const data = await response.json();
+      setModuleData(data);
+    } catch (error) {
+      console.error('Failed to fetch module data:', error);
+    }
+  };
+
+  return (
+    <div className="module-widget">
+      <h3>My Custom Module</h3>
+      <div className="balance-info">
+        Current Balance: {balance} BTC
+      </div>
+      <div className="module-data">
+        {moduleData && (
+          <pre>{JSON.stringify(moduleData, null, 2)}</pre>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default MyModuleWidget;
+```
+
+### UI Registration
+```javascript
+// ui/index.js
+import MyModuleWidget from './components/MyModuleWidget';
+import SettingsPanel from './components/SettingsPanel';
+
+export const components = {
+  MyModuleWidget,
+  SettingsPanel
+};
+
+export const routes = [
+  {
+    path: '/module/my-module',
+    component: 'MyModuleWidget'
+  },
+  {
+    path: '/module/my-module/settings',
+    component: 'SettingsPanel'
+  }
+];
+```
+
+## Testing
+
+### Unit Tests
+```go
+package mymodule
+
+import (
+    "testing"
+    "github.com/bituncoin/module-sdk/testing"
+)
+
+func TestModuleInit(t *testing.T) {
+    config := ModuleConfig{
+        ID: "test-module",
+        Name: "Test Module",
+        Version: "1.0.0",
+    }
+
+    module := &MyModule{}
+    err := module.Init(context.Background(), config)
+
+    if err != nil {
+        t.Fatalf("Failed to initialize module: %v", err)
+    }
+
+    info := module.Info()
+    if info.Name != "Test Module" {
+        t.Errorf("Expected module name 'Test Module', got '%s'", info.Name)
+    }
+}
+
+func TestHandleEvent(t *testing.T) {
+    module := &MyModule{}
+    // Initialize module...
+
+    event := Event{
+        Type: "wallet:updated",
+        Data: map[string]interface{}{
+            "balance": 1.5,
+            "currency": "BTC",
+        },
+    }
+
+    err := module.HandleEvent(event)
+    if err != nil {
+        t.Fatalf("Failed to handle event: %v", err)
+    }
+
+    // Assert expected behavior
+}
+```
+
+### Integration Tests
+```go
+func TestModuleIntegration(t *testing.T) {
+    // Start test wallet instance
+    wallet := testing.NewTestWallet()
+
+    // Load and start module
+    module, err := testing.LoadModule("my-module", wallet)
+    if err != nil {
+        t.Fatalf("Failed to load module: %v", err)
+    }
+
+    // Test module functionality
+    balance, err := module.GetBalance()
+    if err != nil {
+        t.Fatalf("Failed to get balance: %v", err)
+    }
+
+    if balance != 0.0 {
+        t.Errorf("Expected initial balance 0.0, got %f", balance)
+    }
+}
+```
+
+## Security Best Practices
+
+### Input Validation
+```go
+func validateInput(input string) error {
+    if len(input) > 1000 {
+        return errors.New("input too long")
+    }
+
+    // Use allowlist validation
+    matched, err := regexp.MatchString(`^[a-zA-Z0-9\s\-_.]+$`, input)
+    if err != nil {
+        return err
+    }
+    if !matched {
+        return errors.New("invalid characters in input")
+    }
+
+    return nil
+}
+```
+
+### Secure API Calls
+```go
+func makeSecureAPICall(url string, data interface{}) error {
+    // Validate URL
+    parsedURL, err := url.Parse(url)
+    if err != nil {
+        return err
+    }
+
+    // Only allow HTTPS
+    if parsedURL.Scheme != "https" {
+        return errors.New("only HTTPS URLs allowed")
+    }
+
+    // Set reasonable timeout
+    client := &http.Client{
+        Timeout: 30 * time.Second,
+    }
+
+    // Make request with proper headers
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+    if err != nil {
+        return err
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("User-Agent", "Bituncoin-Module/1.0")
+
+    resp, err := client.Do(req)
+    if err != nil {
+        return err
+    }
+    defer resp.Body.Close()
+
+    return nil
+}
+```
+
+### Data Encryption
+```go
+func encryptData(data []byte, key []byte) ([]byte, error) {
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, err
+    }
+
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return nil, err
+    }
+
+    nonce := make([]byte, gcm.NonceSize())
+    if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+        return nil, err
+    }
+
+    ciphertext := gcm.Seal(nonce, nonce, data, nil)
+    return ciphertext, nil
+}
+```
+
+## Deployment
+
+### Module Packaging
+```bash
+# Build module
+module-cli build
+
+# This creates module-name.zip with:
+# - Compiled binaries
+# - UI assets
+# - Manifest file
+# - Documentation
+```
+
+### Installation
+```bash
+# Install from registry
+wallet-cli module install my-module
+
+# Install from file
+wallet-cli module install ./my-module.zip
+
+# Verify installation
+wallet-cli module list
+```
+
+### Update Process
+```bash
+# Check for updates
+wallet-cli module check-updates
+
+# Update specific module
+wallet-cli module update my-module
+
+# Update all modules
+wallet-cli module update-all
+```
+
+## Distribution
+
+### Module Registry
+Publish your module to the official Bituncoin Module Registry:
+
+```bash
+# Login to registry
+module-cli registry login
+
+# Publish module
+module-cli registry publish
+
+# View module stats
+module-cli registry stats my-module
+```
+
+### Private Distribution
+For private or enterprise modules:
+
+```bash
+# Create private registry
+module-cli registry create-private
+
+# Publish to private registry
+module-cli registry publish --registry my-private-registry
+```
+
+## Support and Community
+
+### Resources
+- **Documentation**: https://docs.bituncoin.com/modules
+- **API Reference**: https://api.bituncoin.com/modules
+- **Community Forum**: https://forum.bituncoin.com/c/modules
+- **GitHub Issues**: https://github.com/bituncoin/modules/issues
+
+### Getting Help
+1. Check the documentation
+2. Search existing issues
+3. Ask in the community forum
+4. Create a GitHub issue for bugs
+5. Request features via GitHub discussions
+
+### Contributing
+We welcome contributions to the module ecosystem:
+
+1. Fork the module SDK
+2. Create your feature branch
+3. Add tests for new functionality
+4. Submit a pull request
+5. Participate in code review
+
+## Version Information
+
+- Module SDK Version: 1.0.0
+- Compatible Wallet Versions: 1.0.0+
+- Go Version Requirements: 1.21+
+- Node.js Version Requirements: 18+
+
+For the latest updates and breaking changes, see the [changelog](https://github.com/bituncoin/module-sdk/blob/main/CHANGELOG.md).
 5. [Best Practices](#best-practices)
 6. [Examples](#examples)
 

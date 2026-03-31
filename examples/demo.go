@@ -11,7 +11,8 @@ import (
 
 func main() {
 	fmt.Println("🪙 Gold-Coin Cryptocurrency Demo")
-	fmt.Println("================================\n")
+	fmt.Println("================================")
+	fmt.Println()
 
 	// 1. Initialize Gold-Coin
 	fmt.Println("1. Initializing Gold-Coin...")

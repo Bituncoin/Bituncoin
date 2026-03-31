@@ -18,12 +18,12 @@ type StakingPool struct {
 
 // Stake represents a staking position
 type Stake struct {
-	Address      string
-	Amount       float64
-	StartTime    int64
-	UnlockTime   int64
+	Address        string
+	Amount         float64
+	StartTime      time.Time
+	UnlockTime     time.Time
 	RewardsClaimed float64
-	IsActive     bool
+	IsActive       bool
 }
 
 // NewStakingPool creates a new staking pool
@@ -54,14 +54,14 @@ func (sp *StakingPool) CreateStake(address string, amount float64) error {
 		return errors.New("stake already exists for this address")
 	}
 
-	now := time.Now().Unix()
+	now := time.Now()
 	stake := &Stake{
-		Address:      address,
-		Amount:       amount,
-		StartTime:    now,
-		UnlockTime:   now + sp.LockPeriod,
+		Address:        address,
+		Amount:         amount,
+		StartTime:      now,
+		UnlockTime:     now.Add(time.Duration(sp.LockPeriod) * time.Second),
 		RewardsClaimed: 0,
-		IsActive:     true,
+		IsActive:       true,
 	}
 
 	sp.Stakes[address] = stake
@@ -85,9 +85,7 @@ func (sp *StakingPool) CalculateRewards(address string) (float64, error) {
 	}
 
 	// Calculate time elapsed in years
-	now := time.Now().Unix()
-	timeElapsed := float64(now - stake.StartTime)
-	years := timeElapsed / (365.25 * 24 * 60 * 60)
+	years := time.Since(stake.StartTime).Seconds() / (365.25 * 24 * 60 * 60)
 
 	// Calculate rewards
 	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
@@ -111,9 +109,7 @@ func (sp *StakingPool) ClaimRewards(address string) (float64, error) {
 	}
 
 	// Calculate rewards
-	now := time.Now().Unix()
-	timeElapsed := float64(now - stake.StartTime)
-	years := timeElapsed / (365.25 * 24 * 60 * 60)
+	years := time.Since(stake.StartTime).Seconds() / (365.25 * 24 * 60 * 60)
 	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
 	claimableRewards := rewards - stake.RewardsClaimed
 
@@ -140,14 +136,12 @@ func (sp *StakingPool) Unstake(address string) (float64, float64, error) {
 		return 0, 0, errors.New("stake is not active")
 	}
 
-	now := time.Now().Unix()
-	if now < stake.UnlockTime {
+	if time.Now().Before(stake.UnlockTime) {
 		return 0, 0, errors.New("stake is still locked")
 	}
 
 	// Calculate final rewards
-	timeElapsed := float64(now - stake.StartTime)
-	years := timeElapsed / (365.25 * 24 * 60 * 60)
+	years := time.Since(stake.StartTime).Seconds() / (365.25 * 24 * 60 * 60)
 	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
 	unclaimedRewards := rewards - stake.RewardsClaimed
 

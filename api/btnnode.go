@@ -8,6 +8,7 @@ import (
 
 	"github.com/Bituncoin/Bituncoin/addons"
 	"github.com/Bituncoin/Bituncoin/auth"
+	"github.com/Bituncoin/Bituncoin/network"
 	"github.com/Bituncoin/Bituncoin/payments"
 )
 
@@ -21,6 +22,7 @@ type Node struct {
 	payments   *payments.BtnPay
 	accounts   *auth.AccountManager
 	addons     *addons.ModuleRegistry
+	p2pNetwork *network.Network
 }
 
 // NodeInfo represents node information
@@ -34,14 +36,21 @@ type NodeInfo struct {
 
 // NewNode creates a new API node
 func NewNode(host string, port int) *Node {
+	p2pAddr := fmt.Sprintf("%s:%d", host, port+1)
+	net, err := network.NewNetwork(p2pAddr)
+	if err != nil {
+		panic(fmt.Sprintf("BTNG: failed to initialize P2P network on %s: %v", p2pAddr, err))
+	}
+
 	return &Node{
-		Port:      port,
-		Host:      host,
-		IsRunning: false,
-		endpoints: make(map[string]http.HandlerFunc),
-		payments:  payments.NewBtnPay(),
-		accounts:  auth.NewAccountManager(),
-		addons:    addons.NewModuleRegistry(),
+		Port:       port,
+		Host:       host,
+		IsRunning:  false,
+		endpoints:  make(map[string]http.HandlerFunc),
+		payments:   payments.NewBtnPay(),
+		accounts:   auth.NewAccountManager(),
+		addons:     addons.NewModuleRegistry(),
+		p2pNetwork: net,
 	}
 }
 
@@ -116,6 +125,12 @@ func (n *Node) registerEndpoints() {
 	n.endpoints["/api/addons/enable"] = n.handleEnableAddon
 	n.endpoints["/api/addons/disable"] = n.handleDisableAddon
 	n.endpoints["/api/addons/execute"] = n.handleExecuteAddon
+
+	// BTNG Network endpoints
+	n.endpoints["/api/network/status"] = n.handleNetworkStatus
+	n.endpoints["/api/network/peers"] = n.handleNetworkPeers
+	n.endpoints["/api/network/connect"] = n.handleNetworkConnect
+	n.endpoints["/api/network/disconnect"] = n.handleNetworkDisconnect
 }
 
 // handleInfo returns node information
@@ -527,4 +542,77 @@ func (n *Node) handleExecuteAddon(w http.ResponseWriter, r *http.Request) {
 	
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+// handleNetworkStatus returns the BTNG P2P network status
+func (n *Node) handleNetworkStatus(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(n.p2pNetwork.GetStatus())
+}
+
+// handleNetworkPeers returns the list of known peers
+func (n *Node) handleNetworkPeers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(n.p2pNetwork.GetPeers())
+}
+
+// handleNetworkConnect connects this node to a remote peer
+func (n *Node) handleNetworkConnect(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req struct {
+		Address string `json:"address"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	if req.Address == "" {
+		http.Error(w, "Address is required", http.StatusBadRequest)
+		return
+	}
+
+	peer, err := n.p2pNetwork.Connect(req.Address)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(peer)
+}
+
+// handleNetworkDisconnect disconnects this node from a peer by ID
+func (n *Node) handleNetworkDisconnect(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req struct {
+		PeerID string `json:"peerId"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	if req.PeerID == "" {
+		http.Error(w, "Peer ID is required", http.StatusBadRequest)
+		return
+	}
+
+	if err := n.p2pNetwork.Disconnect(req.PeerID); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
 }

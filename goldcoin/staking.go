@@ -54,14 +54,14 @@ func (sp *StakingPool) CreateStake(address string, amount float64) error {
 		return errors.New("stake already exists for this address")
 	}
 
-	now := time.Now().Unix()
+	now := time.Now().UnixNano()
 	stake := &Stake{
-		Address:      address,
-		Amount:       amount,
-		StartTime:    now,
-		UnlockTime:   now + sp.LockPeriod,
+		Address:        address,
+		Amount:         amount,
+		StartTime:      now,
+		UnlockTime:     now + sp.LockPeriod*int64(time.Second),
 		RewardsClaimed: 0,
-		IsActive:     true,
+		IsActive:       true,
 	}
 
 	sp.Stakes[address] = stake
@@ -84,9 +84,9 @@ func (sp *StakingPool) CalculateRewards(address string) (float64, error) {
 		return 0, errors.New("stake is not active")
 	}
 
-	// Calculate time elapsed in years
-	now := time.Now().Unix()
-	timeElapsed := float64(now - stake.StartTime)
+	// Calculate time elapsed in years (StartTime stored in nanoseconds)
+	now := time.Now().UnixNano()
+	timeElapsed := float64(now-stake.StartTime) / float64(time.Second)
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
 
 	// Calculate rewards
@@ -110,9 +110,9 @@ func (sp *StakingPool) ClaimRewards(address string) (float64, error) {
 		return 0, errors.New("stake is not active")
 	}
 
-	// Calculate rewards
-	now := time.Now().Unix()
-	timeElapsed := float64(now - stake.StartTime)
+	// Calculate rewards (StartTime stored in nanoseconds)
+	now := time.Now().UnixNano()
+	timeElapsed := float64(now-stake.StartTime) / float64(time.Second)
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
 	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
 	claimableRewards := rewards - stake.RewardsClaimed
@@ -140,13 +140,13 @@ func (sp *StakingPool) Unstake(address string) (float64, float64, error) {
 		return 0, 0, errors.New("stake is not active")
 	}
 
-	now := time.Now().Unix()
+	now := time.Now().UnixNano()
 	if now < stake.UnlockTime {
 		return 0, 0, errors.New("stake is still locked")
 	}
 
-	// Calculate final rewards
-	timeElapsed := float64(now - stake.StartTime)
+	// Calculate final rewards (StartTime stored in nanoseconds)
+	timeElapsed := float64(now-stake.StartTime) / float64(time.Second)
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
 	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
 	unclaimedRewards := rewards - stake.RewardsClaimed

@@ -8,12 +8,12 @@ import (
 
 // StakingPool manages staking for Gold-Coin
 type StakingPool struct {
-	Stakes        map[string]*Stake
-	TotalStaked   float64
-	AnnualReward  float64
-	MinStake      float64
-	LockPeriod    int64 // in seconds
-	mutex         sync.RWMutex
+	Stakes           map[string]*Stake
+	TotalStaked      float64
+	AnnualRewardRate float64
+	MinStake         float64
+	LockPeriod       int64 // in seconds
+	mutex            sync.RWMutex
 }
 
 // Stake represents a staking position
@@ -31,7 +31,7 @@ func NewStakingPool() *StakingPool {
 	return &StakingPool{
 		Stakes:       make(map[string]*Stake),
 		TotalStaked:  0,
-		AnnualReward: 5.0,              // 5% annual reward
+		AnnualRewardRate: 5.0,              // 5% annual reward
 		MinStake:     100.0,            // Minimum 100 GLD
 		LockPeriod:   30 * 24 * 60 * 60, // 30 days
 	}
@@ -90,7 +90,7 @@ func (sp *StakingPool) CalculateRewards(address string) (float64, error) {
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
 
 	// Calculate rewards
-	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
+	rewards := stake.Amount * (sp.AnnualRewardRate / 100.0) * years
 	totalRewards := rewards - stake.RewardsClaimed
 
 	return totalRewards, nil
@@ -114,7 +114,7 @@ func (sp *StakingPool) ClaimRewards(address string) (float64, error) {
 	now := time.Now().Unix()
 	timeElapsed := float64(now - stake.StartTime)
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
-	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
+	rewards := stake.Amount * (sp.AnnualRewardRate / 100.0) * years
 	claimableRewards := rewards - stake.RewardsClaimed
 
 	if claimableRewards <= 0 {
@@ -148,7 +148,7 @@ func (sp *StakingPool) Unstake(address string) (float64, float64, error) {
 	// Calculate final rewards
 	timeElapsed := float64(now - stake.StartTime)
 	years := timeElapsed / (365.25 * 24 * 60 * 60)
-	rewards := stake.Amount * (sp.AnnualReward / 100.0) * years
+	rewards := stake.Amount * (sp.AnnualRewardRate / 100.0) * years
 	unclaimedRewards := rewards - stake.RewardsClaimed
 
 	stakedAmount := stake.Amount
@@ -187,7 +187,7 @@ func (sp *StakingPool) GetPoolInfo() map[string]interface{} {
 
 	return map[string]interface{}{
 		"totalStaked":   sp.TotalStaked,
-		"annualReward":  sp.AnnualReward,
+		"annualReward":  sp.AnnualRewardRate,
 		"minStake":      sp.MinStake,
 		"lockPeriod":    sp.LockPeriod,
 		"activeStakes":  activeStakes,

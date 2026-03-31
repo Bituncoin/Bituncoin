@@ -52,11 +52,11 @@ type User struct {
 
 // AccountManager manages user accounts and authentication
 type AccountManager struct {
-	users       map[string]*User // username -> user
-	usersByID   map[string]*User // id -> user
-	sessions    map[string]*Session
-	rolePerms   map[Role][]Permission
-	mutex       sync.RWMutex
+	users           map[string]*User // username -> user
+	usersByID       map[string]*User // id -> user
+	sessions        map[string]*Session
+	rolePermissions map[Role][]Permission
+	mutex           sync.RWMutex
 }
 
 // Session represents a user session
@@ -74,7 +74,7 @@ func NewAccountManager() *AccountManager {
 		users:     make(map[string]*User),
 		usersByID: make(map[string]*User),
 		sessions:  make(map[string]*Session),
-		rolePerms: make(map[Role][]Permission),
+		rolePermissions: make(map[Role][]Permission),
 	}
 	
 	// Initialize default role permissions
@@ -86,14 +86,14 @@ func NewAccountManager() *AccountManager {
 // initializeRolePermissions sets up default permissions for each role
 func (am *AccountManager) initializeRolePermissions() {
 	// User permissions
-	am.rolePerms[RoleUser] = []Permission{
+	am.rolePermissions[RoleUser] = []Permission{
 		PermissionRead,
 		PermissionWrite,
 		PermissionViewDashboard,
 	}
 	
 	// Merchant permissions
-	am.rolePerms[RoleMerchant] = []Permission{
+	am.rolePermissions[RoleMerchant] = []Permission{
 		PermissionRead,
 		PermissionWrite,
 		PermissionViewDashboard,
@@ -101,14 +101,14 @@ func (am *AccountManager) initializeRolePermissions() {
 	}
 	
 	// Validator permissions
-	am.rolePerms[RoleValidator] = []Permission{
+	am.rolePermissions[RoleValidator] = []Permission{
 		PermissionRead,
 		PermissionWrite,
 		PermissionViewDashboard,
 	}
 	
 	// Admin permissions (all permissions)
-	am.rolePerms[RoleAdmin] = []Permission{
+	am.rolePermissions[RoleAdmin] = []Permission{
 		PermissionRead,
 		PermissionWrite,
 		PermissionDelete,
@@ -135,7 +135,7 @@ func (am *AccountManager) CreateUser(username, email, password string, role Role
 	}
 	
 	// Generate user ID
-	userID, err := generateID()
+	userID, err := generateRandomID()
 	if err != nil {
 		return nil, err
 	}
@@ -144,9 +144,9 @@ func (am *AccountManager) CreateUser(username, email, password string, role Role
 	passwordHash := hashPassword(password)
 	
 	// Get role permissions
-	permissions, ok := am.rolePerms[role]
+	permissions, ok := am.rolePermissions[role]
 	if !ok {
-		permissions = am.rolePerms[RoleUser] // Default to user permissions
+		permissions = am.rolePermissions[RoleUser] // Default to user permissions
 		role = RoleUser
 	}
 	
@@ -190,7 +190,7 @@ func (am *AccountManager) Authenticate(username, password string) (*Session, err
 	}
 	
 	// Create session
-	sessionID, err := generateID()
+	sessionID, err := generateRandomID()
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +264,7 @@ func (am *AccountManager) UpdateUserRole(userID string, newRole Role) error {
 		return errors.New("user not found")
 	}
 	
-	permissions, ok := am.rolePerms[newRole]
+	permissions, ok := am.rolePermissions[newRole]
 	if !ok {
 		return errors.New("invalid role")
 	}
@@ -362,11 +362,11 @@ func verifyPassword(password, hash string) bool {
 	return err == nil
 }
 
-// generateID generates a random unique ID
-func generateID() (string, error) {
-	bytes := make([]byte, 16)
-	if _, err := rand.Read(bytes); err != nil {
+// generateRandomID generates a random unique ID
+func generateRandomID() (string, error) {
+	randomBytes := make([]byte, 16)
+	if _, err := rand.Read(randomBytes); err != nil {
 		return "", err
 	}
-	return hex.EncodeToString(bytes), nil
+	return hex.EncodeToString(randomBytes), nil
 }

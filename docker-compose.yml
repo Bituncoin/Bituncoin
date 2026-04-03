@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   btng-backend:
     build:
@@ -8,6 +6,7 @@ services:
     container_name: btng-backend
     ports:
       - "64799:64799"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=64799

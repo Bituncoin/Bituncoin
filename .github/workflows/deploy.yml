@@ -1,22 +1,55 @@
 name: Deploy BTNG to VPS
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Build .NET backend
+        run: dotnet publish src/ -c Release -o publish/dotnet
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install & build btng-api
+        run: |
+          cd btng-api
+          npm ci
+          npm run build
+
       - name: Sync to Hostinger VPS
         uses: Burnett01/rsync-deployments@7.0.0
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude=node_modules --exclude=.git
           path: ./
           remote_path: /var/www/btng
           remote_host: ${{ secrets.VPS_IP }}
           remote_user: root
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Restart PM2 on VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} "cd /var/www/btng && npm install && pm2 restart all"
+
+      - name: Deploy & restart services on VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/btng
+            npm ci --production
+            cd btng-api && npm ci --production && cd ..
+            pm2 delete btng-api 2>/dev/null || true
+            pm2 delete btng-dotnet 2>/dev/null || true
+            pm2 start "npx next start btng-api -p 3000 -H 0.0.0.0" --name btng-api
+            pm2 start "dotnet publish/dotnet/McpServer.dll --urls http://0.0.0.0:64799" --name btng-dotnet
+            pm2 save

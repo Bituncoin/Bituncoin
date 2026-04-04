@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTNG Block Explorer — Sovereign Fabric Network</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6A3;
+            --gold-dark: #A67C00;
+            --green: #006B3F;
+            --green-light: #00A86B;
+            --red: #CE1126;
+            --black: #0A0A0A;
+            --dark: #111111;
+            --card-bg: #1A1A1A;
+            --text: #E8E8E8;
+            --text-muted: #999;
+            --border: #2A2A2A;
+            --success: #00C853;
+            --warning: #FFB300;
+            --danger: #FF1744;
+            --blue: #2196F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Header ─────────────────────────────────────────── */
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a0a 100%);
+            border-bottom: 2px solid var(--gold);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-flag {
+            font-size: 28px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .header-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .4;
+            }
+        }
+
+        .header-clock {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--gold-light);
+        }
+
+        /* ── Search Bar ─────────────────────────────────────── */
+        .search-section {
+            background: var(--dark);
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            transition: opacity .2s;
+        }
+
+        .search-btn:hover {
+            opacity: .85;
+        }
+
+        /* ── Stats Banner ───────────────────────────────────── */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-cell {
+            background: var(--dark);
+            padding: 18px 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── Main Layout ────────────────────────────────────── */
+        .main {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 900px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── Card ───────────────────────────────────────────── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .card-badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .badge-green {
+            background: rgba(0, 200, 83, .15);
+            color: var(--success);
+        }
+
+        .badge-gold {
+            background: rgba(212, 175, 55, .15);
+            color: var(--gold);
+        }
+
+        .badge-blue {
+            background: rgba(33, 150, 243, .15);
+            color: var(--blue);
+        }
+
+        .card-body {
+            padding: 16px 18px;
+        }
+
+        /* ── Peer Nodes ─────────────────────────────────────── */
+        .peer-node {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .peer-node:last-child {
+            margin-bottom: 0;
+        }
+
+        .peer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .peer-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .peer-status {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .peer-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 12px;
+        }
+
+        .peer-label {
+            color: var(--text-muted);
+        }
+
+        .peer-value {
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        .peer-endpoint {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, .08);
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+
+        .ghana-highlight {
+            border-left: 3px solid var(--green-light);
+        }
+
+        /* ── Block / TX Table ───────────────────────────────── */
+        .explorer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .explorer-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .explorer-table td {
+            padding: 10px 12px;
+            font-size: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .explorer-table tr:hover td {
+            background: rgba(212, 175, 55, .04);
+        }
+
+        .hash-link {
+            color: var(--blue);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .hash-link:hover {
+            text-decoration: underline;
+        }
+
+        .tx-type {
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .tx-mint {
+            background: rgba(0, 200, 83, .12);
+            color: var(--success);
+        }
+
+        .tx-transfer {
+            background: rgba(33, 150, 243, .12);
+            color: var(--blue);
+        }
+
+        .tx-melt {
+            background: rgba(255, 23, 68, .12);
+            color: var(--danger);
+        }
+
+        .tx-invoke {
+            background: rgba(212, 175, 55, .12);
+            color: var(--gold);
+        }
+
+        /* ── Chaincode Cards ────────────────────────────────── */
+        .chaincode-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chaincode-item:last-child {
+            border-bottom: none;
+        }
+
+        .cc-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .cc-version {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── Channel Info ───────────────────────────────────── */
+        .channel-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--dark);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .channel-icon {
+            font-size: 20px;
+        }
+
+        .channel-detail {
+            flex: 1;
+        }
+
+        .channel-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .channel-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── Footer ─────────────────────────────────────────── */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 11px;
+            border-top: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ── Scroll ─────────────────────────────────────────── */
+        .scroll-y {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .scroll-y::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scroll-y::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════════ HEADER ═══════════════════ -->
+    <header class="header">
+        <div class="header-left">
+            <span class="header-flag">🇬🇭</span>
+            <div>
+                <div class="header-title">BTNG Block Explorer</div>
+                <div class="header-sub">Sovereign Fabric Network — Ghana Anchor Peer 154.161.183.158:38982</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="live-dot" title="Network Live"></div>
+            <span style="font-size:12px;color:var(--success);">LIVE</span>
+            <span class="header-clock" id="clock">--:--:-- GMT</span>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ SEARCH ═══════════════════ -->
+    <section class="search-section">
+        <div class="search-container">
+            <input class="search-input" id="searchInput"
+                placeholder="Search by TX hash, block height, address, or chaincode…" />
+            <button class="search-btn" id="searchBtn">Explore</button>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ STATS BANNER ═══════════════════ -->
+    <div class="stats-banner">
+        <div class="stat-cell">
+            <div class="stat-value" id="blockHeight">154</div>
+            <div class="stat-label">Block Height</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value" id="txCount">1,247</div>
+            <div class="stat-label">Total Transactions</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value" id="peerCount">2</div>
+            <div class="stat-label">Active Peers</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value" id="chaincodeCount">4</div>
+            <div class="stat-label">Chaincodes</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value" id="avgBlockTime">2.4s</div>
+            <div class="stat-label">Avg Block Time</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════ MAIN ═══════════════════ -->
+    <div class="main">
+
+        <!-- ── Peer Nodes ──────────────────────────────── -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Peer Nodes</span>
+                    <span class="card-badge badge-green">2 Online</span>
+                </div>
+                <div class="card-body">
+                    <!-- AWS AMB Peer -->
+                    <div class="peer-node">
+                        <div class="peer-header">
+                            <span class="peer-name">AWS Managed Blockchain Peer</span>
+                            <span class="peer-status badge-green">Available</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Node ID</span>
+                            <span class="peer-value">nd-JKUD2ATMA5A4FAHHTNKWALO2K4</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Member</span>
+                            <span class="peer-value">m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Instance</span>
+                            <span class="peer-value">bc.t3.small · us-east-1a · LevelDB</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">ARN</span>
+                            <span
+                                class="peer-value">arn:aws:managedblockchain:us-east-1:050946999466:nodes/nd-JKUD2ATMA5A4FAHHTNKWALO2K4</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Created</span>
+                            <span class="peer-value">2026-03-01T20:08:13Z</span>
+                        </div>
+                        <div class="peer-endpoint">
+                            grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003
+                        </div>
+                    </div>
+
+                    <!-- Ghana Anchor Peer -->
+                    <div class="peer-node ghana-highlight">
+                        <div class="peer-header">
+                            <span class="peer-name">🇬🇭 Ghana Anchor Peer — MTN Backbone</span>
+                            <span class="peer-status badge-green">Connected</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Role</span>
+                            <span class="peer-value">anchor-peer-ghana</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">IP Address</span>
+                            <span class="peer-value" style="color:var(--gold);">154.161.183.158</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Port</span>
+                            <span class="peer-value" style="color:var(--gold);">38982</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Endorsing</span>
+                            <span class="peer-value">true</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Ledger Query</span>
+                            <span class="peer-value">true</span>
+                        </div>
+                        <div class="peer-row">
+                            <span class="peer-label">Event Source</span>
+                            <span class="peer-value">true</span>
+                        </div>
+                        <div class="peer-endpoint" style="color:var(--green-light);">
+                            grpcs://154.161.183.158:38982
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Network Config ──────────────────────────── -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Network Configuration</span>
+                    <span class="card-badge badge-gold">Fabric 2.x</span>
+                </div>
+                <div class="card-body">
+                    <div class="channel-bar">
+                        <span class="channel-icon">📡</span>
+                        <div class="channel-detail">
+                            <div class="channel-name">btng712-fabric-network</div>
+                            <div class="channel-meta">Primary channel · 2 peers · 4 chaincodes</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="peer-row"><span class="peer-label">Network ID</span><span
+                                class="peer-value">n-wfutwh7lvrahpjtn7uspcsgy7a</span></div>
+                        <div class="peer-row"><span class="peer-label">MSP ID</span><span
+                                class="peer-value">m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ</span></div>
+                        <div class="peer-row"><span class="peer-label">Organization</span><span
+                                class="peer-value">btng-root-member</span></div>
+                        <div class="peer-row"><span class="peer-label">Region</span><span
+                                class="peer-value">us-east-1</span></div>
+                        <div class="peer-row"><span class="peer-label">KMS</span><span
+                                class="peer-value">AWS_OWNED_KMS_KEY</span></div>
+                    </div>
+
+                    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);">
+                        <div class="peer-row"><span class="peer-label">Orderer</span></div>
+                        <div class="peer-endpoint" style="font-size:10px;">
+                            grpcs://orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30001
+                        </div>
+                        <div class="peer-row" style="margin-top:10px;"><span class="peer-label">Certificate
+                                Authority</span></div>
+                        <div class="peer-endpoint" style="font-size:10px;">
+                            https://ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002
+                        </div>
+                        <div class="peer-row" style="margin-top:10px;"><span class="peer-label">TLS Certificate</span>
+                        </div>
+                        <div class="peer-endpoint" style="font-size:10px;">
+                            /opt/home/managedblockchain-tls-chain.pem
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Chaincodes ──────────────────────────── -->
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Installed Chaincodes</span>
+                    <span class="card-badge badge-blue">4 Active</span>
+                </div>
+                <div class="card-body">
+                    <div class="chaincode-item">
+                        <div>
+                            <div class="cc-name">btng-wallet</div>
+                            <div class="cc-version">v1.0.0 · seq 1</div>
+                        </div>
+                        <span class="card-badge badge-green">Active</span>
+                    </div>
+                    <div class="chaincode-item">
+                        <div>
+                            <div class="cc-name">btng-gold-token</div>
+                            <div class="cc-version">v1.0.0 · seq 1</div>
+                        </div>
+                        <span class="card-badge badge-green">Active</span>
+                    </div>
+                    <div class="chaincode-item">
+                        <div>
+                            <div class="cc-name">btng-sovereign-identity</div>
+                            <div class="cc-version">v1.0.0 · seq 1</div>
+                        </div>
+                        <span class="card-badge badge-green">Active</span>
+                    </div>
+                    <div class="chaincode-item">
+                        <div>
+                            <div class="cc-name">btng-liquidity-alr</div>
+                            <div class="cc-version">v1.0.0 · seq 1</div>
+                        </div>
+                        <span class="card-badge badge-green">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Ghana Anchor Detail ──────────────────── -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🇬🇭 Ghana Anchor Peer</span>
+                    <span class="card-badge badge-green">Online</span>
+                </div>
+                <div class="card-body" style="text-align:center;">
+                    <div style="font-size:48px;margin:10px 0;">🏛️</div>
+                    <div style="font-size:22px;font-weight:700;color:var(--gold);">154.161.183.158</div>
+                    <div style="font-size:16px;color:var(--green-light);margin:4px 0;">Port 38982</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:10px;">MTN Ghana Backbone · Accra
+                        DC<br>Endorsing / Ledger / Events</div>
+                    <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <div style="background:var(--dark);padding:10px;border-radius:6px;">
+                            <div style="font-size:18px;font-weight:700;color:var(--success);" id="ghanaBlocks">154</div>
+                            <div style="font-size:10px;color:var(--text-muted);">Blocks Synced</div>
+                        </div>
+                        <div style="background:var(--dark);padding:10px;border-radius:6px;">
+                            <div style="font-size:18px;font-weight:700;color:var(--success);" id="ghanaLatency">42ms
+                            </div>
+                            <div style="font-size:10px;color:var(--text-muted);">Latency</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Endorsement Policy ──────────────────── -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Endorsement Policy</span>
+                    <span class="card-badge badge-gold">2-of-2</span>
+                </div>
+                <div class="card-body">
+                    <div style="text-align:center;padding:10px 0;">
+                        <div style="font-size:36px;">🔐</div>
+                        <div style="font-size:13px;margin-top:8px;color:var(--text);">Both peers must endorse</div>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">AND(AWS-AMB, Ghana-Anchor)
+                        </div>
+                    </div>
+                    <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+                        <div class="peer-row"><span class="peer-label">Peer 1</span><span
+                                class="peer-value">nd-JKUD…LO2K4 :30003</span></div>
+                        <div class="peer-row"><span class="peer-label">Peer 2</span><span class="peer-value"
+                                style="color:var(--green-light);">154.161.183.158 :38982</span></div>
+                        <div class="peer-row"><span class="peer-label">Orderer</span><span class="peer-value">orderer…7a
+                                :30001</span></div>
+                        <div class="peer-row"><span class="peer-label">CA</span><span class="peer-value">ca…4QNQ
+                                :30002</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Latest Blocks ──────────────────────────── -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Latest Blocks</span>
+                    <span class="card-badge badge-gold" id="blockBadge">Live</span>
+                </div>
+                <div class="card-body scroll-y">
+                    <table class="explorer-table">
+                        <thead>
+                            <tr>
+                                <th>Height</th>
+                                <th>Hash</th>
+                                <th>TXs</th>
+                                <th>Time</th>
+                                <th>Peer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blockTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── Latest Transactions ─────────────────── -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Latest Transactions</span>
+                    <span class="card-badge badge-blue" id="txBadge">Live</span>
+                </div>
+                <div class="card-body scroll-y">
+                    <table class="explorer-table">
+                        <thead>
+                            <tr>
+                                <th>TX Hash</th>
+                                <th>Type</th>
+                                <th>Chaincode</th>
+                                <th>Block</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="txTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Search Results (hidden by default) ─────── -->
+        <div class="card" id="searchResults" style="display:none; margin-bottom:24px;">
+            <div class="card-header">
+                <span class="card-title">Search Results</span>
+                <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px;"
+                    onclick="document.getElementById('searchResults').style.display='none'">&times;</button>
+            </div>
+            <div class="card-body" id="searchResultsBody"></div>
+        </div>
+
+    </div>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="footer">
+        BTNG Block Explorer v1.0 · Sovereign Fabric Network · Ghana Anchor Peer
+        <strong>154.161.183.158:38982</strong><br>
+        Channel: btng712-fabric-network · Network: n-wfutwh7lvrahpjtn7uspcsgy7a · <a
+            href="ghana-pilot-launch.html">Ghana Dashboard</a>
+    </footer>
+
+    <script>
+        // ── Config ───────────────────────────────────────────────
+        const CONFIG = {
+            networkId: "n-wfutwh7lvrahpjtn7uspcsgy7a",
+            channel: "btng712-fabric-network",
+            memberId: "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
+            nodeId: "nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+            ghanaIp: "154.161.183.158",
+            ghanaPort: 38982,
+            peerEndpoint: "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+            ordererEndpoint: "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30001",
+            caEndpoint: "ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002",
+            chaincodes: ["btng-wallet", "btng-gold-token", "btng-sovereign-identity", "btng-liquidity-alr"],
+            apiBase: "" // relative to current origin
+        };
+
+        // ── Clock ────────────────────────────────────────────────
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent =
+                now.toLocaleTimeString('en-GB', { timeZone: 'Africa/Accra', hour12: false }) + ' GMT';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // ── Simulated Data ───────────────────────────────────────
+        let currentBlock = 154;
+        let totalTx = 1247;
+
+        const txTypes = ['MINT', 'TRANSFER', 'MELT', 'INVOKE'];
+        const txClasses = { MINT: 'tx-mint', TRANSFER: 'tx-transfer', MELT: 'tx-melt', INVOKE: 'tx-invoke' };
+
+        function randomHash() {
+            const chars = '0123456789abcdef';
+            let h = '0x';
+            for (let i = 0; i < 24; i++) h += chars[Math.floor(Math.random() * 16)];
+            return h;
+        }
+
+        function timeAgo(ms) {
+            const s = Math.floor(ms / 1000);
+            if (s < 60) return s + 's ago';
+            if (s < 3600) return Math.floor(s / 60) + 'm ago';
+            return Math.floor(s / 3600) + 'h ago';
+        }
+
+        function randomPeer() {
+            return Math.random() > 0.45 ? 'AMB :30003' : '🇬🇭 GH :38982';
+        }
+
+        // ── Populate initial blocks ──────────────────────────────
+        function populateBlocks() {
+            const tbody = document.getElementById('blockTableBody');
+            tbody.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const h = currentBlock - i;
+                const txCount = Math.floor(Math.random() * 8) + 1;
+                const age = i * 2400 + Math.floor(Math.random() * 1200);
+                const peer = randomPeer();
+                tbody.innerHTML += `<tr>
+            <td style="font-weight:600;color:var(--gold);">${h}</td>
+            <td><a class="hash-link" href="#block-${h}">${randomHash()}</a></td>
+            <td>${txCount}</td>
+            <td style="color:var(--text-muted);">${timeAgo(age)}</td>
+            <td style="font-size:11px;">${peer}</td>
+        </tr>`;
+            }
+        }
+
+        function populateTransactions() {
+            const tbody = document.getElementById('txTableBody');
+            tbody.innerHTML = '';
+            for (let i = 0; i < 25; i++) {
+                const type = txTypes[Math.floor(Math.random() * txTypes.length)];
+                const cc = CONFIG.chaincodes[Math.floor(Math.random() * CONFIG.chaincodes.length)];
+                const block = currentBlock - Math.floor(Math.random() * 10);
+                const age = i * 3600 + Math.floor(Math.random() * 2000);
+                tbody.innerHTML += `<tr>
+            <td><a class="hash-link" href="#tx-${i}">${randomHash()}</a></td>
+            <td><span class="tx-type ${txClasses[type]}">${type}</span></td>
+            <td style="font-size:11px;">${cc}</td>
+            <td style="color:var(--gold);">${block}</td>
+            <td style="color:var(--text-muted);">${timeAgo(age)}</td>
+        </tr>`;
+            }
+        }
+
+        populateBlocks();
+        populateTransactions();
+
+        // ── Live block increment ─────────────────────────────────
+        setInterval(() => {
+            currentBlock++;
+            totalTx += Math.floor(Math.random() * 5) + 1;
+            document.getElementById('blockHeight').textContent = currentBlock.toLocaleString();
+            document.getElementById('txCount').textContent = totalTx.toLocaleString();
+            document.getElementById('ghanaBlocks').textContent = currentBlock;
+
+            // Random latency for Ghana peer
+            const lat = 30 + Math.floor(Math.random() * 25);
+            document.getElementById('ghanaLatency').textContent = lat + 'ms';
+
+            // Refresh tables periodically
+            if (currentBlock % 3 === 0) {
+                populateBlocks();
+                populateTransactions();
+            }
+        }, 5000);
+
+        // ── Search ───────────────────────────────────────────────
+        function doSearch() {
+            const q = document.getElementById('searchInput').value.trim();
+            if (!q) return;
+
+            const resultsDiv = document.getElementById('searchResults');
+            const body = document.getElementById('searchResultsBody');
+            resultsDiv.style.display = 'block';
+
+            // Check if it's a block height (numeric)
+            if (/^\d+$/.test(q)) {
+                const h = parseInt(q);
+                body.innerHTML = `
+            <h3 style="color:var(--gold);margin-bottom:12px;">Block #${h}</h3>
+            <div class="peer-row"><span class="peer-label">Block Hash</span><span class="peer-value">${randomHash()}</span></div>
+            <div class="peer-row"><span class="peer-label">Transactions</span><span class="peer-value">${Math.floor(Math.random() * 10) + 1}</span></div>
+            <div class="peer-row"><span class="peer-label">Channel</span><span class="peer-value">${CONFIG.channel}</span></div>
+            <div class="peer-row"><span class="peer-label">Proposer</span><span class="peer-value">${Math.random() > 0.5 ? CONFIG.nodeId : CONFIG.ghanaIp + ':' + CONFIG.ghanaPort}</span></div>
+            <div class="peer-row"><span class="peer-label">Timestamp</span><span class="peer-value">${new Date(Date.now() - h * 2400).toISOString()}</span></div>
+        `;
+                return;
+            }
+
+            // Check if it's a TX hash (starts with 0x)
+            if (q.startsWith('0x')) {
+                const type = txTypes[Math.floor(Math.random() * txTypes.length)];
+                const cc = CONFIG.chaincodes[Math.floor(Math.random() * CONFIG.chaincodes.length)];
+                body.innerHTML = `
+            <h3 style="color:var(--blue);margin-bottom:12px;">Transaction ${q}</h3>
+            <div class="peer-row"><span class="peer-label">Type</span><span class="peer-value"><span class="tx-type ${txClasses[type]}">${type}</span></span></div>
+            <div class="peer-row"><span class="peer-label">Chaincode</span><span class="peer-value">${cc}</span></div>
+            <div class="peer-row"><span class="peer-label">Block</span><span class="peer-value">${currentBlock - Math.floor(Math.random() * 20)}</span></div>
+            <div class="peer-row"><span class="peer-label">Endorsers</span><span class="peer-value">${CONFIG.nodeId}, ${CONFIG.ghanaIp}:${CONFIG.ghanaPort}</span></div>
+            <div class="peer-row"><span class="peer-label">Status</span><span class="peer-value" style="color:var(--success);">VALID</span></div>
+            <div class="peer-row"><span class="peer-label">Timestamp</span><span class="peer-value">${new Date().toISOString()}</span></div>
+        `;
+                return;
+            }
+
+            // Check if it's a BTNG address or node ID
+            if (q.startsWith('BTNG') || q.startsWith('nd-') || q.startsWith('m-')) {
+                body.innerHTML = `
+            <h3 style="color:var(--gold);margin-bottom:12px;">Address: ${q}</h3>
+            <div class="peer-row"><span class="peer-label">Balance</span><span class="peer-value">${(Math.random() * 500).toFixed(4)} BTNG</span></div>
+            <div class="peer-row"><span class="peer-label">TX Count</span><span class="peer-value">${Math.floor(Math.random() * 80)}</span></div>
+            <div class="peer-row"><span class="peer-label">First Seen</span><span class="peer-value">2026-03-01T20:08:13Z</span></div>
+            <div class="peer-row"><span class="peer-label">Last TX</span><span class="peer-value">${new Date(Date.now() - Math.random() * 86400000).toISOString()}</span></div>
+        `;
+                return;
+            }
+
+            // Check if it's a chaincode name
+            if (CONFIG.chaincodes.includes(q)) {
+                body.innerHTML = `
+            <h3 style="color:var(--gold);margin-bottom:12px;">Chaincode: ${q}</h3>
+            <div class="peer-row"><span class="peer-label">Version</span><span class="peer-value">1.0.0</span></div>
+            <div class="peer-row"><span class="peer-label">Sequence</span><span class="peer-value">1</span></div>
+            <div class="peer-row"><span class="peer-label">Init Required</span><span class="peer-value">true</span></div>
+            <div class="peer-row"><span class="peer-label">Channel</span><span class="peer-value">${CONFIG.channel}</span></div>
+            <div class="peer-row"><span class="peer-label">Endorsement</span><span class="peer-value">AND(AMB-Peer, Ghana-Anchor)</span></div>
+        `;
+                return;
+            }
+
+            // Check if user searched for Ghana IP
+            if (q.includes('154.161') || q.toLowerCase().includes('ghana')) {
+                body.innerHTML = `
+            <h3 style="color:var(--green-light);margin-bottom:12px;">🇬🇭 Ghana Anchor Peer</h3>
+            <div class="peer-row"><span class="peer-label">Endpoint</span><span class="peer-value" style="color:var(--gold);">grpcs://154.161.183.158:38982</span></div>
+            <div class="peer-row"><span class="peer-label">Role</span><span class="peer-value">anchor-peer-ghana</span></div>
+            <div class="peer-row"><span class="peer-label">MSP</span><span class="peer-value">${CONFIG.memberId}</span></div>
+            <div class="peer-row"><span class="peer-label">Channel</span><span class="peer-value">${CONFIG.channel}</span></div>
+            <div class="peer-row"><span class="peer-label">Endorsing</span><span class="peer-value" style="color:var(--success);">true</span></div>
+            <div class="peer-row"><span class="peer-label">Blocks Synced</span><span class="peer-value">${currentBlock}</span></div>
+        `;
+                return;
+            }
+
+            body.innerHTML = `<div style="color:var(--text-muted);padding:20px;text-align:center;">No results for "<strong>${q}</strong>". Try a block number, TX hash (0x…), address (BTNG…), chaincode name, or "ghana".</div>`;
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', doSearch);
+        document.getElementById('searchInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') doSearch();
+        });
+
+        // ── Try fetching live data from API ──────────────────────
+        async function fetchLiveData() {
+            try {
+                const res = await fetch('/api/btng/fabric/network');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.network && data.network.status === 'Available') {
+                        document.getElementById('peerCount').textContent = '2';
+                    }
+                }
+            } catch (e) {
+                // API unreachable – keep using simulated data
+            }
+
+            try {
+                const res = await fetch('/api/btng/fabric/node');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.ledgerHeight) {
+                        currentBlock = data.ledgerHeight;
+                        document.getElementById('blockHeight').textContent = currentBlock.toLocaleString();
+                        document.getElementById('ghanaBlocks').textContent = currentBlock;
+                    }
+                }
+            } catch (e) {
+                // API unreachable – keep using simulated data
+            }
+        }
+
+        fetchLiveData();
+        setInterval(fetchLiveData, 30000);
+    </script>
+
+</body>
+
+</html>

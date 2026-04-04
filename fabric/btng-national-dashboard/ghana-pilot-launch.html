@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTNG Ghana Pilot Launch — National Dashboard</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6A3;
+            --gold-dark: #A67C00;
+            --green: #006B3F;
+            --green-light: #00A86B;
+            --red: #CE1126;
+            --black: #0A0A0A;
+            --dark: #111111;
+            --card-bg: #1A1A1A;
+            --text: #E8E8E8;
+            --text-muted: #999;
+            --border: #2A2A2A;
+            --success: #00C853;
+            --warning: #FFB300;
+            --danger: #FF1744;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a0a 100%);
+            border-bottom: 2px solid var(--gold);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-flag {
+            font-size: 32px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 200, 83, 0.15);
+            border: 1px solid var(--success);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .clock {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, var(--green) 0%, #004D2C 50%, var(--gold-dark) 100%);
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '★';
+            position: absolute;
+            font-size: 200px;
+            color: rgba(212, 175, 55, 0.06);
+            top: -40px;
+            right: -20px;
+            transform: rotate(15deg);
+        }
+
+        .banner h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .banner h1 span {
+            color: var(--gold-light);
+        }
+
+        .banner p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .banner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .banner-stat {
+            text-align: center;
+        }
+
+        .banner-stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gold-light);
+        }
+
+        .banner-stat-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* Main Grid */
+        .dashboard {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .grid-wide {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+        }
+
+        .card-badge {
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .badge-live {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .badge-pending {
+            background: rgba(255, 179, 0, 0.15);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        /* KPI Row */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .kpi:nth-child(1)::before {
+            background: var(--gold);
+        }
+
+        .kpi:nth-child(2)::before {
+            background: var(--green-light);
+        }
+
+        .kpi:nth-child(3)::before {
+            background: var(--red);
+        }
+
+        .kpi:nth-child(4)::before {
+            background: #2196F3;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .kpi-delta {
+            font-size: 11px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .delta-up {
+            color: var(--success);
+        }
+
+        .delta-down {
+            color: var(--danger);
+        }
+
+        /* Stat rows */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-value.gold {
+            color: var(--gold);
+        }
+
+        .stat-value.green {
+            color: var(--success);
+        }
+
+        /* Network Nodes */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .node {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .node-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+
+        .node-status.online {
+            background: var(--success);
+            box-shadow: 0 0 8px rgba(0, 200, 83, 0.5);
+        }
+
+        .node-status.syncing {
+            background: var(--warning);
+            box-shadow: 0 0 8px rgba(255, 179, 0, 0.5);
+        }
+
+        .node-status.offline {
+            background: var(--danger);
+        }
+
+        .node-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .node-region {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .node-latency {
+            font-size: 10px;
+            color: var(--gold);
+            margin-top: 4px;
+        }
+
+        /* Transaction Table */
+        .tx-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tx-table th {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tx-table td {
+            font-size: 12px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tx-table tr:hover td {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .tx-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tx-mint {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--success);
+        }
+
+        .tx-melt {
+            background: rgba(255, 23, 68, 0.15);
+            color: var(--danger);
+        }
+
+        .tx-transfer {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+
+        .tx-hash {
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 11px;
+            color: var(--gold);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 12px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-gold {
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+        }
+
+        .progress-green {
+            background: linear-gradient(90deg, var(--green), var(--green-light));
+        }
+
+        /* Mobile Money */
+        .momo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .momo-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .momo-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .momo-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .momo-status {
+            font-size: 10px;
+            color: var(--success);
+            margin-top: 4px;
+        }
+
+        .momo-volume {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Chart placeholder */
+        .chart-area {
+            height: 200px;
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 160px;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--gold-dark), var(--gold));
+            border-radius: 3px 3px 0 0;
+            opacity: 0.7;
+            min-height: 8px;
+            animation: grow 1s ease-out;
+        }
+
+        @keyframes grow {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        /* Pilot Milestones */
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .milestone {
+            position: relative;
+            margin-bottom: 16px;
+            padding-left: 16px;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+
+        .milestone.done::before {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .milestone.active::before {
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .milestone.pending::before {
+            background: transparent;
+            border-color: var(--text-muted);
+        }
+
+        .milestone-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .milestone-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .milestone-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-wide {
+                grid-template-columns: 1fr;
+            }
+
+            .node-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .momo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .kpi-row {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .banner h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <span class="header-flag">🇬🇭</span>
+            <div>
+                <div class="header-title">BTNG NATIONAL DASHBOARD — GHANA</div>
+                <div class="header-subtitle">Sovereign Fabric Network · btng712-fabric-network</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="live-badge"><span class="live-dot"></span> MAINNET LIVE</div>
+            <div class="clock" id="clock">--:--:--</div>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+        <h1>🌟 Ghana <span>Pilot Launch</span></h1>
+        <p>First West African Trust Union node — powering sovereign gold-backed digital currency for 33M citizens</p>
+        <div class="banner-stats">
+            <div class="banner-stat">
+                <div class="banner-stat-value" id="goldCardHolders">145,000</div>
+                <div class="banner-stat-label">Gold Card Holders</div>
+            </div>
+            <div class="banner-stat">
+                <div class="banner-stat-value">200+</div>
+                <div class="banner-stat-label">Active Merchants</div>
+            </div>
+            <div class="banner-stat">
+                <div class="banner-stat-value" id="goldReserve">8.7 T</div>
+                <div class="banner-stat-label">Gold Reserve (Tonnes)</div>
+            </div>
+            <div class="banner-stat">
+                <div class="banner-stat-value">99.9%</div>
+                <div class="banner-stat-label">Network Uptime</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPI Row -->
+    <div class="dashboard">
+        <div class="kpi-row">
+            <div class="kpi">
+                <div class="kpi-value" id="kpiGoldPrice">$2,305.55</div>
+                <div class="kpi-label">Gold Price (USD/oz)</div>
+                <div class="kpi-delta delta-up" id="kpiGoldDelta">▲ +1.2% today</div>
+            </div>
+            <div class="kpi">
+                <div class="kpi-value" id="kpiTxVolume">12,847</div>
+                <div class="kpi-label">Transactions (24h)</div>
+                <div class="kpi-delta delta-up">▲ +8.3% vs yesterday</div>
+            </div>
+            <div class="kpi">
+                <div class="kpi-value" id="kpiMintVolume">₵ 2.4M</div>
+                <div class="kpi-label">Mint Volume (24h GHS)</div>
+                <div class="kpi-delta delta-up">▲ +15.1%</div>
+            </div>
+            <div class="kpi">
+                <div class="kpi-value" id="kpiWDBMerchants">14,200</div>
+                <div class="kpi-label">WDB Female Merchants</div>
+                <div class="kpi-delta delta-up">42% sync rate</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-wide">
+
+            <!-- Fabric Network Status -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🔗 Fabric Network</span>
+                    <span class="card-badge badge-live">OPERATIONAL</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Network ID</span>
+                    <span class="stat-value gold">btng712-fabric-network</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">MSP</span>
+                    <span class="stat-value">m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Ghana Anchor Peer</span>
+                    <span class="stat-value gold">154.161.183.158:38982</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Peer (gRPCs)</span>
+                    <span class="stat-value green">:30003 ✓</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Orderer (gRPCs)</span>
+                    <span class="stat-value green">:30001 ✓</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">CA (HTTPS)</span>
+                    <span class="stat-value green">:30002 ✓</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Block Height</span>
+                    <span class="stat-value" id="blockHeight">48,291</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Chaincode (Active)</span>
+                    <span class="stat-value">btng-wallet v1.0.0</span>
+                </div>
+            </div>
+
+            <!-- Gold Reserve & Price Oracle -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🪙 Gold Reserve Oracle</span>
+                    <span class="card-badge badge-live">LIVE FEED</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Gold / USD (oz)</span>
+                    <span class="stat-value gold" id="goldUsd">$2,305.55</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Gold / GHS (oz)</span>
+                    <span class="stat-value gold" id="goldGhs">₵ 31,750.20</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Gold / USD (gram)</span>
+                    <span class="stat-value" id="goldGram">$74.12</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">FX Rate (USD/GHS)</span>
+                    <span class="stat-value" id="fxRate">13.77</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Bid / Ask / Spread</span>
+                    <span class="stat-value">$2,304.10 / $2,306.90 / $2.80</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Ghana Reserve</span>
+                    <span class="stat-value gold">8.7 tonnes</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">54-Nation Total Reserve</span>
+                    <span class="stat-value gold">524.9 tonnes</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Backing Ratio</span>
+                    <span class="stat-value green">2.25%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Money + Transaction Volume Chart -->
+        <div class="grid grid-wide">
+            <!-- Mobile Money Providers -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📱 Mobile Money Integration</span>
+                    <span class="card-badge badge-live">3 PROVIDERS</span>
+                </div>
+                <div class="momo-grid">
+                    <div class="momo-card">
+                        <div class="momo-icon">📶</div>
+                        <div class="momo-name">MTN MoMo</div>
+                        <div class="momo-status">● Connected</div>
+                        <div class="momo-volume">₵ 1.2M / 24h</div>
+                    </div>
+                    <div class="momo-card">
+                        <div class="momo-icon">📶</div>
+                        <div class="momo-name">Vodafone Cash</div>
+                        <div class="momo-status">● Connected</div>
+                        <div class="momo-volume">₵ 680K / 24h</div>
+                    </div>
+                    <div class="momo-card">
+                        <div class="momo-icon">📶</div>
+                        <div class="momo-name">AirtelTigo Money</div>
+                        <div class="momo-status">● Connected</div>
+                        <div class="momo-volume">₵ 420K / 24h</div>
+                    </div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span style="color: var(--text-muted);">MTN Coverage</span>
+                            <span style="color: var(--gold);">78%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-gold" style="width: 78%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span style="color: var(--text-muted);">Vodafone Coverage</span>
+                            <span style="color: var(--success);">52%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-green" style="width: 52%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span style="color: var(--text-muted);">AirtelTigo Coverage</span>
+                            <span style="color: var(--success);">34%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-green" style="width: 34%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 24h Transaction Volume -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📊 24H Transaction Volume</span>
+                    <span class="card-badge badge-live">REAL-TIME</span>
+                </div>
+                <div class="chart-area">
+                    <div class="chart-bars" id="chartBars"></div>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+                    <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>Now</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Nodes + Recent Transactions -->
+        <div class="grid grid-wide">
+            <!-- Trust Union Nodes -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🌍 Ghana Trust Union Nodes</span>
+                    <span class="card-badge badge-live">12 NODES</span>
+                </div>
+                <div class="node-grid">
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">ACCRA-01</div>
+                        <div class="node-region">Greater Accra</div>
+                        <div class="node-latency">12ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">KUMASI-01</div>
+                        <div class="node-region">Ashanti</div>
+                        <div class="node-latency">18ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">TAMALE-01</div>
+                        <div class="node-region">Northern</div>
+                        <div class="node-latency">24ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">TAKORADI-01</div>
+                        <div class="node-region">Western</div>
+                        <div class="node-latency">15ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">CAPE-COAST-01</div>
+                        <div class="node-region">Central</div>
+                        <div class="node-latency">16ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status syncing"></div>
+                        <div class="node-name">SUNYANI-01</div>
+                        <div class="node-region">Bono</div>
+                        <div class="node-latency">31ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">HO-01</div>
+                        <div class="node-region">Volta</div>
+                        <div class="node-latency">22ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">BOLGA-01</div>
+                        <div class="node-region">Upper East</div>
+                        <div class="node-latency">28ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">WA-01</div>
+                        <div class="node-region">Upper West</div>
+                        <div class="node-latency">26ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">KOFORIDUA-01</div>
+                        <div class="node-region">Eastern</div>
+                        <div class="node-latency">19ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">TEMA-01</div>
+                        <div class="node-region">Greater Accra</div>
+                        <div class="node-latency">11ms</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-status online"></div>
+                        <div class="node-name">OBUASI-01</div>
+                        <div class="node-region">Ashanti Gold Belt</div>
+                        <div class="node-latency">20ms</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">⚡ Recent On-Chain Transactions</span>
+                    <span class="card-badge badge-live">FABRIC LEDGER</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="tx-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Wallet</th>
+                                <th>Amount</th>
+                                <th>Gold (USD)</th>
+                                <th>TX Hash</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="txBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chaincodes + Pilot Milestones -->
+        <div class="grid grid-wide">
+            <!-- Deployed Chaincodes -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📋 Deployed Chaincodes</span>
+                    <span class="card-badge badge-live">4 ACTIVE</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">btng-wallet <span style="color:var(--text-muted)">v1.0.0</span></span>
+                    <span class="stat-value green">● Active</span>
+                </div>
+                <div style="padding: 4px 0 10px 16px; font-size: 11px; color: var(--text-muted);">
+                    Mint · Melt · Transfer · GetBalance · GetTotalSupply · GetTransactionHistory
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">btng-gold-token <span style="color:var(--text-muted)">v1.0.0</span></span>
+                    <span class="stat-value green">● Active</span>
+                </div>
+                <div style="padding: 4px 0 10px 16px; font-size: 11px; color: var(--text-muted);">
+                    Sovereign gold backing · Token lifecycle · Reserve proof
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">btng-sovereign-identity <span
+                            style="color:var(--text-muted)">v1.0.0</span></span>
+                    <span class="stat-value green">● Active</span>
+                </div>
+                <div style="padding: 4px 0 10px 16px; font-size: 11px; color: var(--text-muted);">
+                    Gold Card registry · KYC verification · Identity wallet
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">btng-liquidity-alr <span
+                            style="color:var(--text-muted)">v1.0.0</span></span>
+                    <span class="stat-value green">● Active</span>
+                </div>
+                <div style="padding: 4px 0 10px 16px; font-size: 11px; color: var(--text-muted);">
+                    Alternative liquidity reserve · Cross-border settlement
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span style="color: var(--text-muted);">Gold Card Issuance Target</span>
+                            <span style="color: var(--gold);">145K / 250K</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-gold" style="width: 58%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span style="color: var(--text-muted);">Merchant Onboarding</span>
+                            <span style="color: var(--success);">200 / 500</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-green" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilot Launch Milestones -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🚀 Pilot Launch Milestones</span>
+                    <span class="card-badge badge-pending">PHASE 2</span>
+                </div>
+                <div class="timeline">
+                    <div class="milestone done">
+                        <div class="milestone-title">✅ AWS Managed Blockchain Provisioned</div>
+                        <div class="milestone-date">Jan 15, 2026</div>
+                        <div class="milestone-desc">btng712-fabric-network · Hyperledger Fabric v2.5</div>
+                    </div>
+                    <div class="milestone done">
+                        <div class="milestone-title">✅ Ghana Anchor Peer Online</div>
+                        <div class="milestone-date">Jan 28, 2026</div>
+                        <div class="milestone-desc">154.161.183.158:38982 · MTN Ghana backbone</div>
+                    </div>
+                    <div class="milestone done">
+                        <div class="milestone-title">✅ Gold Price Oracle Activated</div>
+                        <div class="milestone-date">Feb 10, 2026</div>
+                        <div class="milestone-desc">GoldAPI.io feed · 10s intervals · GHS/USD/NGN/XOF</div>
+                    </div>
+                    <div class="milestone done">
+                        <div class="milestone-title">✅ Chaincode Deployment (4 contracts)</div>
+                        <div class="milestone-date">Mar 10, 2026</div>
+                        <div class="milestone-desc">btng-wallet, btng-gold-token, sovereign-identity, liquidity-alr
+                        </div>
+                    </div>
+                    <div class="milestone done">
+                        <div class="milestone-title">✅ Mobile Money Integration (3 providers)</div>
+                        <div class="milestone-date">Mar 20, 2026</div>
+                        <div class="milestone-desc">MTN MoMo · Vodafone Cash · AirtelTigo Money</div>
+                    </div>
+                    <div class="milestone active">
+                        <div class="milestone-title">⭐ Phase 2: National Rollout</div>
+                        <div class="milestone-date">Apr 2026 — Present</div>
+                        <div class="milestone-desc">12 regional nodes · 250K Gold Card target · 500 merchants</div>
+                    </div>
+                    <div class="milestone pending">
+                        <div class="milestone-title">Cross-Border Corridors (ECOWAS)</div>
+                        <div class="milestone-date">Q3 2026</div>
+                        <div class="milestone-desc">Nigeria · Ivory Coast · Togo · Burkina Faso settlement lanes</div>
+                    </div>
+                    <div class="milestone pending">
+                        <div class="milestone-title">AU Continental Integration</div>
+                        <div class="milestone-date">Q4 2026</div>
+                        <div class="milestone-desc">54-nation BTNG sovereign network fully meshed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WDB Merchant + Fiscal Card -->
+        <div class="grid grid-wide">
+            <!-- WDB Merchant Cohort -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">👩‍💼 WDB Female Merchant Cohort</span>
+                    <span class="card-badge badge-live">14,200 ACTIVE</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Enrolled</span>
+                    <span class="stat-value gold">14,200</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Mesh Sync Rate</span>
+                    <span class="stat-value green">42%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Avg Credit Score (Alt-Credit)</span>
+                    <span class="stat-value">72 / 100</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Active Micro-Loans</span>
+                    <span class="stat-value">3,847</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Avg Loan Size</span>
+                    <span class="stat-value">₵ 2,400</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Repayment Rate</span>
+                    <span class="stat-value green">94.2%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Daily GTV (Cohort)</span>
+                    <span class="stat-value gold">₵ 890K</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Tax Efficiency Gain</span>
+                    <span class="stat-value green">+18.5%</span>
+                </div>
+            </div>
+
+            <!-- Ghana Fiscal Integration -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🏛️ Ghana Fiscal Integration</span>
+                    <span class="card-badge badge-live">GRA E-VAT</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">VSDC Tax Certificate</span>
+                    <span class="stat-value green">✓ Handshake Active</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">GRA E-VAT (Act 1151)</span>
+                    <span class="stat-value green">✓ Integrated</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">NHIL Levy</span>
+                    <span class="stat-value">2.5%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">GETFund Levy</span>
+                    <span class="stat-value">2.5%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">COVID-19 Health Levy</span>
+                    <span class="stat-value">1.0%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Input Tax Credits Issued</span>
+                    <span class="stat-value gold">₵ 4.2M</span>
+                </div>
+                <div
+                    style="margin-top: 20px; padding: 14px; background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px;">
+                    <div style="font-size: 12px; font-weight: 700; color: var(--gold); margin-bottom: 8px;">API
+                        Endpoints</div>
+                    <div style="font-family: monospace; font-size: 11px; color: var(--text-muted); line-height: 1.8;">
+                        POST /api/btng/wallet/mint<br>
+                        POST /api/btng/wallet/melt<br>
+                        GET &nbsp;/api/btng/gold/price/latest<br>
+                        GET &nbsp;/api/dashboard/imperial-reserve<br>
+                        GET &nbsp;/api/btng/wallet/balance/:addr<br>
+                        GET &nbsp;/api/btng/fabric/network
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        BTNG Sovereign Network · Ghana Pilot Launch Dashboard · Channel: btng712-fabric-network · MSP:
+        m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ<br>
+        <span style="margin-top: 4px; display: inline-block;">
+            © 2026 Bituncoin Nation Trust · <a href="mailto:support-gh@btng.global">support-gh@btng.global</a> · All
+            Rights Reserved
+        </span>
+    </footer>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB', { timeZone: 'Africa/Accra' }) + ' GMT';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Chart bars (24h volume visualization)
+        (function renderChart() {
+            const bars = document.getElementById('chartBars');
+            const hourlyData = [320, 280, 210, 180, 160, 190, 420, 680, 890, 1020, 1150, 1280, 1340, 1180, 1090, 980, 1120, 1350, 1480, 1200, 980, 760, 540, 420];
+            const max = Math.max(...hourlyData);
+            hourlyData.forEach(v => {
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                bar.style.height = ((v / max) * 100) + '%';
+                bar.title = v + ' txns';
+                bars.appendChild(bar);
+            });
+        })();
+
+        // Recent transactions (simulated on-chain data)
+        (function renderTransactions() {
+            const types = ['MINT', 'MELT', 'TRANSFER', 'MINT', 'TRANSFER', 'MINT', 'MELT', 'MINT'];
+            const wallets = ['BTNG-GH-0x3aF7', 'BTNG-GH-0x91cD', 'BTNG-GH-0x7bE2', 'BTNG-GH-0xA4f8', 'BTNG-GH-0x55D1', 'BTNG-GH-0xC892', 'BTNG-GH-0x1Fb5', 'BTNG-GH-0xE6a3'];
+            const amounts = ['500.00', '120.00', '75.50', '1,200.00', '340.00', '890.00', '200.00', '2,500.00'];
+            const prices = ['2,305.55', '2,305.55', '—', '2,306.10', '—', '2,305.80', '2,304.90', '2,306.20'];
+            const hashes = ['a7f3e2...c91d', 'b8d4f1...e72a', 'c9e5a3...f83b', 'd0f6b4...a94c', 'e1a7c5...b05d', 'f2b8d6...c16e', 'a3c9e7...d27f', 'b4d0f8...e380'];
+
+            const tbody = document.getElementById('txBody');
+            types.forEach((t, i) => {
+                const cls = t === 'MINT' ? 'tx-mint' : t === 'MELT' ? 'tx-melt' : 'tx-transfer';
+                const mins = (i * 3) + 1;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td><span class="tx-type ${cls}">${t}</span></td>
+            <td style="color:#fff;font-size:11px;">${wallets[i]}</td>
+            <td style="color:#fff;">₵ ${amounts[i]}</td>
+            <td style="color:var(--gold);">$${prices[i]}</td>
+            <td><span class="tx-hash">${hashes[i]}</span></td>
+            <td style="color:var(--text-muted);">${mins}m ago</td>
+        `;
+                tbody.appendChild(tr);
+            });
+        })();
+
+        // Simulate live block height increment
+        let blockH = 48291;
+        setInterval(() => {
+            blockH += Math.floor(Math.random() * 3) + 1;
+            document.getElementById('blockHeight').textContent = blockH.toLocaleString();
+        }, 5000);
+
+        // Attempt to fetch live gold price from API
+        async function fetchGoldPrice() {
+            try {
+                const resp = await fetch('/api/btng/gold/price/latest');
+                if (resp.ok) {
+                    const data = await resp.json();
+                    if (data.base_price_ounce) {
+                        document.getElementById('kpiGoldPrice').textContent = '$' + data.base_price_ounce.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                        document.getElementById('goldUsd').textContent = '$' + data.base_price_ounce.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                        document.getElementById('goldGram').textContent = '$' + data.base_price_gram.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                    }
+                    if (data.currencies) {
+                        const ghs = data.currencies.find(c => c.currency === 'GHS');
+                        if (ghs) document.getElementById('goldGhs').textContent = '₵ ' + ghs.price_ounce.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                    }
+                    if (data.fx_rates && data.fx_rates.GHS) {
+                        document.getElementById('fxRate').textContent = data.fx_rates.GHS.toFixed(2);
+                    }
+                }
+            } catch (e) { /* Use default values if API unavailable */ }
+        }
+        fetchGoldPrice();
+        setInterval(fetchGoldPrice, 30000);
+    </script>
+</body>
+
+</html>

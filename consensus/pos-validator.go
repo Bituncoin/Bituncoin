@@ -106,12 +106,12 @@ func (pos *ProofOfStake) SelectValidator() (*Validator, error) {
 
 	// Weighted random selection based on stake
 	rand.Seed(time.Now().UnixNano())
-	randomValue := rand.Float64() * totalStake
+	stakeWeightedRandom := rand.Float64() * totalStake
 	
-	var cumulative float64
+	var cumulativeStake float64
 	for _, v := range activeValidators {
-		cumulative += v.StakedAmount
-		if cumulative >= randomValue {
+		cumulativeStake += v.StakedAmount
+		if cumulativeStake >= stakeWeightedRandom {
 			return v, nil
 		}
 	}

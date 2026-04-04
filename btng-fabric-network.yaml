@@ -1,0 +1,78 @@
+# BTNG Fabric Network Common Connection Profile (YAML)
+name: "btng712-fabric-network"
+version: "1.0.0"
+
+client:
+  organization: "btng-root-member"
+  connection:
+    timeout:
+      peer:
+        endorser: "300"
+
+organizations:
+  btng-root-member:
+    mspid: "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ"
+    peers:
+      - "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
+    certificateAuthorities:
+      - "ca-btng"
+
+peers:
+  nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:
+    url: "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003"
+    tlsCACerts:
+      path: "crypto-config/managedblockchain-tls-chain.pem"
+    grpcOptions:
+      ssl-target-name-override: "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
+
+certificateAuthorities:
+  ca-btng:
+    url: "https://ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002"
+    caName: "ca-btng"
+    tlsCACerts:
+      path: "crypto-config/managedblockchain-tls-chain.pem"
+    httpOptions:
+      verify: false
+
+channels:
+  btng712-fabric-network:
+    orderers:
+      - "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
+    peers:
+      nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+orderers:
+  orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:
+    url: "grpcs://orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30001"
+    tlsCACerts:
+      path: "crypto-config/managedblockchain-tls-chain.pem"
+    grpcOptions:
+      ssl-target-name-override: "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
+
+chaincodes:
+  btng-wallet:
+    path: "chaincode/btng-wallet"
+    version: "1.0.0"
+    lang: "golang"
+    channel: "btng712-fabric-network"
+    functions:
+      - "Mint"
+      - "Melt"
+      - "Transfer"
+      - "GetBalance"
+      - "GetTotalSupply"
+      - "GetTransactionHistory"
+  btng-gold-token:
+    path: "chaincode/btng-gold-token"
+    version: "1.0.0"
+    lang: "golang"
+    channel: "btng712-fabric-network"
+  btng-sovereign-identity:
+    path: "chaincode/btng-sovereign-identity"
+    version: "1.0.0"
+    lang: "golang"
+    channel: "btng712-fabric-network"

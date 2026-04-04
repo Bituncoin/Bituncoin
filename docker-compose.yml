@@ -1,0 +1,36 @@
+services:
+  btng-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: btng-backend
+    ports:
+      - "64799:64799"
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=64799
+      - HOST=0.0.0.0
+      - MONGO_URI=mongodb://btng-db:27017/gold_system
+      - GENESIS_BLOCK=12458
+      - GENESIS_HASH=0x1111111111111111111111111111111111111111111111111111111111111111
+    depends_on:
+      - btng-db
+    networks:
+      - btng-network
+
+  btng-db:
+    image: mongo:latest
+    container_name: btng-db
+    restart: unless-stopped
+    volumes:
+      - gold_data:/data/db
+    networks:
+      - btng-network
+
+networks:
+  btng-network:
+    driver: bridge
+
+volumes:
+  gold_data:

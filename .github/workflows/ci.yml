@@ -9,6 +9,8 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
 
         strategy:
             matrix:
@@ -43,6 +45,8 @@ jobs:
 
     security-audit:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
 
         steps:
             - uses: actions/checkout@v4
@@ -62,6 +66,8 @@ jobs:
     deploy-staging:
         needs: [test, security-audit]
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
         steps:
@@ -76,6 +82,7 @@ jobs:
     monitoring-alert:
         needs: deploy-staging
         runs-on: ubuntu-latest
+        permissions: {}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
         steps:
@@ -84,5 +91,5 @@ jobs:
                   curl -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
                     -H "Content-Type: application/json" \
                     -d '{
-                      "content": "🚀 BTNG Sovereign Network deployed to staging\n✅ Tests passed\n✅ Security audit clean\n📊 Coverage: ${{ env.COVERAGE_PERCENTAGE }}%"
+                      "content": "🚀 BTNG Sovereign Network deployed to staging\n✅ Tests passed\n✅ Security audit clean"
                     }'

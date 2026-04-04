@@ -3,11 +3,20 @@ import { requireAuth } from '@/lib/auth/jwt';
 import connectToDatabase from '@/lib/mongodb';
 
 const FABRIC_NETWORK_CONFIG = {
-  name: "btng-fabric-network",
+  name: "btng712-fabric-network",
   rootMember: "btng-root-member",
-  nodeId: "nd-6HRNJ6OUIBGP3MV74YAW53NWYQ",
+  memberId: "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
+  nodeId: "nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
   sovereignId: "BTNG-SOVEREIGN-ROOT-001",
-  status: "active",
+  status: "Available",
+  instanceType: "bc.t3.small",
+  availabilityZone: "us-east-1a",
+  stateDb: "LevelDB",
+  framework: "Hyperledger Fabric",
+  frameworkVersion: "2.x",
+  region: "us-east-1",
+  arn: "arn:aws:managedblockchain:us-east-1:050946999466:nodes/nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+  created: "2026-03-01T20:08:13Z",
   capabilities: ["endorsement", "validation", "gossip", "events"]
 };
 
@@ -21,12 +30,15 @@ export async function GET(request: NextRequest) {
       timestamp: new Date().toISOString(),
       status: "operational",
       endpoints: {
-        peer: "peer0.btng-root-member.btng-fabric-network.com:7051",
-        orderer: "orderer.btng-fabric-network.com:7050",
-        ca: "ca.btng-root-member.btng-fabric-network.com:7054"
+        peer: "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+        peerEvent: "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+        orderer: "grpcs://orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30001",
+        ca: "https://ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002",
+        ghanaAnchorPeer: "grpcs://154.161.183.158:38982"
       },
-      channels: ["btng-sovereign-channel"],
-      chaincodes: ["btng-gold-token", "btng-sovereign-identity"]
+      tlsCert: "/opt/home/managedblockchain-tls-chain.pem",
+      channels: ["btng712-fabric-network"],
+      chaincodes: ["btng-wallet", "btng-gold-token", "btng-sovereign-identity", "btng-liquidity-alr"]
     };
 
     return NextResponse.json(networkInfo, {

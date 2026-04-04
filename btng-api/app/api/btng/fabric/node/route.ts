@@ -2,16 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 
 const FABRIC_NODE_CONFIG = {
-  nodeId: "nd-6HRNJ6OUIBGP3MV74YAW53NWYQ",
+  nodeId: "nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+  memberId: "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
   organization: "btng-root-member",
-  network: "btng-fabric-network",
+  network: "btng712-fabric-network",
   sovereignId: "BTNG-SOVEREIGN-ROOT-001",
   type: "peer",
-  status: "active",
+  instanceType: "bc.t3.small",
+  availabilityZone: "us-east-1a",
+  stateDb: "LevelDB",
+  status: "Available",
+  arn: "arn:aws:managedblockchain:us-east-1:050946999466:nodes/nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+  created: "2026-03-01T20:08:13Z",
   capabilities: ["endorsement", "validation", "gossip", "events"],
   endpoints: {
-    peer: "peer0.btng-root-member.btng-fabric-network.com:7051",
-    events: "peer0.btng-root-member.btng-fabric-network.com:7053"
+    peer: "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+    events: "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+    ca: "https://ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002",
+    ghanaAnchorPeer: "grpcs://154.161.183.158:38982"
   }
 };
 
@@ -27,8 +35,8 @@ export async function GET(request: NextRequest) {
       memory: process.memoryUsage(),
       version: "2.5.0",
       ledgerHeight: 150,
-      activeChannels: ["btng-sovereign-channel"],
-      connectedPeers: 1,
+      activeChannels: ["btng712-fabric-network"],
+      connectedPeers: 2,
       pendingTransactions: 0,
       health: {
         status: "healthy",

@@ -2,6 +2,28 @@
   "name": "btng712-fabric-network",
   "version": "1.0.0",
   "description": "BTNG Sovereign Fabric Network Configuration",
+  "member": {
+    "memberId": "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
+    "memberName": "btng-root-member",
+    "description": "Primary BTNG organization responsible for CA administration, governance, and peer node management.",
+    "status": "Available"
+  },
+  "peer": {
+    "nodeId": "nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+    "instanceType": "bc.t3.small",
+    "availabilityZone": "us-east-1a",
+    "stateDb": "LevelDB",
+    "kmsKey": "AWS_OWNED_KMS_KEY",
+    "status": "Available",
+    "arn": "arn:aws:managedblockchain:us-east-1:050946999466:nodes/nd-JKUD2ATMA5A4FAHHTNKWALO2K4",
+    "created": "2026-03-01T20:08:13Z"
+  },
+  "network": {
+    "networkId": "btng712-fabric-network",
+    "framework": "Hyperledger Fabric",
+    "version": "2.x",
+    "region": "us-east-1"
+  },
   "client": {
     "organization": "btng-root-member",
     "connection": {
@@ -16,7 +38,7 @@
     "btng-root-member": {
       "mspid": "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
       "peers": [
-        "154.161.183.158"
+        "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
       ],
       "certificateAuthorities": [
         "ca-btng"
@@ -24,11 +46,22 @@
     }
   },
   "peers": {
+    "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com": {
+      "url": "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+      "eventUrl": "grpcs://nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30003",
+      "tlsCACerts": {
+        "path": "/opt/home/managedblockchain-tls-chain.pem"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
+      }
+    },
     "154.161.183.158": {
       "url": "grpcs://154.161.183.158:38982",
       "eventUrl": "grpcs://154.161.183.158:38982",
+      "role": "anchor-peer-ghana",
       "tlsCACerts": {
-        "path": "crypto-config/managedblockchain-tls-chain.pem"
+        "path": "/opt/home/managedblockchain-tls-chain.pem"
       },
       "grpcOptions": {
         "ssl-target-name-override": "154.161.183.158"
@@ -37,10 +70,10 @@
   },
   "certificateAuthorities": {
     "ca-btng": {
-      "url": "https://154.161.183.158:38982",
+      "url": "https://ca.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30002",
       "caName": "ca-btng",
       "tlsCACerts": {
-        "path": "crypto-config/managedblockchain-tls-chain.pem"
+        "path": "/opt/home/managedblockchain-tls-chain.pem"
       },
       "httpOptions": {
         "verify": false
@@ -50,26 +83,33 @@
   "channels": {
     "btng712-fabric-network": {
       "orderers": [
-        "154.161.183.158"
+        "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
       ],
       "peers": {
-        "154.161.183.158": {
+        "nd-jkud2atma5a4fahhtnkwalo2k4.m-sp4qe6lju5h5zbo7bgl7rj4qnq.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
           "eventSource": true
+        },
+        "154.161.183.158": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true,
+          "role": "anchor-peer-ghana"
         }
       }
     }
   },
   "orderers": {
-    "154.161.183.158": {
-      "url": "grpcs://154.161.183.158:38982",
+    "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com": {
+      "url": "grpcs://orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com:30001",
       "tlsCACerts": {
-        "path": "crypto-config/managedblockchain-tls-chain.pem"
+        "path": "/opt/home/managedblockchain-tls-chain.pem"
       },
       "grpcOptions": {
-        "ssl-target-name-override": "154.161.183.158"
+        "ssl-target-name-override": "orderer.n-wfutwh7lvrahpjtn7uspcsgy7a.managedblockchain.us-east-1.amazonaws.com"
       }
     }
   },

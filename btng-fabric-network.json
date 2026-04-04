@@ -1,0 +1,110 @@
+{
+  "name": "btng712-fabric-network",
+  "version": "1.0.0",
+  "description": "BTNG Sovereign Fabric Network Configuration",
+  "client": {
+    "organization": "btng-root-member",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        }
+      }
+    }
+  },
+  "organizations": {
+    "btng-root-member": {
+      "mspid": "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
+      "peers": [
+        "154.161.183.158"
+      ],
+      "certificateAuthorities": [
+        "ca-btng"
+      ]
+    }
+  },
+  "peers": {
+    "154.161.183.158": {
+      "url": "grpcs://154.161.183.158:38982",
+      "eventUrl": "grpcs://154.161.183.158:38982",
+      "tlsCACerts": {
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "154.161.183.158"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca-btng": {
+      "url": "https://154.161.183.158:38982",
+      "caName": "ca-btng",
+      "tlsCACerts": {
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
+      },
+      "httpOptions": {
+        "verify": false
+      }
+    }
+  },
+  "channels": {
+    "btng712-fabric-network": {
+      "orderers": [
+        "154.161.183.158"
+      ],
+      "peers": {
+        "154.161.183.158": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    }
+  },
+  "orderers": {
+    "154.161.183.158": {
+      "url": "grpcs://154.161.183.158:38982",
+      "tlsCACerts": {
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "154.161.183.158"
+      }
+    }
+  },
+  "chaincodes": {
+    "btng-gold-token": {
+      "path": "chaincode/btng-gold-token",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": true
+    },
+    "btng-sovereign-identity": {
+      "path": "chaincode/btng-sovereign-identity",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": true
+    },
+    "btng-liquidity-alr": {
+      "path": "chaincode/btng-liquidity-alr",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": true
+    },
+    "btng-wallet": {
+      "path": "chaincode/btng-wallet",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": false,
+      "functions": [
+        "Mint",
+        "Melt",
+        "Transfer",
+        "GetBalance",
+        "GetTotalSupply",
+        "GetTransactionHistory"
+      ]
+    }
+  }
+}

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server';
+import { fabricMelt } from '@/lib/fabric/wallet-bridge';
 
 export async function POST(request: NextRequest) {
     try {
@@ -15,20 +16,25 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const response = await fetch(`${bridgeUrl}/api/wallet/melt`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ wallet: body.wallet, amount: body.amount }),
-            signal: globalRef.AbortSignal.timeout(15000),
+        // Dual-write: .NET backend + Fabric on-chain
+        const [backendResponse, fabricResult] = await Promise.allSettled([
+            fetch(`${bridgeUrl}/api/wallet/melt`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet: body.wallet, amount: body.amount }),
+                signal: globalRef.AbortSignal.timeout(15000),
+            }).then(r => r.json()),
+            fabricMelt(body.wallet, body.amount, body.gold_price_usd || 0),
+        ]);
+
+        const backendData = backendResponse.status === 'fulfilled' ? backendResponse.value : null;
+        const fabricData = fabricResult.status === 'fulfilled' ? fabricResult.value : null;
+
+        return NextResponse.json({
+            ...backendData,
+            fabric: fabricData || { onChain: false, error: fabricResult.status === 'rejected' ? 'Fabric unavailable' : undefined },
+            sovereign_network: 'btng712-fabric-network',
         });
-
-        const data = await response.json().catch(() => ({ error: 'Unable to parse response' }));
-
-        if (!response.ok) {
-            return NextResponse.json(data, { status: response.status });
-        }
-
-        return NextResponse.json(data);
     } catch (error) {
         console.error('Wallet melt error:', error);
         return NextResponse.json(

@@ -1,64 +1,75 @@
 {
-  "name": "btng-fabric-network",
+  "name": "btng712-fabric-network",
   "version": "1.0.0",
   "description": "BTNG Sovereign Fabric Network Configuration",
+  "client": {
+    "organization": "btng-root-member",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        }
+      }
+    }
+  },
   "organizations": {
     "btng-root-member": {
-      "mspid": "BtngRootMSP",
+      "mspid": "m-SP4QE6LJU5H5ZBO7BGL7RJ4QNQ",
       "peers": [
-        "peer0.btng-root-member.btng-fabric-network.com:7051"
+        "154.161.183.158"
       ],
       "certificateAuthorities": [
-        "ca.btng-root-member.btng-fabric-network.com:7054"
+        "ca-btng"
       ]
     }
   },
   "peers": {
-    "peer0.btng-root-member.btng-fabric-network.com:7051": {
-      "url": "grpcs://peer0.btng-root-member.btng-fabric-network.com:7051",
+    "154.161.183.158": {
+      "url": "grpcs://154.161.183.158:38982",
+      "eventUrl": "grpcs://154.161.183.158:38982",
       "tlsCACerts": {
-        "path": "crypto-config/peerOrganizations/btng-root-member.btng-fabric-network.com/peers/peer0.btng-root-member.btng-fabric-network.com/tls/ca.crt"
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
       },
       "grpcOptions": {
-        "ssl-target-name-override": "peer0.btng-root-member.btng-fabric-network.com"
+        "ssl-target-name-override": "154.161.183.158"
       }
     }
   },
   "certificateAuthorities": {
-    "ca.btng-root-member.btng-fabric-network.com:7054": {
-      "url": "https://ca.btng-root-member.btng-fabric-network.com:7054",
-      "caName": "ca.btng-root-member",
+    "ca-btng": {
+      "url": "https://154.161.183.158:38982",
+      "caName": "ca-btng",
       "tlsCACerts": {
-        "path": "crypto-config/peerOrganizations/btng-root-member.btng-fabric-network.com/ca/ca.btng-root-member.btng-fabric-network.com-cert.pem"
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
       },
       "httpOptions": {
         "verify": false
       }
     }
   },
-  "orderers": {
-    "orderer.btng-fabric-network.com:7050": {
-      "url": "grpcs://orderer.btng-fabric-network.com:7050",
-      "tlsCACerts": {
-        "path": "crypto-config/ordererOrganizations/btng-fabric-network.com/orderers/orderer.btng-fabric-network.com/tls/ca.crt"
-      },
-      "grpcOptions": {
-        "ssl-target-name-override": "orderer.btng-fabric-network.com"
-      }
-    }
-  },
   "channels": {
-    "btng-sovereign-channel": {
+    "btng712-fabric-network": {
       "orderers": [
-        "orderer.btng-fabric-network.com:7050"
+        "154.161.183.158"
       ],
       "peers": {
-        "peer0.btng-root-member.btng-fabric-network.com:7051": {
+        "154.161.183.158": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
           "eventSource": true
         }
+      }
+    }
+  },
+  "orderers": {
+    "154.161.183.158": {
+      "url": "grpcs://154.161.183.158:38982",
+      "tlsCACerts": {
+        "path": "crypto-config/managedblockchain-tls-chain.pem"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "154.161.183.158"
       }
     }
   },
@@ -74,29 +85,26 @@
       "version": "1.0.0",
       "sequence": "1",
       "initRequired": true
-    }
-  },
-  "nodes": {
-    "nd-6HRNJ6OUIBGP3MV74YAW53NWYQ": {
-      "type": "peer",
-      "organization": "btng-root-member",
-      "endpoint": "peer0.btng-root-member.btng-fabric-network.com:7051",
-      "status": "active",
-      "sovereignId": "BTNG-SOVEREIGN-ROOT-001",
-      "capabilities": [
-        "endorsement",
-        "validation",
-        "gossip",
-        "events"
+    },
+    "btng-liquidity-alr": {
+      "path": "chaincode/btng-liquidity-alr",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": true
+    },
+    "btng-wallet": {
+      "path": "chaincode/btng-wallet",
+      "version": "1.0.0",
+      "sequence": "1",
+      "initRequired": false,
+      "functions": [
+        "Mint",
+        "Melt",
+        "Transfer",
+        "GetBalance",
+        "GetTotalSupply",
+        "GetTransactionHistory"
       ]
     }
-  },
-  "documentation": {
-    "versionHash": "sha256-d06fb6e3f83231cbc57e145b06bef28ecdf376898db792bb1610adcb80d2894a",
-    "signature": "MEUCIQDLcigwfVjuBLO0Y8PD6lWr+81edou2DVEzhd6HFp4cmAIgAYM+aJf0vRbwx8bdF3OeHFZyOE++pWRvTdkqIicmJ5k=",
-    "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbEjPb7qL+iHwg8fDKg426cWf/8Jz\nFAYGr7HAWi1Dqa0lteetkIFZr1KufQrU4J0u1X5zukznwnh0/jtdMVfK9A==\n-----END PUBLIC KEY-----\n",
-    "timestamp": 1771881053,
-    "source": "BTNG Sovereign Documentation Suite",
-    "signatureAlgorithm": "ES256/SHA256"
   }
 }

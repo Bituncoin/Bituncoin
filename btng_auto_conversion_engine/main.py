@@ -4,6 +4,7 @@ Sovereign Currency-to-Gold conversion.
 """
 
 import time
+import os
 
 import requests
 from fastapi import FastAPI
@@ -12,7 +13,8 @@ from pydantic import BaseModel
 app = FastAPI(title="BTNG Auto-Conversion Engine")
 
 # Gold Oracle endpoint
-ORACLE_URL = "http://154.161.183.158:38991/oracle/price/live"
+ORACLE_URL = os.getenv("BTNG_ORACLE_URL", "http://154.161.183.158:38991/oracle/price/live")
+FALLBACK_GOLD_PRICE_USD_GRAM = 165.23
 
 # Mock USD conversion rates
 FX_RATES = {
@@ -33,10 +35,10 @@ def get_live_gold_price():
         response = requests.get(ORACLE_URL, timeout=2)
         if response.status_code == 200:
             return response.json()["p_gold_usd_gram"]
-    except Exception:
-        return 165.23
+    except (requests.RequestException, ValueError, KeyError, TypeError):
+        return FALLBACK_GOLD_PRICE_USD_GRAM
 
-    return 165.23
+    return FALLBACK_GOLD_PRICE_USD_GRAM
 
 
 def convert_to_usd(currency, amount):
@@ -73,6 +75,8 @@ def convert_to_btng_api(req: ConversionRequest):
     Unified entry point for Auto-Conversion to BTNG gold-grams.
     """
     gold_price_usd_gram = get_live_gold_price()
+    if gold_price_usd_gram <= 0:
+        gold_price_usd_gram = FALLBACK_GOLD_PRICE_USD_GRAM
     usd_value = convert_to_usd(req.currency, req.amount)
     grams = usd_value / gold_price_usd_gram
 

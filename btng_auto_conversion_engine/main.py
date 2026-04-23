@@ -8,7 +8,7 @@ import os
 
 import requests
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI(title="BTNG Auto-Conversion Engine")
 
@@ -44,7 +44,7 @@ def convert_to_usd(currency, amount):
     """
     Converts incoming currency amount to USD.
     """
-    c = currency.lower()
+    c = currency.strip().lower()
     if c == "usd":
         return amount
     if c in FX_RATES:
@@ -56,8 +56,8 @@ def convert_to_usd(currency, amount):
 
 
 class ConversionRequest(BaseModel):
-    currency: str
-    amount: float
+    currency: str = Field(min_length=1, max_length=10)
+    amount: float = Field(gt=0)
 
 
 class ConversionResponse(BaseModel):
@@ -74,8 +74,6 @@ def convert_to_btng_api(req: ConversionRequest):
     Unified entry point for Auto-Conversion to BTNG gold-grams.
     """
     gold_price_usd_gram = get_live_gold_price()
-    if gold_price_usd_gram <= 0:
-        gold_price_usd_gram = FALLBACK_GOLD_PRICE_USD_GRAM
     usd_value = convert_to_usd(req.currency, req.amount)
     grams = usd_value / gold_price_usd_gram
 

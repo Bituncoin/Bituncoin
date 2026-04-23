@@ -1,6 +1,16 @@
 name: Open new issue
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: Issue title
+        required: true
+        default: Issue title
+      body:
+        description: Issue body
+        required: true
+        default: Issue body
 
 jobs:
   open-issue:
@@ -11,6 +21,6 @@ jobs:
     steps:
       - run: |
           gh issue create --repo "${{ github.repository }}" \
-            --title "Issue title" --body "Issue body"
+            --title "${{ inputs.title }}" --body "${{ inputs.body }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

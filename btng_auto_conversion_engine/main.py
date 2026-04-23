@@ -7,13 +7,14 @@ import time
 import os
 
 import requests
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI(title="BTNG Auto-Conversion Engine")
 
 # Gold Oracle endpoint
 ORACLE_URL = os.getenv("BTNG_ORACLE_URL", "http://127.0.0.1:38991/oracle/price/live")
+# Baseline fallback when oracle is unavailable; review against market spot periodically.
 FALLBACK_GOLD_PRICE_USD_GRAM = 165.23
 
 # Mock USD conversion rates
@@ -73,7 +74,13 @@ def convert_to_btng_api(req: ConversionRequest):
     """
     Unified entry point for Auto-Conversion to BTNG gold-grams.
     """
+    normalized_currency = req.currency.strip().lower()
+    if normalized_currency != "usd" and normalized_currency not in FX_RATES:
+        raise HTTPException(status_code=400, detail="Unsupported currency")
+
     gold_price_usd_gram = get_live_gold_price()
+    if gold_price_usd_gram <= 0:
+        gold_price_usd_gram = FALLBACK_GOLD_PRICE_USD_GRAM
     usd_value = convert_to_usd(req.currency, req.amount)
     grams = usd_value / gold_price_usd_gram
 

@@ -49,6 +49,8 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+__pycache__/
+*.pyc
 
 # Secrets
 .env

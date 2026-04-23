@@ -13,7 +13,7 @@ from pydantic import BaseModel
 app = FastAPI(title="BTNG Auto-Conversion Engine")
 
 # Gold Oracle endpoint
-ORACLE_URL = os.getenv("BTNG_ORACLE_URL", "http://154.161.183.158:38991/oracle/price/live")
+ORACLE_URL = os.getenv("BTNG_ORACLE_URL", "http://127.0.0.1:38991/oracle/price/live")
 FALLBACK_GOLD_PRICE_USD_GRAM = 165.23
 
 # Mock USD conversion rates
@@ -35,10 +35,9 @@ def get_live_gold_price():
         response = requests.get(ORACLE_URL, timeout=2)
         if response.status_code == 200:
             return response.json()["p_gold_usd_gram"]
+        return FALLBACK_GOLD_PRICE_USD_GRAM
     except (requests.RequestException, ValueError, KeyError, TypeError):
         return FALLBACK_GOLD_PRICE_USD_GRAM
-
-    return FALLBACK_GOLD_PRICE_USD_GRAM
 
 
 def convert_to_usd(currency, amount):
@@ -49,7 +48,7 @@ def convert_to_usd(currency, amount):
     if c == "usd":
         return amount
     if c in FX_RATES:
-        if c in ["btc", "eth", "usdt"]:
+        if c in ["btc", "eth", "usdt", "btng"]:
             return amount * FX_RATES[c]
         if c == "ghs":
             return amount / FX_RATES[c]
@@ -92,4 +91,8 @@ def convert_to_btng_api(req: ConversionRequest):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=38994)
+    uvicorn.run(
+        app,
+        host=os.getenv("BTNG_HOST", "127.0.0.1"),
+        port=int(os.getenv("BTNG_PORT", "38994")),
+    )

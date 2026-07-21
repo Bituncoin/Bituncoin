@@ -8,8 +8,8 @@ import (
 func TestNewStakingPool(t *testing.T) {
 	sp := NewStakingPool()
 	
-	if sp.AnnualReward != 5.0 {
-		t.Errorf("Expected annual reward 5.0, got %f", sp.AnnualReward)
+	if sp.AnnualRewardRate != 5.0 {
+		t.Errorf("Expected annual reward 5.0, got %f", sp.AnnualRewardRate)
 	}
 	
 	if sp.MinStake != 100.0 {

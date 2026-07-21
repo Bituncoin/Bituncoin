@@ -9,7 +9,17 @@ INTERNATIONAL EQUITY TRUST CO        — Global Institutional Arm
 Bituncoin Gold BTNG                  — Core Engineering & Protocol   
 Ekuye Digital Gateway Trust          — Community, Docs & Governance
 Each organization has a distinct role.
-Together they form a unified sovereign infrastructure.
+Together they form a unified sovereign infrastructure. Bituncoin Gold Bank
+Your Sovereign Wallet. Your Flag. Your Future.
+
+Bituncoin Gold Bank gives every African citizen a secure, gold-backed digital wallet — issued under their own national flag. One reserve. One continent. Infinite possibility.
+
+Gold-backed reserve
+All 54 African nations
+Mainnet live
+Open your wallet
+Choose your nation
+Diaspora banking
 
 Core Components
 

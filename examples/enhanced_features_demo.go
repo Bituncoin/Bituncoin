@@ -1,3 +1,5 @@
+//go:build ignore
+
 // enhanced_features_demo.go - Bituncoin Universal Wallet Demo
 // This file demonstrates the enhanced features of the Bituncoin wallet
 // including authentication, AI insights, multi-currency support, and module system

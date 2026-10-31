@@ -34,12 +34,13 @@ type NodeInfo struct {
 	BlockHeight int    `json:"blockHeight"`
 }
 
-// NewNode creates a new API node
-func NewNode(host string, port int) *Node {
+// NewNode creates a new API node. It returns an error if the P2P network
+// cannot be initialised.
+func NewNode(host string, port int) (*Node, error) {
 	p2pAddr := fmt.Sprintf("%s:%d", host, port+1)
 	net, err := network.NewNetwork(p2pAddr)
 	if err != nil {
-		panic(fmt.Sprintf("BTNG: failed to initialize P2P network on %s: %v", p2pAddr, err))
+		return nil, fmt.Errorf("failed to initialize P2P network on %s: %w", p2pAddr, err)
 	}
 
 	return &Node{
@@ -51,16 +52,23 @@ func NewNode(host string, port int) *Node {
 		accounts:   auth.NewAccountManager(),
 		addons:     addons.NewModuleRegistry(),
 		p2pNetwork: net,
-	}
+	}, nil
 }
 
-// Start starts the API node server
+// Start starts the API node server and its P2P network layer.
 func (n *Node) Start() error {
 	n.mutex.Lock()
 	defer n.mutex.Unlock()
 
 	if n.IsRunning {
 		return fmt.Errorf("node already running")
+	}
+
+	// Start P2P network listener
+	if n.p2pNetwork != nil {
+		if err := n.p2pNetwork.Start(); err != nil {
+			return fmt.Errorf("failed to start P2P network: %w", err)
+		}
 	}
 
 	// Register default endpoints
@@ -81,13 +89,18 @@ func (n *Node) Start() error {
 	return nil
 }
 
-// Stop stops the API node server
+// Stop stops the API node server and its P2P network layer.
 func (n *Node) Stop() error {
 	n.mutex.Lock()
 	defer n.mutex.Unlock()
 
 	if !n.IsRunning {
 		return fmt.Errorf("node not running")
+	}
+
+	// Stop P2P network if it is running
+	if n.p2pNetwork != nil && n.p2pNetwork.IsRunning() {
+		_ = n.p2pNetwork.Stop() // best-effort; ignore error
 	}
 
 	n.IsRunning = false
@@ -546,12 +559,20 @@ func (n *Node) handleExecuteAddon(w http.ResponseWriter, r *http.Request) {
 
 // handleNetworkStatus returns the BTNG P2P network status
 func (n *Node) handleNetworkStatus(w http.ResponseWriter, r *http.Request) {
+	if n.p2pNetwork == nil {
+		http.Error(w, "P2P network not available", http.StatusServiceUnavailable)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(n.p2pNetwork.GetStatus())
 }
 
 // handleNetworkPeers returns the list of known peers
 func (n *Node) handleNetworkPeers(w http.ResponseWriter, r *http.Request) {
+	if n.p2pNetwork == nil {
+		http.Error(w, "P2P network not available", http.StatusServiceUnavailable)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(n.p2pNetwork.GetPeers())
 }
@@ -560,6 +581,11 @@ func (n *Node) handleNetworkPeers(w http.ResponseWriter, r *http.Request) {
 func (n *Node) handleNetworkConnect(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if n.p2pNetwork == nil {
+		http.Error(w, "P2P network not available", http.StatusServiceUnavailable)
 		return
 	}
 
@@ -591,6 +617,11 @@ func (n *Node) handleNetworkConnect(w http.ResponseWriter, r *http.Request) {
 func (n *Node) handleNetworkDisconnect(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if n.p2pNetwork == nil {
+		http.Error(w, "P2P network not available", http.StatusServiceUnavailable)
 		return
 	}
 

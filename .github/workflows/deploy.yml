@@ -15,7 +15,7 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Build .NET backend
-        run: dotnet publish src/ -c Release -o publish/dotnet
+        run: dotnet publish src/McpServer.csproj -c Release -o publish/dotnet
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4

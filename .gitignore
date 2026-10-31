@@ -5,6 +5,12 @@ bin/
 *.so
 *.dylib
 
+# .NET build artifacts
+obj/
+*.user
+*.suo
+publish/
+
 # Test binary
 *.test
 
@@ -43,6 +49,8 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+__pycache__/
+*.pyc
 
 # Secrets
 .env

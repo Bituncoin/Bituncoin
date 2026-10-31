@@ -1,6 +1,5 @@
 using McpServer;
 using McpServer.Services;
-using BTNGSDK.chain.adapters;
 
 var builder = WebApplication.CreateBuilder(args);
 

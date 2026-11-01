@@ -36,7 +36,7 @@ func TestCreateTransaction(t *testing.T) {
 		t.Errorf("Expected amount 100.0, got %f", tx.Amount)
 	}
 	
-	expectedFee := 100.0 * gc.TxFee
+	expectedFee := 100.0 * gc.TransactionFeeRate
 	if tx.Fee != expectedFee {
 		t.Errorf("Expected fee %f, got %f", expectedFee, tx.Fee)
 	}
@@ -97,8 +97,8 @@ func TestMint(t *testing.T) {
 		t.Fatalf("Failed to mint: %v", err)
 	}
 	
-	if gc.CircSupply != 1000000 {
-		t.Errorf("Expected circulating supply 1000000, got %d", gc.CircSupply)
+	if gc.CirculatingSupply != 1000000 {
+		t.Errorf("Expected circulating supply 1000000, got %d", gc.CirculatingSupply)
 	}
 }
 

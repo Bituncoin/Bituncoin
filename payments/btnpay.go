@@ -149,12 +149,12 @@ func (bp *BtnPay) CreateInvoiceHandler(w http.ResponseWriter, r *http.Request) {
 // GetInvoiceHandler handles GET /api/btnpay/invoice/{id}
 func (bp *BtnPay) GetInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     // assume the last path segment is the invoice id
-    parts := splitPath(r.URL.Path)
-    if len(parts) == 0 {
+    pathSegments := splitURLPath(r.URL.Path)
+    if len(pathSegments) == 0 {
         http.Error(w, "invoice id required", http.StatusBadRequest)
         return
     }
-    id := parts[len(parts)-1]
+    id := pathSegments[len(pathSegments)-1]
 
     inv, err := bp.GetInvoice(id)
     if err != nil {
@@ -198,23 +198,23 @@ func (bp *BtnPay) PayInvoiceHandler(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(map[string]string{"status": "paid"})
 }
 
-// small helper to split path
-func splitPath(p string) []string {
-    var parts []string
-    cur := ""
-    for i := 0; i < len(p); i++ {
-        c := p[i]
-        if c == '/' {
-            if cur != "" {
-                parts = append(parts, cur)
-                cur = ""
+// splitURLPath splits a URL path string into its non-empty path segments
+func splitURLPath(urlPath string) []string {
+    var pathSegments []string
+    currentSegment := ""
+    for i := 0; i < len(urlPath); i++ {
+        pathChar := urlPath[i]
+        if pathChar == '/' {
+            if currentSegment != "" {
+                pathSegments = append(pathSegments, currentSegment)
+                currentSegment = ""
             }
             continue
         }
-        cur += string(c)
+        currentSegment += string(pathChar)
     }
-    if cur != "" {
-        parts = append(parts, cur)
+    if currentSegment != "" {
+        pathSegments = append(pathSegments, currentSegment)
     }
-    return parts
+    return pathSegments
 }

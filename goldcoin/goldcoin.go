@@ -10,14 +10,14 @@ import (
 
 // GoldCoin represents the Gold-Coin cryptocurrency
 type GoldCoin struct {
-	Name          string
-	Symbol        string
-	MaxSupply     uint64
-	CircSupply    uint64
-	Decimals      uint8
-	StakingReward float64
-	TxFee         float64
-	Version       string
+	Name                 string
+	Symbol               string
+	MaxSupply            uint64
+	CirculatingSupply    uint64
+	Decimals             uint8
+	StakingReward        float64
+	TransactionFeeRate   float64
+	Version              string
 }
 
 // Transaction represents a Gold-Coin transaction
@@ -34,14 +34,14 @@ type Transaction struct {
 // NewGoldCoin creates a new instance of Gold-Coin with defined tokenomics
 func NewGoldCoin() *GoldCoin {
 	return &GoldCoin{
-		Name:          "Gold-Coin",
-		Symbol:        "GLD",
-		MaxSupply:     100000000, // 100 million coins
-		CircSupply:    0,
-		Decimals:      8,
-		StakingReward: 5.0,  // 5% annual staking reward
-		TxFee:         0.001, // 0.1% transaction fee
-		Version:       "1.0.0",
+		Name:                 "Gold-Coin",
+		Symbol:               "GLD",
+		MaxSupply:            100000000, // 100 million coins
+		CirculatingSupply:    0,
+		Decimals:             8,
+		StakingReward:        5.0,  // 5% annual staking reward
+		TransactionFeeRate:   0.001, // 0.1% transaction fee
+		Version:              "1.0.0",
 	}
 }
 
@@ -55,7 +55,7 @@ func (gc *GoldCoin) CreateTransaction(from, to string, amount float64) (*Transac
 		return nil, errors.New("invalid addresses: from and to cannot be empty")
 	}
 
-	fee := amount * gc.TxFee
+	fee := amount * gc.TransactionFeeRate
 
 	tx := &Transaction{
 		From:      from,
@@ -66,13 +66,13 @@ func (gc *GoldCoin) CreateTransaction(from, to string, amount float64) (*Transac
 	}
 
 	// Generate transaction ID
-	tx.ID = tx.generateID()
+	tx.ID = tx.generateTransactionID()
 
 	return tx, nil
 }
 
-// generateID generates a unique transaction ID using SHA-256
-func (tx *Transaction) generateID() string {
+// generateTransactionID generates a unique transaction ID using SHA-256
+func (tx *Transaction) generateTransactionID() string {
 	data := fmt.Sprintf("%s%s%f%d", tx.From, tx.To, tx.Amount, tx.Timestamp)
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
@@ -93,7 +93,7 @@ func (gc *GoldCoin) ValidateTransaction(tx *Transaction) error {
 	}
 
 	// Verify transaction ID
-	expectedID := tx.generateID()
+	expectedID := tx.generateTransactionID()
 	if tx.ID != expectedID {
 		return errors.New("invalid transaction ID")
 	}
@@ -103,10 +103,10 @@ func (gc *GoldCoin) ValidateTransaction(tx *Transaction) error {
 
 // Mint creates new coins (only up to max supply)
 func (gc *GoldCoin) Mint(amount uint64) error {
-	if gc.CircSupply+amount > gc.MaxSupply {
+	if gc.CirculatingSupply+amount > gc.MaxSupply {
 		return errors.New("cannot mint: would exceed max supply")
 	}
-	gc.CircSupply += amount
+	gc.CirculatingSupply += amount
 	return nil
 }
 
@@ -116,10 +116,10 @@ func (gc *GoldCoin) GetTokenomics() map[string]interface{} {
 		"name":           gc.Name,
 		"symbol":         gc.Symbol,
 		"maxSupply":      gc.MaxSupply,
-		"circSupply":     gc.CircSupply,
+		"circSupply":     gc.CirculatingSupply,
 		"decimals":       gc.Decimals,
 		"stakingReward":  gc.StakingReward,
-		"transactionFee": gc.TxFee,
+		"transactionFee": gc.TransactionFeeRate,
 		"version":        gc.Version,
 	}
 }
